@@ -164,12 +164,12 @@ def handle_message(event):
             image_url = 'https://i.imgur.com/Q3lUQJa.png'
           ),
           QuickReplyButton(
-            action = MessageAction(label = "李玖哲", text = "我要聽歌手李玖哲的歌"),
-            image_url = 'https://i.imgur.com/sC1Xf98.png'
+            action = MessageAction(label = "蔡藍欽", text = "我要聽歌手李玖哲的歌"),
+            image_url = 'https://i.imgur.com/Q3lUQJa.png'
           ),
           QuickReplyButton(
             action = MessageAction(label = "伍佰", text = "我要聽歌手伍佰的歌"),
-            image_url = 'https://i.imgur.com/sC1Xf98.png'
+            image_url = 'https://i.imgur.com/Q3lUQJa.png'
           ),
           QuickReplyButton(
             action = MessageAction(label = "陳奕迅", text = "我要聽歌手陳奕迅的歌"),
