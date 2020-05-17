@@ -117,6 +117,10 @@ def handle_message(event):
             action = MessageAction(label = "音樂播放", text = "music_play"),
             image_url = 'https://i.imgur.com/W1jVNlS.png'
           ),
+           QuickReplyButton(
+            action = MessageAction(label = "喜愛歌手", text = "favor"),
+            image_url = 'https://i.imgur.com/kPxgRM7.png'
+          ),
           QuickReplyButton(
             action = MessageAction(label = "音量大聲", text = "音量大聲一點"),
             image_url = 'https://i.imgur.com/jPHUkGZ.png'
