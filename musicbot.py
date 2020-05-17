@@ -182,6 +182,10 @@ def handle_message(event):
           QuickReplyButton(
             action = MessageAction(label = "郁可唯", text = "我要聽歌手郁可唯的歌"),
             image_url = 'https://i.imgur.com/0yjTHss.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "浪漫音樂", text = "我要聽浪漫音樂的歌"),
+            image_url = 'https://i.imgur.com/bwOyWxe.png'
           )          
         ]
        )
