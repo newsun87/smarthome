@@ -102,11 +102,11 @@ def handle_message(event):
       TextSendMessage(text="歌曲資訊 " + videourl)) 
   elif event.message.text == 'menu':
       QuickReply_text_message = TextSendMessage(
-       text="點選你想要的功能",
+       text="點選你想要的操作功能",
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
-            action = MessageAction(label = "求助", text = "help"),
+            action = MessageAction(label = "使用說明", text = "help"),
             image_url = 'https://i.imgur.com/iIZYTVw.png'
           ),
           QuickReplyButton(
@@ -118,7 +118,7 @@ def handle_message(event):
             image_url = 'https://i.imgur.com/W1jVNlS.png'
           ),
            QuickReplyButton(
-            action = MessageAction(label = "喜愛歌手", text = "favor"),
+            action = MessageAction(label = "喜愛音樂", text = "favor"),
             image_url = 'https://i.imgur.com/kPxgRM7.png'
           ),
           QuickReplyButton(
@@ -140,7 +140,7 @@ def handle_message(event):
       line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
   elif event.message.text == 'favor':
       QuickReply_text_message = TextSendMessage(
-       text="點選你喜歡的歌手",
+       text="點選你喜歡的音樂",
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
@@ -184,9 +184,13 @@ def handle_message(event):
             image_url = 'https://i.imgur.com/0yjTHss.png'
           ),
           QuickReplyButton(
-            action = MessageAction(label = "浪漫音樂", text = "我要聽浪漫音樂的歌"),
+            action = MessageAction(label = "浪漫", text = "我要聽浪漫音樂的歌"),
             image_url = 'https://i.imgur.com/bwOyWxe.png'
-          )          
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "抒情", text = "我要聽浪漫音樂的歌"),
+            image_url = 'https://i.imgur.com/bwOyWxe.png'
+          )                    
         ]
        )
       )
