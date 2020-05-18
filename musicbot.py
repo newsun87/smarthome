@@ -190,7 +190,11 @@ def handle_message(event):
           QuickReplyButton(
             action = MessageAction(label = "抒情", text = "我要聽抒情的歌"),
             image_url = 'https://i.imgur.com/bwOyWxe.png'
-          )                    
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "鋼琴", text = "我要聽鋼琴音樂的歌"),
+            image_url = 'https://i.imgur.com/bwOyWxe.png'
+          )                        
         ]
        )
       )
