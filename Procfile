@@ -1,2 +1,2 @@
-web: gunicorn musicbot:app
+web: gunicorn smarthome_bot:app
 
