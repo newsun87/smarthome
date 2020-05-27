@@ -217,8 +217,8 @@ def handle_message(event):
       message = nlu(event.message.text)      
       line_bot_api.reply_message(event.reply_token, message)   
 
-from translate import Translator
-baseurl = 'https://93db107b.ngrok.io/static/'
+from translate import Translator   
+baseurl = 'https://smarthome-123.herokuapp.com/static/'
 def translation(text, language):       
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)

@@ -3,6 +3,7 @@ flask==1.0.2
 gunicorn
 paho-mqtt
 firebase_admin
+translate
 
 
 
