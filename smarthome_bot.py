@@ -126,8 +126,7 @@ def handle_message(event):
       split_array = event.message.text.split("~")
       volume = int(split_array [1])
       ref = db.reference('/') # 參考路徑  	
-      users_userId_ref = ref.child('smarthome/config')
-      
+      users_userId_ref = ref.child('smarthome/config')      
       users_userId_ref.update({'volume':volume})       
       message = TextSendMessage(text = '音量設定為： ' + split_array [1] + '%')
       line_bot_api.reply_message(event.reply_token, message)  
@@ -137,9 +136,19 @@ def handle_message(event):
 	  line_bot_api.reply_message(event.reply_token, buttons_template_message)
 	  
   elif event.message.text == 'appliances_menu':
-	  buttons_template_message = appliances_menu()
-	  
+	  buttons_template_message = appliances_menu()	  
 	  line_bot_api.reply_message(event.reply_token, buttons_template_message)
+	  
+  elif event.message.text.startswith('plug'):
+     split_array = event.message.text.split("~")
+     device = split_array [1]
+     if device == 'livingroom':
+       deviceSN = '10792465'
+     elif device == 'bedroom':
+       deviceSN = '10796572'  
+     message = switch_plug(deviceSN)           
+     line_bot_api.reply_message(event.reply_token, message)
+       
   elif event.message.text == 'airbox_menu':
 	  buttons_template_message = airbox_menu()
 	  line_bot_api.reply_message(event.reply_token, buttons_template_message)  
@@ -250,13 +259,41 @@ def translation(text, language):
 def handle_postback_message(event):
     postBack = event.postback.data
     print('poskback......', postBack)
-    if postBack == 'weather':
+    if postBack == 'volume':
+       QuickReply_text_message = getQuickReply_volume()       
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)   
+                   
+    elif postBack == 'weather':
        QuickReply_text_message = getQuickReply_weather()       
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
        
     elif postBack == 'pm25':
        QuickReply_text_message = getQuickReply_pm25() # 取得 pm25 快速選單      
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+       
+    elif postBack == 'plugs':
+       imagecarousel_template_message = TemplateSendMessage(
+          alt_text = '我是插座選單模板',  # 通知訊息的名稱
+          template = ImageCarouselTemplate(           
+          columns = [               
+                ImageCarouselColumn(
+                    image_url = 'https://i.imgur.com/MMblDTQ.png',  # 呈現圖片                    
+                    action = MessageAction(
+                            label = '客廳',  # 顯示的文字
+                            text = 'plug~livingroom'
+                    )
+                 ),
+                ImageCarouselColumn( 
+                    image_url = 'https://i.imgur.com/MMblDTQ.png',   
+                    action = MessageAction(
+                        label = '寢室',
+                        text =  'plug~bedroom'
+                    )
+                )
+              ]
+           )
+        )
+       line_bot_api.reply_message(event.reply_token, imagecarousel_template_message)       
        
     elif postBack == 'stock':
         result = subprocess.getoutput("sh ./twstockGet.sh")
@@ -285,16 +322,30 @@ def handle_postback_message(event):
             airbox_data = 'error'
             message = TextSendMessage(text = "空氣盒子未連線.....")           
                   
-        line_bot_api.reply_message(event.reply_token, message)  
-              
-    elif postBack == 'volume':
-       QuickReply_text_message = getQuickReply_volume()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
+        line_bot_api.reply_message(event.reply_token, message)     
          
     elif postBack == 'translator':
        QuickReply_text_message = getQuickReply_lang()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)   
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)  
 
+def getQuickReply_plugs():
+	QuickReply_text_message = TextSendMessage(
+       text="點選你想要開關的插座",
+       quick_reply = QuickReply(
+        items = [
+          QuickReplyButton(
+            action = MessageAction(label = "客廳", text = "livingroom_plug"),
+            image_url = 'https://i.imgur.com/EhBR2Vu.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "房間", text = "bedroom_plug"),
+            image_url = 'https://i.imgur.com/EhBR2Vu.png'
+          )
+        ]
+       )
+      )
+	return QuickReply_text_message  	
+	
 def getQuickReply_volume():
 	QuickReply_text_message = TextSendMessage(
        text="點選你想要調整的音量",
@@ -658,6 +709,40 @@ def getFlex_stock(stock_result):  #取得彈性配置樣板
         )
         return bubble 
         
+def switch_plug(deviceSN):
+        URL_API_RequestState = '{host_url}/{SN}/RequestState/{KEY}'.format( 
+		   host_url = 'https://service.wf8266.com/api/mqtt', 
+		   SN = deviceSN, 
+		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873'
+		)
+        URL_API_GPIO_ON = '{host_url}/{SN}/GPIO/{KEY}/12,1'.format( 
+		   host_url = 'https://service.wf8266.com/api/mqtt', 
+		   SN = deviceSN, 
+		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873'		   		   
+		)
+        URL_API_GPIO_OFF = '{host_url}/{SN}/GPIO/{KEY}/12,0'.format( 
+		   host_url = 'https://service.wf8266.com/api/mqtt', 
+		   SN = deviceSN, 
+		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873'		   		   
+		)
+        try: 
+            response = requests.get(URL_API_RequestState,timeout = 5)            
+            resObj = json.loads(response.text)
+            print('PlugState： ', resObj['data']['Data'][2])
+            plug_state = resObj['data']['Data'][2]
+            if plug_state == '0':                           
+              response = requests.get(URL_API_GPIO_ON,timeout = 5)								
+              message = TextSendMessage(text = "開關已打開")
+            elif plug_state == '1':                           
+              response = requests.get(URL_API_GPIO_OFF,timeout = 5)								
+              message = TextSendMessage(text = "開關已關閉")                           
+        except requests.exceptions.Timeout as e:
+            airbox_data = 'error'
+            message = TextSendMessage(text = "插座未連線.....") 
+        return message              
+                  
+            
+	
 def get_weather(cityname):
     r = requests.get('%s/F-C0032-001?Authorization=%s&locationName=%s'\
         % (weather_url, apikey, cityname)).text
@@ -968,14 +1053,13 @@ def appliances_menu():
                     label = '使用說明', # 在按鈕模板上顯示的名稱
                     uri = 'https://liff.line.me/1654118646-nPa4OL57'  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
-                URIAction(
+                PostbackAction(
                     label = '智慧插座', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-4ANQr5B3'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                    data = 'plugs'  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
-                # 跟上面差不多
                 MessageAction(
-                    label = '歌曲資訊',   # 在按鈕模板上顯示的名稱
-                    text = '歌曲資訊'  
+                    label = '遙控控器設備',   # 在按鈕模板上顯示的名稱
+                    text = 'infrared'  
                 )
             ]
          )

@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590574088338&sign=2f3599bb820fa5fe8a6a06d48afb6838&rq=我想知道今天天氣很好的英文怎麼說'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590664631776&sign=124d4efe5a819ad0f56fb09cc449c02d&rq=plug~livingroom'
 
 Here is the result:
 
-{"data":{"seg":"我 想 知道 今天 天 氣 很 好的 英文 怎 麼 說 "},"status":"ok"}
+{"data":{"seg":"plug livingroom "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590574088657&sign=ee742ef6b41c8d093946d0f7c09589e1&rq={"data_type":"stt","data":{"input_type":"1","text":"我想知道今天天氣很好的英文怎麼說"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590664641390&sign=3b0ccc53b07811db8aeed23506636c40&rq={"data_type":"stt","data":{"input_type":"1","text":"plug~livingroom"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"status":0},"semantic":[{"app":"smarthome","input":"我想知道今天天氣很好的英文怎麼說","slots":[{"name":"語言","value":"英文"},{"name":"語句","value":"今天天氣很好"}],"modifier":["translate"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"對不起，你說的我還不懂，能換個說法嗎？","status":"1003"},"type":"ds"}]},"status":"ok"}
