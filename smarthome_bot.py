@@ -49,6 +49,10 @@ def showTranslateHelpPage():
 @app.route('/music')
 def showMusicHelpPage():
  return render_template('music_help.html')  
+ 
+@app.route('/appliances')
+def showAppliancesHelpPage():
+ return render_template('appliances_help.html')   
 
 @app.route('/airbox')
 def showAirboxHelpPage():
@@ -110,6 +114,19 @@ def handle_message(event):
       weather_info = get_weather(cityname)
       message = get_weather_state(weather_info, cityname)      
       line_bot_api.reply_message(event.reply_token, message)
+      
+  elif event.message.text.startswith('infrared'):
+      split_array = event.message.text.split("~")
+      device = split_array [1]      
+      if device == 'sound':     
+        message = switch_infrared_device(0)
+      elif device == 'tv':     
+        message = switch_infrared_device(1) 
+      elif device == 'ovo':     
+        message = switch_infrared_device(2)
+      elif device == 'fan':     
+        message = switch_infrared_device(5)                     
+      line_bot_api.reply_message(event.reply_token, message) 
 	          
   elif event.message.text.startswith('pm25'): 
       split_array = event.message.text.split("~")
@@ -295,6 +312,44 @@ def handle_postback_message(event):
         )
        line_bot_api.reply_message(event.reply_token, imagecarousel_template_message)       
        
+    elif postBack == 'infrared':
+       imagecarousel_template_message = TemplateSendMessage(
+          alt_text = '我是遙控器選單模板',  # 通知訊息的名稱
+          template = ImageCarouselTemplate(           
+          columns = [ 
+                ImageCarouselColumn(
+                    image_url = 'https://i.imgur.com/wX5PzH5.jpg', # 呈現圖片                             
+                    action = MessageAction(
+                            label = '風扇電源',  # 顯示的文字
+                            text = 'infrared~fan'
+                    )
+                 ),              
+                ImageCarouselColumn(
+                    image_url = 'https://i.imgur.com/wtcS4dh.png', # 呈現圖片                             
+                    action = MessageAction(
+                            label = '音響電源',  # 顯示的文字
+                            text = 'infrared~sound'
+                    )
+                 ),
+                ImageCarouselColumn( 
+                    image_url = 'https://i.imgur.com/Y756BCk.png',   
+                    action = MessageAction(
+                        label = '電視電源',
+                        text =  'infrared~tv'
+                    )
+                ),
+                ImageCarouselColumn( 
+                    image_url = 'https://i.imgur.com/LnaTWFZ.png',   
+                    action = MessageAction(
+                        label = '機上盒電源',
+                        text =  'infrared~ovo'
+                    )
+                )
+              ]
+           )
+        )
+       line_bot_api.reply_message(event.reply_token, imagecarousel_template_message) 
+            
     elif postBack == 'stock':
         result = subprocess.getoutput("sh ./twstockGet.sh")
         print(result)
@@ -739,9 +794,25 @@ def switch_plug(deviceSN):
         except requests.exceptions.Timeout as e:
             airbox_data = 'error'
             message = TextSendMessage(text = "插座未連線.....") 
-        return message              
-                  
-            
+        return message
+
+#https://service.wf8266.com/api/mqtt/08630817/IRSend/ADu2FL4V7LdfprFNL9xpKkbVw873/15, 5
+def switch_infrared_device(IR_num):
+        URL_API_IRSend = '{host_url}/{SN}/IRSend/{KEY}/15,{value}'.format( 
+		   host_url = 'https://service.wf8266.com/api/mqtt', 
+		   SN = '8630813', 
+		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873',	
+		   value = IR_num	   		   
+		)       
+        try: 
+            response = requests.get(URL_API_IRSend,timeout = 5)            
+            resObj = json.loads(response.text)            
+            code_state = resObj['code']            
+            message = TextSendMessage(text = "遙控器設備已切換")                                     
+        except requests.exceptions.Timeout as e:
+            code_state = 'error'
+            message = TextSendMessage(text = "紅外線控制器未連線.....") 
+        return message           
 	
 def get_weather(cityname):
     r = requests.get('%s/F-C0032-001?Authorization=%s&locationName=%s'\
@@ -1045,21 +1116,21 @@ def appliances_menu():
     buttons_template_message = TemplateSendMessage(
          alt_text = '我是智慧家電選單按鈕模板',
          template = ButtonsTemplate(
-            thumbnail_image_url = 'https://i.imgur.com/fOSegKL.png', 
-            title = '智慧家電功能選單',  # 你的標題名稱
+            thumbnail_image_url = 'https://i.imgur.com/y6imeRO.png', 
+            title = '智慧家電控制選單',  # 你的標題名稱
             text = '請選擇：',  # 你要問的問題，或是文字敘述            
             actions = [ # action 最多只能4個喔！
                 URIAction(
                     label = '使用說明', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-nPa4OL57'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                    uri = 'https://liff.line.me/1654118646-BEX5p8QD'  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
                 PostbackAction(
                     label = '智慧插座', # 在按鈕模板上顯示的名稱
                     data = 'plugs'  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
-                MessageAction(
-                    label = '遙控控器設備',   # 在按鈕模板上顯示的名稱
-                    text = 'infrared'  
+                PostbackAction(
+                    label = '遠端遙控器',   # 在按鈕模板上顯示的名稱
+                    data = 'infrared'  
                 )
             ]
          )

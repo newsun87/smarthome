@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590664631776&sign=124d4efe5a819ad0f56fb09cc449c02d&rq=plug~livingroom'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590804718755&sign=8db1773d3ab72bf9f91c12bf1513cd47&rq=我想聽好聽的抒情歌'
 
 Here is the result:
 
-{"data":{"seg":"plug livingroom "},"status":"ok"}
+{"data":{"seg":"我 想 聽 好 聽 的 抒情 歌 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590664641390&sign=3b0ccc53b07811db8aeed23506636c40&rq={"data_type":"stt","data":{"input_type":"1","text":"plug~livingroom"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1590804729214&sign=a3a1dcf060fa6445a865d8ce6402b6bb&rq={"data_type":"stt","data":{"input_type":"1","text":"我想聽好聽的抒情歌"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"result":"對不起，你說的我還不懂，能換個說法嗎？","status":"1003"},"type":"ds"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"我也喜歡好聽的抒情歌這一首歌，請好好聆聽","status":0},"semantic":[{"app":"smarthome","input":"我想聽好聽的抒情歌","slots":[{"name":"歌名","value":"好聽的抒情歌"}],"modifier":["playsong"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
