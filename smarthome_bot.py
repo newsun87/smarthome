@@ -182,6 +182,29 @@ def handle_message(event):
         TextSendMessage(text="馬上播放 " + videourl))
       client.publish("youtube_url", videourl, 0, True)
       
+  elif event.message.text == '取消動作':
+	  message = TextSendMessage(text="沒有問題!")	  
+	  line_bot_api.reply_message(event.reply_token, message)    
+      
+  elif event.message.text == 'player_restart':
+      confirm_template_message = TemplateSendMessage(
+        alt_text = "這是一個確認樣板",
+        template = ConfirmTemplate(
+        text = "你確定要重新開機?",
+     actions =  [
+        PostbackAction (
+          label = '確認',
+          display_text = '準備重新開機.....',
+          data = 'restart'),
+        MessageAction(
+          label = '否',
+          text = '取消動作') 
+       ]
+     ))
+ 
+      line_bot_api.reply_message(
+        event.reply_token, confirm_template_message)     
+      
   elif event.message.text == '歌曲資訊':      
       users_userId_ref = ref.child('youtube_music/'+ userId)
       videourl = users_userId_ref.get()['videourl']   	        
@@ -381,7 +404,12 @@ def handle_postback_message(event):
          
     elif postBack == 'translator':
        QuickReply_text_message = getQuickReply_lang()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)  
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+       
+    elif postBack == 'restart':
+       client.publish("music", 'restart', 0, True) #發佈訊息
+       time.sleep(1)
+       client.publish("music", ' ', 0, True) #發佈訊息          
 
 def getQuickReply_plugs():
 	QuickReply_text_message = TextSendMessage(
@@ -432,6 +460,10 @@ def getQuickReply_music_work():
        text="點選你想要的操作功能",
        quick_reply = QuickReply(
         items = [
+          QuickReplyButton(
+            action = MessageAction(label = "重新開機", text = "player_restart"),
+            image_url = 'https://i.imgur.com/mtQhzCP.png'
+          ),
           QuickReplyButton(
             action = MessageAction(label = "停止播放", text = "停止播放"),
             image_url = 'https://i.imgur.com/PEHPvG8.png'
@@ -980,15 +1012,9 @@ def nlu(text):
          ref.child('smarthome/config').update({
                'volume':volume_num}                
          )
+         
          message = TextSendMessage(text = nlu_text)
-         return message     
-           
-    if action == 'shutdown':            
-      nlu_text = temp['data']['nli'][0]['desc_obj']['result']      
-      mqttmsg = "shutdown"                     
-      client.publish("shutdown", mqttmsg, 0, retain=False) #發佈訊息
-      message = TextSendMessage(text = nlu_text)
-      return message                   
+         return message                 
    
     if action == 'query':
         solt_item1 = temp['data']['nli'][0] ['semantic'][0]['slots'][0]['value']
