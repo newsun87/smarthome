@@ -1,1 +1,1 @@
-{"data":{"nli":[{"desc_obj":{"result":"對不起，你說的我還不懂，能換個說法嗎？","status":"1003"},"type":"ds"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"抒情的歌即將為你播放","status":0},"semantic":[{"app":"smarthome","input":"我想聽抒情的歌","slots":[{"name":"歌名","value":"抒情"}],"modifier":["playsong"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}

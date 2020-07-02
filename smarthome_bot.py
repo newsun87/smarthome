@@ -33,6 +33,8 @@ apikey = 'CWB-A247B989-2950-4B3B-8665-1D92E72BC2AB'
 access_token = "dWhp1zz+Irv8ktCX06FWQFpF0BwSrzs5VSBUK/Fp7NLG0kBAVZe2VTwko8d0KO3ajTOw/jlwJPtpPYe+dVhN6G0eWwbdoLbECjMEbQQriKKk/imWqL8mA19YOiF9JaGwD9gmmpnEhLjwQvXek8FkDwdB04t89/1O/w1cDnyilFU="
 channel_secret = "b396a51f336580d711303f8adf09816f"
 
+camera_url = 'unknown'  
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(access_token)
@@ -126,7 +128,7 @@ def handle_message(event):
         message = switch_infrared_device(2)
       elif device == 'fan':     
         message = switch_infrared_device(5)                     
-      line_bot_api.reply_message(event.reply_token, message) 
+      line_bot_api.reply_message(event.reply_token, message)          
 	          
   elif event.message.text.startswith('pm25'): 
       split_array = event.message.text.split("~")
@@ -378,7 +380,11 @@ def handle_postback_message(event):
         print(result)
         bubble = getFlex_stock(result)
         message = FlexSendMessage(alt_text = "彈性配置範例", contents = bubble)        
-        line_bot_api.reply_message(event.reply_token, message)        
+        line_bot_api.reply_message(event.reply_token, message) 
+        
+    elif postBack == 'camera':             
+        message = TextSendMessage(text = camera_url)        
+        line_bot_api.reply_message(event.reply_token, message)           
     
     elif postBack == 'airbox':
         URL_API = '{host_url}/{SN}/CONFIG/{KEY}'.format( 
@@ -1157,6 +1163,10 @@ def appliances_menu():
                 PostbackAction(
                     label = '遠端遙控器',   # 在按鈕模板上顯示的名稱
                     data = 'infrared'  
+                ),
+                PostbackAction(
+                    label = '遠端攝影機',   # 在按鈕模板上顯示的名稱
+                    data = 'camera'  
                 )
             ]
          )
@@ -1186,17 +1196,20 @@ def live_menu():
             ]
          )
         )
-    return buttons_template_message
+    return buttons_template_message 
     
 def on_connect(client, userdata, flags, rc):  
     print("Connected with result code "+str(rc))
-    client.subscribe("genurl", 0)    
-  
+    client.subscribe("genurl", 0) 
+    client.subscribe("homesecurity/ngrokurl", 0)       
+
 def on_message(client, userdata, msg):      
     print(msg.topic + " " + str(msg.payload))
+    if msg.topic == 'homesecurity/ngrokurl':
+     camera_url = str(msg.payload)
              
 
-client = mqtt.Client()  
+client = mqtt.Client()    
 client.on_connect = on_connect  
 client.on_message = on_message  
 client.connect("broker.mqttdashboard.com", 1883) 
