@@ -1201,7 +1201,7 @@ def live_menu():
 def on_connect(client, userdata, flags, rc):  
     print("Connected with result code "+str(rc))
     client.subscribe("genurl", 0) 
-    client.subscribe("homesecurity/ngrokurl", 0)       
+    client.subscribe("homesecurity/ngrokurl", 2)       
 
 def on_message(client, userdata, msg): 
     global camera_url     
