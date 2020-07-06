@@ -4,6 +4,8 @@ gunicorn
 paho-mqtt
 firebase_admin
 translate
+configparser==5.0.0
+
 
 
 
