@@ -348,7 +348,11 @@ def handle_postback_message(event):
         print(result)
         bubble = getFlex_stock(result)
         message = FlexSendMessage(alt_text = "彈性配置範例", contents = bubble)        
-        line_bot_api.reply_message(event.reply_token, message)  
+        line_bot_api.reply_message(event.reply_token, message)
+    elif postBack == 'AIImage':
+       QuickReply_text_message = getQuickReply_AIIMage()       
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)         
+          
 # ---------------------------------------------------------------       
     elif postBack == 'plugs':
        imagecarousel_template_message = TemplateSendMessage(
@@ -500,11 +504,11 @@ def getQuickReply_AIImage(): # 影像辨識功能 quickreply
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
-            action = MessageAction(label = "影像分類", text = ""),
+            action = MessageAction(label = "影像分類", text = "123"),
             image_url = 'https://i.imgur.com/cMIj4N5.png'
           ),
           QuickReplyButton(
-            action = MessageAction(label = "標籤", text = ""),
+            action = MessageAction(label = "標籤", text = "123"),
             image_url = 'https://i.imgur.com/cMIj4N5.png'
           )           
         ]
