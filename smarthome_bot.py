@@ -31,7 +31,8 @@ firebase_admin.initialize_app(cred, {
 })
 
 weather_url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore'
-apikey = 'CWB-A247B989-2950-4B3B-8665-1D92E72BC2AB'
+#apikey = 'CWB-A247B989-2950-4B3B-8665-1D92E72BC2AB'
+apikey = config.get('weather_url', 'apikey')
 
 #access_token = "dWhp1zz+Irv8ktCX06FWQFpF0BwSrzs5VSBUK/Fp7NLG0kBAVZe2VTwko8d0KO3ajTOw/jlwJPtpPYe+dVhN6G0eWwbdoLbECjMEbQQriKKk/imWqL8mA19YOiF9JaGwD9gmmpnEhLjwQvXek8FkDwdB04t89/1O/w1cDnyilFU="
 #channel_secret = "b396a51f336580d711303f8adf09816f"
