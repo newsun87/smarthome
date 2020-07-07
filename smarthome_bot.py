@@ -341,7 +341,7 @@ def handle_postback_message(event):
        QuickReply_text_message = getQuickReply_pm25() # 取得 pm25 快速選單      
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
        
-    elif postBack == 'AI_image':
+    elif postBack == 'AI_Image':
        QuickReply_text_message = getQuickReply_AI_Image() # 取得 pm25 快速選單      
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
 # -------------------------------            
