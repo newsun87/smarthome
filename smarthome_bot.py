@@ -199,7 +199,7 @@ def handle_message(event):
       line_bot_api.reply_message(event.reply_token, message)     
       
   elif event.message.text == 'player_restart':
-      confirm_template_message = TemplateSendMessage(
+      confirm_template_message = TemplateSendMessage( 
         alt_text = "這是一個確認樣板",
         template = ConfirmTemplate(
         text = "你確定要重新開機?",
