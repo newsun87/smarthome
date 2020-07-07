@@ -95,7 +95,8 @@ def callback():
 image_url = {'sticker_imag1':'https://i.imgur.com/GDsd8KJ.jpg'}
 # 處理訊息
 @handler.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event):  
+def handle_image_message(event): 
+	if event.message.type == 'image': 
       message_id = event.message.id
 	  print("event: ", event)	  
 	  # 讀取圖片資料
