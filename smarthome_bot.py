@@ -98,6 +98,8 @@ def handle_message(event):
   userId = 'ypl'
   users_userId_ref = ref.child('youtube_music/'+ userId)  
   global nlu_text  
+  
+# -----雲端音樂 quickreply 的指令操作-------------- 
   if event.message.text.startswith('【youtube url】'):
       new_message = event.message.text.lstrip('【youtube url】')
       line_bot_api.reply_message(
@@ -210,7 +212,8 @@ def handle_message(event):
       client.publish("homesecurity/move_detect", "0", 0, retain=False) #發佈訊息 
       message = TextSendMessage(text = '移動偵測已關閉....')        
       line_bot_api.reply_message(event.reply_token, message)                  
-# --------------------------------   
+# -------------------------------- 
+# ------雲端音樂功能------------------  
    
   elif event.message.text == 'player_restart':
       confirm_template_message = TemplateSendMessage( 
@@ -238,7 +241,7 @@ def handle_message(event):
       event.reply_token,
       TextSendMessage(text="歌曲資訊 " + videourl)) 
       
-  elif event.message.text == 'menu':
+  elif event.message.text == 'menu': # 音樂選單 quickreply
       QuickReply_text_message = getQuickReply_music_work()      
       line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
       
@@ -1167,7 +1170,7 @@ def setup_menu():
         )
     return buttons_template_message
     
-def music_menu():
+def music_menu(): #雲端音樂按鈕選單樣板
     buttons_template_message = TemplateSendMessage(
          alt_text = '我是音樂選單按鈕模板',
          template = ButtonsTemplate(
