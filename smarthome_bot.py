@@ -195,7 +195,7 @@ def handle_message(event):
 	  line_bot_api.reply_message(event.reply_token, message)
 	   
   elif event.message.text == 'open_camera':
-	  message = TextSendMessage(text = camera_url)        
+      message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)     
       
   elif event.message.text == 'player_restart':
