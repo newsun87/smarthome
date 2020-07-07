@@ -350,7 +350,7 @@ def handle_postback_message(event):
         message = FlexSendMessage(alt_text = "彈性配置範例", contents = bubble)        
         line_bot_api.reply_message(event.reply_token, message)
     elif postBack == 'AIImage':
-       QuickReply_text_message = getQuickReply_weather()       
+       QuickReply_text_message = getQuickReply_aiimage()       
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)         
           
 # ---------------------------------------------------------------       
@@ -498,7 +498,7 @@ def getQuickReply_volume():
       )
 	return QuickReply_text_message 
 	
-def getQuickReply_AIImage(): # 影像辨識功能 quickreply
+def getQuickReply_aiimage(): # 影像辨識功能 quickreply
 	QuickReply_text_message = TextSendMessage(
        text="點選你想要辨識的功能",
        quick_reply = QuickReply(
