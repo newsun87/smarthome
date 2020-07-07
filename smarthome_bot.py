@@ -330,8 +330,9 @@ def handle_postback_message(event):
     print('poskback......', postBack)
     if postBack == 'volume':
        QuickReply_text_message = getQuickReply_volume()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)   
-                   
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
+         
+# ----生和資訊功能功能操作------------------                   
     elif postBack == 'weather':
        QuickReply_text_message = getQuickReply_weather()       
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
@@ -339,6 +340,11 @@ def handle_postback_message(event):
     elif postBack == 'pm25':
        QuickReply_text_message = getQuickReply_pm25() # 取得 pm25 快速選單      
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+       
+    elif postBack == 'AI_image':
+       QuickReply_text_message = getQuickReply_AI_Image() # 取得 pm25 快速選單      
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+# -------------------------------            
        
     elif postBack == 'plugs':
        imagecarousel_template_message = TemplateSendMessage(
@@ -489,7 +495,25 @@ def getQuickReply_volume():
         ]
        )
       )
-	return QuickReply_text_message  
+	return QuickReply_text_message 
+	
+def getQuickReply_AI_Image(): # 影像辨識功能 quickreply
+	QuickReply_text_message = TextSendMessage(
+       text="點選你想要辨識的功能",
+       quick_reply = QuickReply(
+        items = [
+          QuickReplyButton(
+            action = MessageAction(label = "影像分類", text = ""),
+            image_url = 'https://i.imgur.com/cMIj4N5.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "標籤", text = ""),
+            image_url = 'https://i.imgur.com/cMIj4N5.png'
+          )           
+        ]
+       )
+      )
+	return QuickReply_text_message 		 
         
 def getQuickReply_music_work():
 	QuickReply_text_message = TextSendMessage(
@@ -656,7 +680,7 @@ def getQuickReply_weather():
 	
 def getQuickReply_lang():
    QuickReply_text_message = TextSendMessage(
-       text="點選你要查詢的城市",
+       text="點選你要翻譯的語言",
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
@@ -1248,6 +1272,10 @@ def live_menu():
                 PostbackAction(
                     label = '台灣股市行情', # 在按鈕模板上顯示的名稱
                     data = 'stock'                    
+                ),
+                PostbackAction(
+                    label = '圖片辨識', # 在按鈕模板上顯示的名稱
+                    data = 'AI_Image'                    
                 )
                 
             ]
