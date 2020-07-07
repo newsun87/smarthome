@@ -505,11 +505,11 @@ def getQuickReply_aiimage(): # 影像辨識功能 quickreply
         items = [
           QuickReplyButton(
             action = MessageAction(label = "影像分類", text = "123"),
-            image_url = 'https://i.imgur.com/cMIj4N5.png'
+            image_url = 'https://i.imgur.com/nWsDQqI.png'
           ),
           QuickReplyButton(
             action = MessageAction(label = "標籤", text = "123"),
-            image_url = 'https://i.imgur.com/cMIj4N5.png'
+            image_url = 'https://i.imgur.com/nWsDQqI.png'
           )           
         ]
        )
