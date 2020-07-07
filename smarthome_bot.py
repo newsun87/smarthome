@@ -193,10 +193,16 @@ def handle_message(event):
   elif event.message.text == '取消動作':
 	  message = TextSendMessage(text="沒有問題!")	  
 	  line_bot_api.reply_message(event.reply_token, message)
-	   
+	  
+# -----攝影機操作--------------
   elif event.message.text == 'open_camera':
       message = TextSendMessage(text = camera_url)        
-      line_bot_api.reply_message(event.reply_token, message)     
+      line_bot_api.reply_message(event.reply_token, message) 
+      
+  elif event.message.text == 'camera_restart':
+	  client.publish("homesecurity/restart", "0", 0, retain=False) #發佈訊息 
+      message = TextSendMessage(text = '攝影機已經重新啟動....')        
+      line_bot_api.reply_message(event.reply_token, message)        
       
   elif event.message.text == 'player_restart':
       confirm_template_message = TemplateSendMessage( 
