@@ -213,8 +213,7 @@ def handle_message(event):
       message = TextSendMessage(text = '移動偵測已關閉....')        
       line_bot_api.reply_message(event.reply_token, message)                  
 # -------------------------------- 
-# ------雲端音樂功能------------------  
-   
+# ------雲端音樂功能------------------    
   elif event.message.text == 'player_restart':
       confirm_template_message = TemplateSendMessage( 
         alt_text = "這是一個確認樣板",
@@ -247,30 +246,21 @@ def handle_message(event):
       
   elif event.message.text == 'favor':
       QuickReply_text_message = getQuickReply_music()      
-      line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
+      line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+# --------------------------------------------------------------------------     
           
   elif event.message.text == 'help':
       with open('help.txt', mode='r', encoding = "utf-8") as f:
         content = f.read()
         print(content)
         message = TextSendMessage(text=content)      
-        line_bot_api.reply_message(event.reply_token, message)
-        
+        line_bot_api.reply_message(event.reply_token, message) 
+           
+# ------系統設定功能------------------           
   elif event.message.text == 'setup':
       buttons_template_message = setup_menu()
       line_bot_api.reply_message(event.reply_token, buttons_template_message)
-      
-  elif event.message.text.startswith('翻譯'): 
-      split_array = event.message.text.split("~")
-      text = split_array [1]      
-      ref = db.reference('/') # 參考路徑  	
-      users_userId_ref = ref.child('smarthome/config/lang')      
-      language = users_userId_ref.get()
-      print('language...', language)
-      message = translation(text, language)      
-      line_bot_api.reply_message(event.reply_token, message)  
-      
-  elif event.message.text.startswith('lang'): 
+  elif event.message.text.startswith('lang'): #語言翻譯設定
       split_array = event.message.text.split("~")
       language = split_array [1]
       ref = db.reference('/') # 參考路徑  	
@@ -289,11 +279,25 @@ def handle_message(event):
         lang_text = 'fr'
       users_userId_ref.update({'lang':lang_text})       
       message = TextSendMessage(text = '語言設定為： ' + language)
-      line_bot_api.reply_message(event.reply_token, message)          
-                   
+      line_bot_api.reply_message(event.reply_token, message)  
+# ----------------------------------------------------------------                
+      
+# ------語言翻譯功能------------------        
+  elif event.message.text.startswith('翻譯'): 
+      split_array = event.message.text.split("~")
+      text = split_array [1]      
+      ref = db.reference('/') # 參考路徑  	
+      users_userId_ref = ref.child('smarthome/config/lang')      
+      language = users_userId_ref.get()
+      print('language...', language)
+      message = translation(text, language)      
+      line_bot_api.reply_message(event.reply_token, message)  
+# ----------------------------------------------------------------          
+# ------OLAMI 語意理解功能------------------                     
   else:	               
       message = nlu(event.message.text)      
-      line_bot_api.reply_message(event.reply_token, message)   
+      line_bot_api.reply_message(event.reply_token, message)  
+# ----------------------------------------------------------------          
 
 from translate import Translator   
 baseurl = 'https://smarthome-123.herokuapp.com/static/'
@@ -913,7 +917,7 @@ def switch_plug(deviceSN):
         return message
 
 #https://service.wf8266.com/api/mqtt/08630817/IRSend/ADu2FL4V7LdfprFNL9xpKkbVw873/15, 5
-def switch_infrared_device(IR_num):
+def switch_infrared_device(IR_num): # 切換紅外線裝置
         URL_API_IRSend = '{host_url}/{SN}/IRSend/{KEY}/15,{value}'.format( 
 		   host_url = 'https://service.wf8266.com/api/mqtt', 
 		   SN = '8630813', 
@@ -930,7 +934,7 @@ def switch_infrared_device(IR_num):
             message = TextSendMessage(text = "紅外線控制器未連線.....") 
         return message           
 	
-def get_weather(cityname):
+def get_weather(cityname): # 取得天氣資訊
     r = requests.get('%s/F-C0032-001?Authorization=%s&locationName=%s'\
         % (weather_url, apikey, cityname)).text
     weather_data = json.loads(r)
@@ -975,7 +979,7 @@ def get_weather_state(weather_info,cityname):
     return message      
 
 import urllib.request  
-def get_pm25(cityname):
+def get_pm25(cityname): #取得 PM2.5資訊
     src = "http://opendata2.epa.gov.tw/AQI.json" #PM2.5 open data
     with urllib.request.urlopen(src) as response:
       data_list=json.load(response) # 取得json資料轉物件
@@ -1003,7 +1007,7 @@ def random_int_list(num):
   random.shuffle(random_list)
   return random_list
   
-def nlu(text):
+def nlu(text): # 取得語意分析結果
   global nlu_text, songnum, songkind, client, genUrl_state, volume_num	
   cmd = './olami-nlu-api-test.sh https://tw.olami.ai/cloudservice/api 8bd057135ec8432bb7bd2b2caa510aca 3fd33f86b57642c08fbea22f8eb9132d %s'     
   output = os.popen(cmd % text) #點歌語意      
