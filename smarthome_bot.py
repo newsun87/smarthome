@@ -340,6 +340,10 @@ def handle_postback_message(event):
     elif postBack == 'pm25':
        QuickReply_text_message = getQuickReply_pm25() # 取得 pm25 快速選單      
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+       
+    elif postBack == 'AIImage':
+       QuickReply_text_message = getQuickReply_AIImage() # 取得 pm25 快速選單      
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)   
    
 # ---------------------------------------------------------------       
     elif postBack == 'plugs':
@@ -493,7 +497,7 @@ def getQuickReply_volume():
       )
 	return QuickReply_text_message 
 	
-def getQuickReply_AI_Image(): # 影像辨識功能 quickreply
+def getQuickReply_AIImage(): # 影像辨識功能 quickreply
 	QuickReply_text_message = TextSendMessage(
        text="點選你想要辨識的功能",
        quick_reply = QuickReply(
