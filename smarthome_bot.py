@@ -1268,7 +1268,11 @@ def live_menu():
                 PostbackAction(
                     label = '台灣股市行情', # 在按鈕模板上顯示的名稱
                     data = 'stock'                    
-                )      
+                ),
+                PostbackAction(
+                    label = '影像辨識', # 在按鈕模板上顯示的名稱
+                    data = 'AIImage' 
+                )            
             ]
          )
         )
