@@ -194,16 +194,24 @@ def handle_message(event):
 	  message = TextSendMessage(text="沒有問題!")	  
 	  line_bot_api.reply_message(event.reply_token, message)
 	  
-# -----攝影機操作--------------
+# -----遠端攝影機 quickreply 的指令操作--------------
   elif event.message.text == 'open_camera':
       message = TextSendMessage(text = camera_url)        
-      line_bot_api.reply_message(event.reply_token, message) 
-      
+      line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
       client.publish("homesecurity/restart", "0", 0, retain=False) #發佈訊息 
       message = TextSendMessage(text = '攝影機已經重新啟動....')        
-      line_bot_api.reply_message(event.reply_token, message)        
-      
+      line_bot_api.reply_message(event.reply_token, message)
+  elif event.message.text == 'camera_enable':
+      client.publish("homesecurity/move_detect", "1", 0, retain=False) #發佈訊息 
+      message = TextSendMessage(text = '移動偵測已啟動....')        
+      line_bot_api.reply_message(event.reply_token, message) 
+  elif event.message.text == 'camera_disable':
+      client.publish("homesecurity/move_detect", "0", 0, retain=False) #發佈訊息 
+      message = TextSendMessage(text = '移動偵測已關閉....')        
+      line_bot_api.reply_message(event.reply_token, message)                  
+# --------------------------------   
+   
   elif event.message.text == 'player_restart':
       confirm_template_message = TemplateSendMessage( 
         alt_text = "這是一個確認樣板",
