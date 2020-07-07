@@ -91,6 +91,24 @@ def callback():
         abort(400)
     return 'OK'
 
+# 回應圖片的 imgurl    
+image_url = {'sticker_imag1':'https://i.imgur.com/GDsd8KJ.jpg'}
+# 處理訊息
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image_message(event):
+	if event.message.type == 'image':
+	  message_id = event.message.id
+	  print("event: ", event)	  
+	  # 讀取圖片資料
+	  message_content = line_bot_api.get_message_content(message_id)
+    
+	  with open('temp_image.jpg', 'wb') as fd:
+		  for chunk in message_content.iter_content():
+			  fd.write(chunk)
+	  message = ImageSendMessage(original_content_url= image_url['sticker_imag1'], \
+	  preview_image_url= image_url['sticker_imag1'])
+	  line_bot_api.reply_message(event.reply_token, message)  
+
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
