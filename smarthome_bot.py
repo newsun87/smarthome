@@ -1246,8 +1246,8 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg): 
     global camera_url     
     print(msg.topic + " " + str(msg.payload))
-    #if msg.topic == 'homesecurity/ngrokurl':
-     #camera_url = str(msg.payload)
+    if msg.topic == 'homesecurity/ngrokurl':
+     camera_url = str(msg.payload)
      
              
 
