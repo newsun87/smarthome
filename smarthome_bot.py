@@ -350,7 +350,7 @@ def handle_postback_message(event):
         message = FlexSendMessage(alt_text = "彈性配置範例", contents = bubble)        
         line_bot_api.reply_message(event.reply_token, message)
     elif postBack == 'AIImage':
-       QuickReply_text_message = getQuickReply_AIIMage()       
+       QuickReply_text_message = getQuickReply_weather()       
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)         
           
 # ---------------------------------------------------------------       
