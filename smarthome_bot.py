@@ -111,7 +111,7 @@ def handle_image_message(event):
       #請求回應
       response = requests.post(
             'https://api.imagga.com/v2/categories/personal_photos',
-             auth=(api_key, api_secret),
+             auth=(imagga_api_key, imagga_api_secret),
              files={'image': open(image_path, 'rb')}
       )    
       #AI 辨識推論影像資料 
