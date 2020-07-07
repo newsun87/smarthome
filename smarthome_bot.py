@@ -388,9 +388,12 @@ def handle_postback_message(event):
         message = FlexSendMessage(alt_text = "彈性配置範例", contents = bubble)        
         line_bot_api.reply_message(event.reply_token, message) 
         
-    elif postBack == 'camera':             
-        message = TextSendMessage(text = camera_url)        
-        line_bot_api.reply_message(event.reply_token, message)           
+    elif postBack == 'camera':
+      QuickReply_text_message = getQuickReply_camera_work() # 取得 pm25 快速選單      
+      line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+                    
+        #message = TextSendMessage(text = camera_url)        
+        #line_bot_api.reply_message(event.reply_token, message)           
     
     elif postBack == 'airbox':
         URL_API = '{host_url}/{SN}/CONFIG/{KEY}'.format( 
@@ -505,6 +508,33 @@ def getQuickReply_music_work():
        )
       )
 	return QuickReply_text_message
+	
+def getQuickReply_camera_work():
+	QuickReply_text_message = TextSendMessage(
+       text="點選你想要的操作功能",
+       quick_reply = QuickReply(
+        items = [
+          QuickReplyButton(
+            action = MessageAction(label = "開啟攝影機", text = "open_camera"),
+            image_url = 'https://i.imgur.com/gNTGLC7.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "重新開機", text = "camera_restart"),
+            image_url = 'https://i.imgur.com/PEHPvG8.png'
+          ),
+           QuickReplyButton(
+            action = MessageAction(label = "開啟移動偵測", text = "move_enable"),
+            image_url = 'https://i.imgur.com/bWvqGuM.png'
+          ),
+           QuickReplyButton(
+            action = MessageAction(label = "關閉移動偵測", text = "move_disable"),
+            image_url = 'https://i.imgur.com/SykzuZc.png'
+          )
+          
+        ]
+       )
+      )
+	return QuickReply_text_message	
 	
 def getQuickReply_music():
 	QuickReply_text_message = TextSendMessage(
