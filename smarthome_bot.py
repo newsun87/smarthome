@@ -339,11 +339,8 @@ def handle_postback_message(event):
        
     elif postBack == 'pm25':
        QuickReply_text_message = getQuickReply_pm25() # 取得 pm25 快速選單      
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
-       
-    elif postBack == 'AIImage':
-       QuickReply_text_message = getQuickReply_AIImage() # 取得 pm25 快速選單      
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)   
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)       
+     
    
 # ---------------------------------------------------------------       
     elif postBack == 'plugs':
