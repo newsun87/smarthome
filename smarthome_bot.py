@@ -202,11 +202,11 @@ def handle_message(event):
       client.publish("homesecurity/restart", "0", 0, retain=False) #發佈訊息 
       message = TextSendMessage(text = '攝影機已經重新啟動....')        
       line_bot_api.reply_message(event.reply_token, message)
-  elif event.message.text == 'camera_enable':
+  elif event.message.text == 'move_enable':
       client.publish("homesecurity/move_detect", "1", 0, retain=False) #發佈訊息 
       message = TextSendMessage(text = '移動偵測已啟動....')        
       line_bot_api.reply_message(event.reply_token, message) 
-  elif event.message.text == 'camera_disable':
+  elif event.message.text == 'move_disable':
       client.publish("homesecurity/move_detect", "0", 0, retain=False) #發佈訊息 
       message = TextSendMessage(text = '移動偵測已關閉....')        
       line_bot_api.reply_message(event.reply_token, message)                  
