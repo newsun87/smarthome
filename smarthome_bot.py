@@ -339,13 +339,16 @@ def handle_postback_message(event):
 # ----生和資訊功能功能操作------------------                   
     elif postBack == 'weather':
        QuickReply_text_message = getQuickReply_weather()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
-       
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)       
     elif postBack == 'pm25':
        QuickReply_text_message = getQuickReply_pm25() # 取得 pm25 快速選單      
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)       
-     
-   
+    elif postBack == 'stock':
+        result = subprocess.getoutput("sh ./twstockGet.sh")
+        print(result)
+        bubble = getFlex_stock(result)
+        message = FlexSendMessage(alt_text = "彈性配置範例", contents = bubble)        
+        line_bot_api.reply_message(event.reply_token, message)  
 # ---------------------------------------------------------------       
     elif postBack == 'plugs':
        imagecarousel_template_message = TemplateSendMessage(
@@ -407,14 +410,7 @@ def handle_postback_message(event):
               ]
            )
         )
-       line_bot_api.reply_message(event.reply_token, imagecarousel_template_message) 
-            
-    elif postBack == 'stock':
-        result = subprocess.getoutput("sh ./twstockGet.sh")
-        print(result)
-        bubble = getFlex_stock(result)
-        message = FlexSendMessage(alt_text = "彈性配置範例", contents = bubble)        
-        line_bot_api.reply_message(event.reply_token, message) 
+       line_bot_api.reply_message(event.reply_token, imagecarousel_template_message)    
         
     elif postBack == 'camera':
       QuickReply_text_message = getQuickReply_camera_work() # 取得 pm25 快速選單      
