@@ -100,8 +100,8 @@ def handle_image_message(event):
 	  message_id = event.message.id
 	  print("event: ", event)	  
 	  # 讀取圖片資料
-	  message_content = line_bot_api.get_message_content(message_id)    
-	  with open('./images/temp_image.jpg', 'wb') as fd: # 儲存圖片
+      message_content = line_bot_api.get_message_content(message_id)    
+      with open('./images/temp_image.jpg', 'wb') as fd: # 儲存圖片
 		  for chunk in message_content.iter_content():
 			  fd.write(chunk)
 	  #讀取 Imagga 設定檔的資訊
