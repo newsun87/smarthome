@@ -151,7 +151,7 @@ def handle_message(event):
 # -----------------------------------------------------------------------
 # -------圖片辨識功能-------------------------------
   elif event.message.text.startswith('weather'):
-	  response = requests.post(
+	response = requests.post(
             'https://api.imagga.com/v2/categories/personal_photos',
              auth=(imagga_api_key, imagga_api_secret),
              files={'image': open(image_path, 'rb')}
