@@ -135,7 +135,7 @@ def handle_message(event):
       TextSendMessage(text="馬上播放 " + event.message.text))      
       client.publish("youtube_url", event.message.text, 0, True) #發佈訊息
 # -----------------------------------------------------------------------
-# -------圖片辨識功能-------------------------------
+# -------地區天氣查詢功能-------------------------------
   elif event.message.text.startswith('weather'): 
       split_array = event.message.text.split("~")
       cityname = split_array [1]
@@ -150,7 +150,7 @@ def handle_message(event):
     imagga_api_secret = config.get('imagga', 'api_secret')
     image_path = 'temp_image.jpg'   
     response = requests.post(
-            'https://api.imagga.com/v2/categories/personal_photos',
+            'https://api.imagga.com/v2/tags',
              auth=(imagga_api_key, imagga_api_secret),
              files={'image': open(image_path, 'rb')}
     )    
