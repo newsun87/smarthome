@@ -565,7 +565,7 @@ def getQuickReply_aiimage(): # 影像辨識功能 quickreply
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
-            action = MessageAction(label = "影像分類", text = "categorization'),
+            action = MessageAction(label = "影像分類", text = 'categorization'),
             image_url = 'https://i.imgur.com/nWsDQqI.png'
           ),
           QuickReplyButton(
