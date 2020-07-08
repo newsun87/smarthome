@@ -128,7 +128,8 @@ def handle_message(event):
   ref = db.reference('/') # 參考路徑 	
   userId = 'ypl'
   users_userId_ref = ref.child('youtube_music/'+ userId)  
-  global nlu_text  
+  global nlu_text
+  global imagga_api_key , imagga_secret_key  
   
 # -----雲端音樂 quickreply 的指令操作-------------- 
   if event.message.text.startswith('【youtube url】'):
@@ -150,17 +151,12 @@ def handle_message(event):
       client.publish("youtube_url", event.message.text, 0, True) #發佈訊息
 # -----------------------------------------------------------------------
 # -------圖片辨識功能-------------------------------
-  elif event.message.text.startswith('weather'):
-    response = requests.post(
-            'https://api.imagga.com/v2/categories/personal_photos',
-             auth=(imagga_api_key, imagga_api_secret),
-             files={'image': open(image_path, 'rb')}
-    )    
-    #AI 辨識推論影像資料 
-    AI_result = response.json()["result"]["categorization"][0]["name"]["en"]   
-    print('影像辨識結果....', AI_result)
-    message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
-    line_bot_api.reply_message(event.reply_token, message)       
+  elif event.message.text.startswith('weather'): 
+      split_array = event.message.text.split("~")
+      cityname = split_array [1]
+      weather_info = get_weather(cityname)
+      message = get_weather_state(weather_info, cityname)      
+      line_bot_api.reply_message(event.reply_token, message)     
 # -----------------------------------------------------------------------  
 # ------------圖片辨識功能-------------------------------------------------        
   elif event.message.text == 'categorization':
