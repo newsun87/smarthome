@@ -151,13 +151,13 @@ def handle_message(event):
 # -----------------------------------------------------------------------
 # -------圖片辨識功能-------------------------------
   elif event.message.text.startswith('weather'):
-	response = requests.post(
+    response = requests.post(
             'https://api.imagga.com/v2/categories/personal_photos',
              auth=(imagga_api_key, imagga_api_secret),
              files={'image': open(image_path, 'rb')}
     )    
     #AI 辨識推論影像資料 
-    AI_result = response.json()["result"]["categories"][0]["name"]["en"]   
+    AI_result = response.json()["result"]["categorization"][0]["name"]["en"]   
     print('影像辨識結果....', AI_result)
     message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
     line_bot_api.reply_message(event.reply_token, message)       
