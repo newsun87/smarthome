@@ -101,13 +101,13 @@ def handle_image_message(event):
     print("event: ", event)	  
 	  # 讀取圖片資料
     message_content = line_bot_api.get_message_content(message_id)    
-    with open('./images/temp_image.jpg', 'wb') as fd: # 儲存圖片
+    with open('temp_image.jpg', 'wb') as fd: # 儲存圖片
       for chunk in message_content.iter_content():
         fd.write(chunk)
 	  #讀取 Imagga 設定檔的資訊
     imagga_api_key = config.get('imagga', 'api_key') #取得設定資訊
     imagga_api_secret = config.get('imagga', 'api_secret')
-    image_path = './images/temp_image.jpg'
+    image_path = 'temp_image.jpg'
     #請求回應
     response = requests.post(
             'https://api.imagga.com/v2/categories/personal_photos',
