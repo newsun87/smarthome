@@ -103,24 +103,9 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(message_id)    
     with open('temp_image.jpg', 'wb') as fd: # 儲存圖片
       for chunk in message_content.iter_content():
-        fd.write(chunk)
-	  #讀取 Imagga 設定檔的資訊
-    """imagga_api_key = config.get('imagga', 'api_key') #取得設定資訊
-    imagga_api_secret = config.get('imagga', 'api_secret')
-    image_path = 'temp_image.jpg'"""
+        fd.write(chunk)	  
     QuickReply_text_message = getQuickReply_aiimage()       
-    line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
-    #請求回應
-    """response = requests.post(
-            'https://api.imagga.com/v2/categories/personal_photos',
-             auth=(imagga_api_key, imagga_api_secret),
-             files={'image': open(image_path, 'rb')}
-    )    
-    #AI 辨識推論影像資料 
-    AI_result = response.json()["result"]["categories"][0]["name"]["en"]   
-    print('影像辨識結果....', AI_result)
-    message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
-    line_bot_api.reply_message(event.reply_token, message) """
+    line_bot_api.reply_message(event.reply_token, QuickReply_text_message)    
 
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
