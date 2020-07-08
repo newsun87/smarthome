@@ -159,7 +159,10 @@ def handle_message(event):
     print('影像辨識結果....', AI_result)
     message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
     line_bot_api.reply_message(event.reply_token, message)
-  elif event.message.text == 'tags': 
+  elif event.message.text == 'tags':
+    imagga_api_key = config.get('imagga', 'api_key') #取得設定資訊
+    imagga_api_secret = config.get('imagga', 'api_secret')
+    image_path = 'temp_image.jpg'     
     response = requests.post(
             'https://api.imagga.com/v2/categories/personal_photos',
              auth=(imagga_api_key, imagga_api_secret),
