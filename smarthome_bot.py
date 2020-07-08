@@ -148,14 +148,44 @@ def handle_message(event):
       event.reply_token,
       TextSendMessage(text="馬上播放 " + event.message.text))      
       client.publish("youtube_url", event.message.text, 0, True) #發佈訊息
-      
-  elif event.message.text.startswith('weather'): 
-      split_array = event.message.text.split("~")
-      cityname = split_array [1]
-      weather_info = get_weather(cityname)
-      message = get_weather_state(weather_info, cityname)      
-      line_bot_api.reply_message(event.reply_token, message)
-      
+# -----------------------------------------------------------------------
+# -------圖片辨識功能-------------------------------
+  elif event.message.text.startswith('weather'):
+	  response = requests.post(
+            'https://api.imagga.com/v2/categories/personal_photos',
+             auth=(imagga_api_key, imagga_api_secret),
+             files={'image': open(image_path, 'rb')}
+    )    
+    #AI 辨識推論影像資料 
+    AI_result = response.json()["result"]["categories"][0]["name"]["en"]   
+    print('影像辨識結果....', AI_result)
+    message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
+    line_bot_api.reply_message(event.reply_token, message)       
+# -----------------------------------------------------------------------  
+# ------------圖片辨識功能-------------------------------------------------        
+  elif event.message.text == 'categorization': 
+      response = requests.post(
+            'https://api.imagga.com/v2/categories/personal_photos',
+             auth=(imagga_api_key, imagga_api_secret),
+             files={'image': open(image_path, 'rb')}
+    )    
+    #AI 辨識推論影像資料 
+    AI_result = response.json()["result"]["categories"][0]["name"]["en"]   
+    print('影像辨識結果....', AI_result)
+    message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
+    line_bot_api.reply_message(event.reply_token, message)
+  elif event.message.text == 'tags': 
+      response = requests.post(
+            'https://api.imagga.com/v2/categories/personal_photos',
+             auth=(imagga_api_key, imagga_api_secret),
+             files={'image': open(image_path, 'rb')}
+    )    
+    #AI 辨識推論影像資料 
+    AI_result = response.json()["result"]["categories"][0]["name"]["en"]   
+    print('影像辨識結果....', AI_result)
+    message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
+    line_bot_api.reply_message(event.reply_token, message)  
+# -----------------------------------------------------------------------       
   elif event.message.text.startswith('infrared'):
       split_array = event.message.text.split("~")
       device = split_array [1]      
@@ -535,11 +565,11 @@ def getQuickReply_aiimage(): # 影像辨識功能 quickreply
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
-            action = MessageAction(label = "影像分類", text = "123"),
+            action = MessageAction(label = "影像分類", text = "categorization'),
             image_url = 'https://i.imgur.com/nWsDQqI.png'
           ),
           QuickReplyButton(
-            action = MessageAction(label = "標籤", text = "123"),
+            action = MessageAction(label = "標籤", text = "tags"),
             image_url = 'https://i.imgur.com/nWsDQqI.png'
           )           
         ]
