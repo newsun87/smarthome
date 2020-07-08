@@ -163,7 +163,11 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, message)       
 # -----------------------------------------------------------------------  
 # ------------圖片辨識功能-------------------------------------------------        
-  elif event.message.text == 'categorization': 
+  elif event.message.text == 'categorization':
+	#讀取 Imagga 設定檔的資訊
+    imagga_api_key = config.get('imagga', 'api_key') #取得設定資訊
+    imagga_api_secret = config.get('imagga', 'api_secret')
+    image_path = 'temp_image.jpg'   
     response = requests.post(
             'https://api.imagga.com/v2/categories/personal_photos',
              auth=(imagga_api_key, imagga_api_secret),
