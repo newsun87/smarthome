@@ -109,7 +109,7 @@ def handle_image_message(event):
     imagga_api_secret = config.get('imagga', 'api_secret')
     image_path = 'temp_image.jpg'
     QuickReply_text_message = getQuickReply_aiimage()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
+    line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
     #請求回應
     """response = requests.post(
             'https://api.imagga.com/v2/categories/personal_photos',
