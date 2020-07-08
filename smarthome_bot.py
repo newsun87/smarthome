@@ -118,7 +118,7 @@ def handle_image_message(event):
     AI_result = response.json()["result"]["categories"][0]["name"]["en"]   
     print('影像辨識結果....', AI_result)
     message = TextSendMessage(text="此圖片辨識結果可能是 " + AI_result)      
-    line_bot_api.reply_message(event.reply_token, message 
+    line_bot_api.reply_message(event.reply_token, message) 
 
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
