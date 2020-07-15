@@ -260,21 +260,19 @@ def handle_message(event):
   elif event.message.text == 'camera_restart':
       client.publish("homesecurity/restart", "0", 2, reatain=True) #發佈訊息
       time.sleep(1)      
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息  
+      client.publish("homesecurity/restart", ' ', 2, reatain=True) #發佈訊息  
       message = TextSendMessage(text = '攝影機已經重新啟動....')        
       line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'move_enable':
       client.publish("homesecurity/move_detect", "1", 2, reatain=True) #發佈訊息
       time.sleep(1)      
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息  
+      client.publish("homesecurity/move_detect", ' ', 2, reatain=True) #發佈訊息  
       message = TextSendMessage(text = '移動偵測已啟動....')        
       line_bot_api.reply_message(event.reply_token, message) 
   elif event.message.text == 'move_disable':
       client.publish("homesecurity/move_detect", "0", 2, reatain=True) #發佈訊息
       time.sleep(1)       
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息
-      time.s;eep(1) 
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息       
+      client.publish("homesecurity/move_detect", ' ', 2, reatain=True) #發佈訊息            
       message = TextSendMessage(text = '移動偵測已關閉....')        
       line_bot_api.reply_message(event.reply_token, message)                  
 # -------------------------------- 
@@ -1104,7 +1102,7 @@ def nlu(text): # 取得語意分析結果
          word = fileobj.write(songname)                    
        client.publish("music/playsong", mqttmsg, 2, retain=True) #發佈訊息
        time.sleep(1)
-       client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息 
+       client.publish("music/playsong", ' ', 2, reatain=True) #發佈訊息 
        print("message published")
        message = TextSendMessage(text = nlu_text)
        return message                                
@@ -1122,7 +1120,7 @@ def nlu(text): # 取得語意分析結果
          word = fileobj.write(singername)                                 
         client.publish("music/playsong", mqttmsg, 2, retain=True) #發佈訊息
         time.sleep(1)        
-        client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息 
+        client.publish("music/playsong", ' ', 2, reatain=True) #發佈訊息 
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message                        
@@ -1133,7 +1131,7 @@ def nlu(text): # 取得語意分析結果
         mqttmsg ='playpause'
         client.publish("music/pause_play", mqttmsg, 0, retain=True) #發佈訊息
         time.sleep(1)        
-        client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息         
+        client.publish("music/pause_play", ' ', 2, reatain=True) #發佈訊息         
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message         
