@@ -239,7 +239,7 @@ def handle_message(event):
       line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="馬上播放 " + videourl))
-      client.publish("music/youtube_url", videourl, 2, True)
+      client.publish("music/youtube_url", videourl, 2, False)
       
   elif event.message.text == '取消動作':
 	  message = TextSendMessage(text="沒有問題!")	  
@@ -1086,7 +1086,7 @@ def nlu(text): # 取得語意分析結果
        songkind = songname
        with open('record.txt','w', encoding = "utf-8") as fileobj:
          word = fileobj.write(songname)                    
-       client.publish("music/playsong", mqttmsg, 0, retain=False) #發佈訊息
+       client.publish("music/playsong", mqttmsg, 2, retain=False) #發佈訊息
        print("message published")
        message = TextSendMessage(text = nlu_text)
        return message                                
@@ -1102,7 +1102,7 @@ def nlu(text): # 取得語意分析結果
         songkind = singername
         with open('record.txt','w', encoding = "utf-8") as fileobj:
          word = fileobj.write(singername)                                 
-        client.publish("music/playsong", mqttmsg, 1, retain=False) #發佈訊息
+        client.publish("music/playsong", mqttmsg, 2, retain=False) #發佈訊息
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message                        
@@ -1111,7 +1111,7 @@ def nlu(text): # 取得語意分析結果
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
         print('nlu', nlu_text)
         mqttmsg ='playpause'
-        client.publish("music/pause_play", mqttmsg, 0, retain=False) #發佈訊息
+        client.publish("music/pause_play", mqttmsg, 2, retain=False) #發佈訊息
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message         
@@ -1125,27 +1125,27 @@ def nlu(text): # 取得語意分析結果
              print("volume_num ", volume_num )
              volume_str = str(volume_num )+'%'
              mqttmsg = volume_str            
-             client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息                             
+             client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息                             
          elif volume == '小聲':
               volume_num = volume_num - 10
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str             
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息              
+              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息              
          elif volume == '最小聲':
               volume_num = 50
               volume_str = str(volume_num)+'%'             
               mqttmsg = volume_str             
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息   
+              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息   
          elif volume == '最大聲':
               volume_num = 100
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息           
+              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息           
          elif volume == '適中' or volume == '剛好':
               volume_num = 70
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息
+              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息
          ref.child('smarthome/config').update({
                'volume':volume_num}                
          )
@@ -1349,7 +1349,7 @@ client = mqtt.Client()
 client.on_connect = on_connect  
 client.on_message = on_message  
 client.connect("broker.mqttdashboard.com", 1883) 
-client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息 
+#client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息 
 client.loop_start()
 
 if __name__ == "__main__":           
