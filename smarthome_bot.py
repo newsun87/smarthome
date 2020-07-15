@@ -120,19 +120,19 @@ def handle_message(event):
       new_message = event.message.text.lstrip('【youtube url】')
       line_bot_api.reply_message(
         event.reply_token, TextSendMessage(text="馬上播放 " + new_message))
-      client.publish("music/youtube_url", new_message, 2, False) #發佈訊息
+      client.publish("music/youtube_url", new_message, 0, False) #發佈訊息
       
   elif event.message.text.startswith('https://youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
       TextSendMessage(text="馬上播放 " + event.message.text))      
-      client.publish("music/youtube_url", event.message.text, 2, False) #發佈訊息
+      client.publish("music/youtube_url", event.message.text, 0, False) #發佈訊息
       
   elif event.message.text.startswith('https://www.youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
       TextSendMessage(text="馬上播放 " + event.message.text))      
-      client.publish("music/youtube_url", event.message.text, 2, False) #發佈訊息
+      client.publish("music/youtube_url", event.message.text, 0, False) #發佈訊息
 # -----------------------------------------------------------------------
 # -------地區天氣查詢功能-------------------------------
   elif event.message.text.startswith('weather'): 
@@ -239,7 +239,7 @@ def handle_message(event):
       line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="馬上播放 " + videourl))
-      client.publish("music/youtube_url", videourl, 2, False)
+      client.publish("music/youtube_url", videourl, 0, False)
       
   elif event.message.text == '取消動作':
 	  message = TextSendMessage(text="沒有問題!")	  
@@ -499,9 +499,9 @@ def handle_postback_message(event):
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
        
     elif postBack == 'restart':
-       client.publish("music/shutdown", 'restart', 2, False) #發佈訊息
+       client.publish("music/shutdown", 'restart', 0, False) #發佈訊息
        time.sleep(1)
-       client.publish("music/shutdown", ' ', 2, False) #發佈訊息          
+       client.publish("music/shutdown", ' ', 0, False) #發佈訊息          
 
 def getQuickReply_plugs():
 	QuickReply_text_message = TextSendMessage(
@@ -1086,7 +1086,7 @@ def nlu(text): # 取得語意分析結果
        songkind = songname
        with open('record.txt','w', encoding = "utf-8") as fileobj:
          word = fileobj.write(songname)                    
-       client.publish("music/playsong", mqttmsg, 2, retain=False) #發佈訊息
+       client.publish("music/playsong", mqttmsg, 0, retain=False) #發佈訊息
        print("message published")
        message = TextSendMessage(text = nlu_text)
        return message                                
@@ -1102,7 +1102,7 @@ def nlu(text): # 取得語意分析結果
         songkind = singername
         with open('record.txt','w', encoding = "utf-8") as fileobj:
          word = fileobj.write(singername)                                 
-        client.publish("music/playsong", mqttmsg, 2, retain=False) #發佈訊息
+        client.publish("music/playsong", mqttmsg, 0, retain=False) #發佈訊息
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message                        
@@ -1111,7 +1111,7 @@ def nlu(text): # 取得語意分析結果
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
         print('nlu', nlu_text)
         mqttmsg ='playpause'
-        client.publish("music/pause_play", mqttmsg, 2, retain=False) #發佈訊息
+        client.publish("music/pause_play", mqttmsg, 0, retain=False) #發佈訊息
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message         
@@ -1130,22 +1130,22 @@ def nlu(text): # 取得語意分析結果
               volume_num = volume_num - 10
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str             
-              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息              
+              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息              
          elif volume == '最小聲':
               volume_num = 50
               volume_str = str(volume_num)+'%'             
               mqttmsg = volume_str             
-              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息   
+              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息   
          elif volume == '最大聲':
               volume_num = 100
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
-              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息           
+              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息           
          elif volume == '適中' or volume == '剛好':
               volume_num = 70
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
-              client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息
+              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息
          ref.child('smarthome/config').update({
                'volume':volume_num}                
          )
@@ -1334,7 +1334,7 @@ def live_menu():
     
 def on_connect(client, userdata, flags, rc):  
     print("Connected with result code "+str(rc))
-    client.subscribe("music/genurl", 2) 
+    client.subscribe("music/genurl", 0) 
     client.subscribe("homesecurity/ngrokurl", 2)       
 
 def on_message(client, userdata, msg): 
