@@ -120,25 +120,25 @@ def handle_message(event):
       new_message = event.message.text.lstrip('【youtube url】')
       line_bot_api.reply_message(
         event.reply_token, TextSendMessage(text="馬上播放 " + new_message))
-      client.publish("music/youtubeurl", new_message, 2, reatain=True) #發佈訊息
+      client.publish("music/youtubeurl", new_message, 2, retain=True) #發佈訊息
       time.sleep(1)     
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息 
+      client.publish("music/youtubeurl", ' ', 2, retain=True) #發佈訊息 
       
   elif event.message.text.startswith('https://youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
       TextSendMessage(text="馬上播放 " + event.message.text))      
-      client.publish("music/youtubeurl", event.message.text, 2, reatain=True) #發佈訊息
+      client.publish("music/youtubeurl", event.message.text, 2, retain=True) #發佈訊息
       time.sleep(1)
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息 
+      client.publish("music/youtubeurl", ' ', 2, retain=True) #發佈訊息 
       
   elif event.message.text.startswith('https://www.youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
       TextSendMessage(text="馬上播放 " + event.message.text))      
-      client.publish("music/youtubeurl", event.message.text, 2, reatain=True) #發佈訊息
+      client.publish("music/youtubeurl", event.message.text, 2, retain=True) #發佈訊息
       time.sleep(1)      
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息 
+      client.publish("music/youtubeurl", ' ', 2, retain=True) #發佈訊息 
 # -----------------------------------------------------------------------
 # -------地區天氣查詢功能-------------------------------
   elif event.message.text.startswith('weather'): 
@@ -245,9 +245,9 @@ def handle_message(event):
       line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="馬上播放 " + videourl))
-      client.publish("music/youtubeurl", videourl, 2, reatain=True)
+      client.publish("music/youtubeurl", videourl, 2, retain=True)
       time.sleep(1)      
-      client.publish("music/youtubeurl", ' ', 2, reatain=True) #發佈訊息 
+      client.publish("music/youtubeurl", ' ', 2, retain=True) #發佈訊息 
       
   elif event.message.text == '取消動作':
 	  message = TextSendMessage(text="沒有問題!")	  
@@ -258,21 +258,21 @@ def handle_message(event):
       message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
-      client.publish("homesecurity/restart", "0", 2, reatain=True) #發佈訊息
+      client.publish("homesecurity/restart", "0", 2, retain=True) #發佈訊息
       time.sleep(1)      
-      client.publish("homesecurity/restart", ' ', 2, reatain=True) #發佈訊息  
+      client.publish("homesecurity/restart", ' ', 2, retain=True) #發佈訊息  
       message = TextSendMessage(text = '攝影機已經重新啟動....')        
       line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'move_enable':
-      client.publish("homesecurity/move_detect", "1", 2, reatain=True) #發佈訊息
+      client.publish("homesecurity/move_detect", "1", 2, retain=True) #發佈訊息
       time.sleep(1)      
-      client.publish("homesecurity/move_detect", ' ', 2, reatain=True) #發佈訊息  
+      client.publish("homesecurity/move_detect", ' ', 2, retain=True) #發佈訊息  
       message = TextSendMessage(text = '移動偵測已啟動....')        
       line_bot_api.reply_message(event.reply_token, message) 
   elif event.message.text == 'move_disable':
-      client.publish("homesecurity/move_detect", "0", 2, reatain=True) #發佈訊息
+      client.publish("homesecurity/move_detect", "0", 2, retain=True) #發佈訊息
       time.sleep(1)       
-      client.publish("homesecurity/move_detect", ' ', 2, reatain=True) #發佈訊息            
+      client.publish("homesecurity/move_detect", ' ', 2, retain=True) #發佈訊息            
       message = TextSendMessage(text = '移動偵測已關閉....')        
       line_bot_api.reply_message(event.reply_token, message)                  
 # -------------------------------- 
@@ -513,9 +513,9 @@ def handle_postback_message(event):
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
        
     elif postBack == 'restart':
-       client.publish("music/shutdown", 'restart', 2, reatain=True) #發佈訊息
+       client.publish("music/shutdown", 'restart', 2, retain=True) #發佈訊息
        time.sleep(1)
-       client.publish("music/shutdown", ' ', 2, reatain=True) #發佈訊息          
+       client.publish("music/shutdown", ' ', 2, retain=True) #發佈訊息          
 
 def getQuickReply_plugs():
 	QuickReply_text_message = TextSendMessage(
@@ -1102,7 +1102,7 @@ def nlu(text): # 取得語意分析結果
          word = fileobj.write(songname)                    
        client.publish("music/playsong", mqttmsg, 2, retain=True) #發佈訊息
        time.sleep(1)
-       client.publish("music/playsong", ' ', 2, reatain=True) #發佈訊息 
+       client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息 
        print("message published")
        message = TextSendMessage(text = nlu_text)
        return message                                
@@ -1120,7 +1120,7 @@ def nlu(text): # 取得語意分析結果
          word = fileobj.write(singername)                                 
         client.publish("music/playsong", mqttmsg, 2, retain=True) #發佈訊息
         time.sleep(1)        
-        client.publish("music/playsong", ' ', 2, reatain=True) #發佈訊息 
+        client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息 
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message                        
@@ -1131,7 +1131,7 @@ def nlu(text): # 取得語意分析結果
         mqttmsg ='playpause'
         client.publish("music/pause_play", mqttmsg, 0, retain=True) #發佈訊息
         time.sleep(1)        
-        client.publish("music/pause_play", ' ', 2, reatain=True) #發佈訊息         
+        client.publish("music/pause_play", ' ', 2, retain=True) #發佈訊息         
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message         
