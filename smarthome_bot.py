@@ -1334,7 +1334,7 @@ def live_menu():
     
 def on_connect(client, userdata, flags, rc):  
     print("Connected with result code "+str(rc))
-    client.subscribe("music/genurl", 0) 
+    client.subscribe("music/genurl", 2) 
     client.subscribe("homesecurity/ngrokurl", 2)       
 
 def on_message(client, userdata, msg): 
@@ -1349,7 +1349,7 @@ client = mqtt.Client()
 client.on_connect = on_connect  
 client.on_message = on_message  
 client.connect("broker.mqttdashboard.com", 1883) 
-#client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息 
+client.publish("music/volume", mqttmsg, 2, retain=False) #發佈訊息 
 client.loop_start()
 
 if __name__ == "__main__":           
