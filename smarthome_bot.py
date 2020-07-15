@@ -121,18 +121,21 @@ def handle_message(event):
       line_bot_api.reply_message(
         event.reply_token, TextSendMessage(text="馬上播放 " + new_message))
       client.publish("music/youtube_url", new_message, 0, False) #發佈訊息
+      client.publish("music/youtube_url", ' ', 0, False) #發佈訊息 
       
   elif event.message.text.startswith('https://youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
       TextSendMessage(text="馬上播放 " + event.message.text))      
       client.publish("music/youtube_url", event.message.text, 0, False) #發佈訊息
+      client.publish("music/youtube_url", ' ', 0, False) #發佈訊息 
       
   elif event.message.text.startswith('https://www.youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
       TextSendMessage(text="馬上播放 " + event.message.text))      
       client.publish("music/youtube_url", event.message.text, 0, False) #發佈訊息
+      client.publish("music/youtube_url", ' ', 0, False) #發佈訊息 
 # -----------------------------------------------------------------------
 # -------地區天氣查詢功能-------------------------------
   elif event.message.text.startswith('weather'): 
@@ -240,6 +243,7 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text="馬上播放 " + videourl))
       client.publish("music/youtube_url", videourl, 0, False)
+      client.publish("music/youtube_url", ' ', 0, False) #發佈訊息 
       
   elif event.message.text == '取消動作':
 	  message = TextSendMessage(text="沒有問題!")	  
