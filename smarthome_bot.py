@@ -247,7 +247,7 @@ def handle_message(event):
         TextSendMessage(text="馬上播放 " + videourl))
       client.publish("music/youtubeurl", videourl, 2, retain=True)  
       time.sleep(1)
-      client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息     
+      client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息 
       
   elif event.message.text == '取消動作':
 	  message = TextSendMessage(text="沒有問題!")	  
@@ -258,7 +258,10 @@ def handle_message(event):
       message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
-      client.publish("homesecurity/restart", "0", 0, retain=True)   
+      client.publish("homesecurity/restart", "0", 0, retain=True)
+      time.sleep(1)
+      client.publish("homesecurity/restart", '', 0, retain=True) #發佈訊息
+      message = TextSendMessage(text = '攝影機已重新開機....')                       
       line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'move_enable':
       client.publish("homesecurity/move_detect", "1", 0, retain=True) #發佈訊息       
@@ -269,9 +272,9 @@ def handle_message(event):
       message = TextSendMessage(text = '移動偵測已關閉....')        
       line_bot_api.reply_message(event.reply_token, message)                  
 # -------------------------------- 
-# ------雲端音樂功能------------------    
+# ------雲端音樂功能------------------     
   elif event.message.text == 'player_restart':
-      confirm_template_message = TemplateSendMessage( 
+      confirm_template_message = TemplateSendMessage(  
         alt_text = "這是一個確認樣板",
         template = ConfirmTemplate(
         text = "你確定要重新開機?",
