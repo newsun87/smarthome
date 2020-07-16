@@ -258,15 +258,14 @@ def handle_message(event):
       message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
-      client.publish("homesecurity/restart", "0", 2, retain=True) #發佈訊息        
-      message = TextSendMessage(text = '攝影機已經重新啟動....')        
+      client.publish("homesecurity/restart", "0", 0, retain=True    
       line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'move_enable':
-      client.publish("homesecurity/move_detect", "1", 2, retain=True) #發佈訊息       
+      client.publish("homesecurity/move_detect", "1", 0, retain=True) #發佈訊息       
       message = TextSendMessage(text = '移動偵測已啟動....')        
       line_bot_api.reply_message(event.reply_token, message) 
   elif event.message.text == 'move_disable':
-      client.publish("homesecurity/move_detect", "0", 2, retain=True) #發佈訊息                  
+      client.publish("homesecurity/move_detect", "0", 0, retain=True) #發佈訊息                  
       message = TextSendMessage(text = '移動偵測已關閉....')        
       line_bot_api.reply_message(event.reply_token, message)                  
 # -------------------------------- 
@@ -509,7 +508,7 @@ def handle_postback_message(event):
     elif postBack == 'restart':
        client.publish("music/shutdown", 'restart', 2, retain=False) #發佈訊息
        time.sleep(1)
-       client.publish("music/shutdown", ' ', 2, retain=False) #發佈訊息          
+       client.publish("music/shutdown", '', 2, retain=False) #發佈訊息          
 
 def getQuickReply_plugs():
 	QuickReply_text_message = TextSendMessage(
