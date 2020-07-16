@@ -258,7 +258,7 @@ def handle_message(event):
       message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
-      client.publish("homesecurity/restart", "0", 0, retain=True    
+      client.publish("homesecurity/restart", "0", 0, retain=True)   
       line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'move_enable':
       client.publish("homesecurity/move_detect", "1", 0, retain=True) #發佈訊息       
