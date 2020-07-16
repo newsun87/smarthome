@@ -507,9 +507,9 @@ def handle_postback_message(event):
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
        
     elif postBack == 'restart':
-       client.publish("music/shutdown", 'restart', 2, retain=True) #發佈訊息
+       client.publish("music/shutdown", 'restart', 2, retain=False) #發佈訊息
        time.sleep(1)
-       client.publish("music/shutdown", ' ', 2, retain=True) #發佈訊息          
+       client.publish("music/shutdown", ' ', 2, retain=False) #發佈訊息          
 
 def getQuickReply_plugs():
 	QuickReply_text_message = TextSendMessage(
