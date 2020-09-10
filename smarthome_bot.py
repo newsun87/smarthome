@@ -1099,7 +1099,7 @@ def nlu(text): # 取得語意分析結果
        client.publish("music/playsong", mqttmsg, 2, retain=True) #發佈訊息
        time.sleep(1)
        client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息 
-       playsong      
+       #playsong      
        print("message published")
        message = TextSendMessage(text = nlu_text)
        return message                                

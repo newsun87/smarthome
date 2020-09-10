@@ -14,7 +14,7 @@
 <script language="JavaScript" src="/__rapid-worker-1.2.js"></script> <!-- rapid should require worker file itself, this should be unnessary, but require it anyway. -->
 <script language="JavaScript">
     YAHOO.i13n.WEBWORKER_FILE = "/__rapid-worker-1.2.js";
-    var pageParams = {"site":"finance","lang":"zh-Hant-TW","mrkt":"tw"}
+    var pageParams = {"site":"finance","lang":"zh-Hant-TW","mrkt":"tw","pt":"home"}
     if (typeof articlePageParams === 'object') {
         pageParams = articlePageParams;
     }
@@ -150,10 +150,10 @@ function MM_swapImage() { //v3.0
  .ad_slug_table TD SPAN FONT { font-size:10px;cursor:default; }
  .ad_slug_table TD SPAN.can_ad_slug { font-size:11px;text-align:right }
 </style>
-              <script type='text/javascript' src='https://s.yimg.com/rq/darla/4-2-0/js/g-r-min.js'></script>
+              <script type='text/javascript' src='https://s.yimg.com/rq/darla/3-28-0/js/g-r-min.js'></script>
               <script type="text/javascript">
                 if (!window.DARLA_CONFIG) {
-                  DARLA_CONFIG = {"useYAC":0,"usePE":0,"servicePath":"https:\/\/tw.stock.yahoo.com\/sdarla\/php\/fc.php","xservicePath":"","beaconPath":"https:\/\/tw.stock.yahoo.com\/sdarla\/php\/b.php","renderPath":"","allowFiF":false,"srenderPath":"https:\/\/s.yimg.com\/rq\/darla\/4-2-0\/html\/r-sf.html","renderFile":"https:\/\/s.yimg.com\/rq\/darla\/4-2-0\/html\/r-sf.html","sfbrenderPath":"https:\/\/s.yimg.com\/rq\/darla\/4-2-0\/html\/r-sf.html","msgPath":"https:\/\/fc.yahoo.com\/unsupported-1946.html","cscPath":"https:\/\/s.yimg.com\/rq\/darla\/4-2-0\/html\/r-csc.html","root":"sdarla","edgeRoot":"https:\/\/s.yimg.com\/rq\/darla\/4-2-0","sedgeRoot":"https:\/\/s.yimg.com\/rq\/darla\/4-2-0","version":"4-2-0","tpbURI":"","hostFile":"https:\/\/s.yimg.com\/rq\/darla\/4-2-0\/js\/g-r-min.js","beaconsDisabled":true,"rotationTimingDisabled":true,"fdb_locale":"\u60a8\u70ba\u4ec0\u9ebc\u4e0d\u559c\u6b61\u9019\u5247\u5ee3\u544a\uff1f|\u5ee3\u544a\u5167\u5bb9\u4ee4\u4eba\u53cd\u611f|\u5176\u4ed6|\u611f\u8b1d\u60a8\u5354\u52a9\u6211\u5011\u6539\u5584\u60a8\u7684 Yahoo\u5947\u6469\u9ad4\u9a57|\u5ee3\u544a\u5167\u5bb9\u8207\u6211\u6c92\u4ec0\u9ebc\u95dc\u806f|\u4f7f\u4eba\u5206\u5fc3|\u6211\u4e0d\u559c\u6b61\u9019\u652f\u5ee3\u544a|\u9001\u51fa|\u5b8c\u6210|\u70ba\u4ec0\u9ebc\u6211\u6703\u770b\u898b\u5ee3\u544a\uff1f|\u9032\u4e00\u6b65\u4e86\u89e3\u60a8\u7684\u610f\u898b\u3002|\u60f3\u8981\u4f7f\u7528\u7121\u5ee3\u544a\u6536\u4ef6\u5323\u55ce\uff1f\u5feb\u4f86\u5347\u7d1a Yahoo Mail Pro\uff01|\u7acb\u5373\u5347\u7d1a","lang":"zh-Hant-TW"};
+                  DARLA_CONFIG = {"useYAC":0,"usePE":0,"servicePath":"https:\/\/tw.stock.yahoo.com\/sdarla\/php\/fc.php","xservicePath":"","beaconPath":"https:\/\/tw.stock.yahoo.com\/sdarla\/php\/b.php","renderPath":"","allowFiF":false,"srenderPath":"https:\/\/s.yimg.com\/rq\/darla\/3-28-0\/html\/r-sf.html","renderFile":"https:\/\/s.yimg.com\/rq\/darla\/3-28-0\/html\/r-sf.html","sfbrenderPath":"https:\/\/s.yimg.com\/rq\/darla\/3-28-0\/html\/r-sf.html","msgPath":"https:\/\/fc.yahoo.com\/unsupported-1946.html","cscPath":"https:\/\/s.yimg.com\/rq\/darla\/3-28-0\/html\/r-csc.html","root":"sdarla","edgeRoot":"https:\/\/s.yimg.com\/rq\/darla\/3-28-0","sedgeRoot":"https:\/\/s.yimg.com\/rq\/darla\/3-28-0","version":"3-28-0","tpbURI":"","hostFile":"https:\/\/s.yimg.com\/rq\/darla\/3-28-0\/js\/g-r-min.js","beaconsDisabled":true,"rotationTimingDisabled":true,"fdb_locale":"\u60a8\u70ba\u4ec0\u9ebc\u4e0d\u559c\u6b61\u9019\u5247\u5ee3\u544a\uff1f|\u5ee3\u544a\u5167\u5bb9\u4ee4\u4eba\u53cd\u611f|\u5176\u4ed6|\u611f\u8b1d\u60a8\u5354\u52a9\u6211\u5011\u6539\u5584\u60a8\u7684 Yahoo\u5947\u6469\u9ad4\u9a57|\u5ee3\u544a\u5167\u5bb9\u8207\u6211\u6c92\u4ec0\u9ebc\u95dc\u806f|\u4f7f\u4eba\u5206\u5fc3|\u6211\u4e0d\u559c\u6b61\u9019\u652f\u5ee3\u544a|\u9001\u51fa|\u5b8c\u6210|\u70ba\u4ec0\u9ebc\u6211\u6703\u770b\u898b\u5ee3\u544a\uff1f|\u9032\u4e00\u6b65\u4e86\u89e3\u60a8\u7684\u610f\u898b\u3002|\u60f3\u8981\u4f7f\u7528\u7121\u5ee3\u544a\u6536\u4ef6\u5323\u55ce\uff1f\u5feb\u4f86\u5347\u7d1a Yahoo Mail Pro\uff01|\u7acb\u5373\u5347\u7d1a","lang":"zh-Hant-TW"};
                 }
                             DARLA_CONFIG.events = {
                                          'renderSREC':
@@ -305,7 +305,7 @@ function MM_swapImage() { //v3.0
   }
 </style>
 <div id="uh" class="uh " style="position: relative; z-index: 21; margin-bottom: 10px;">
-  <ul class="eyebrow" style="margin: 0; padding: 0; height: 22px; font-size: 0; text-align: left; white-space: nowrap; background-color: #2d1152;">
+  <ul class="eyebrow" style="margin: 0; padding: 0; height: 22px; font-size: 0; text-align: left; white-space: nowrap; background-color: #2d1152; min-width: 1080px">
     <li style="margin-left: 10px;">
       <a href="https://tw.yahoo.com/">
         <div>
@@ -392,7 +392,7 @@ stockSiteRapid.addModules(tracked_mods);
 </script>
  <div align="center">
            <div id="boxSREC"><div id="tgtSREC"></div></div></div>
-<table align=center border=0 cellpadding=0 cellspacing=0 width=650><tbody><tr align=middle><td nowrap id="threeHeadlines" ><a hpp="title_l" href="https://bit.ly/2BuCckD" data-ylk="elm:hdln;elmt:ct;itc:0;cat:5f962259-f27f-4687-9a27-699e399eedb9;cpos:0" >5G元件概念股 聚焦這7檔！</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a hpp="title_m" href="https://bit.ly/3dNkvtz" data-ylk="elm:hdln;elmt:ct;itc:0;cat:5f962259-f27f-4687-9a27-699e399eedb9;cpos:1" >3步驟挖成長股 百萬本金滾出千萬財</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a hpp="title_r" href="https://bit.ly/2NOQyyM" data-ylk="elm:hdln;elmt:ct;itc:0;cat:5f962259-f27f-4687-9a27-699e399eedb9;cpos:2" >報復性消費難持久 Q3投資不該冒險</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</td></tr></tbody></table><script lang="text/javascript">
+<table align=center border=0 cellpadding=0 cellspacing=0 width=650><tbody><tr align=middle><td nowrap id="threeHeadlines" ><a hpp="title_l" href="https://bit.ly/3hdwcvn" data-ylk="elm:hdln;elmt:ct;itc:0;cat:5f962259-f27f-4687-9a27-699e399eedb9;cpos:0" >台積電何時回神？電子股藏玄機</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a hpp="title_m" href="https://bit.ly/3hnopeM" data-ylk="elm:hdln;elmt:ct;itc:0;cat:5f962259-f27f-4687-9a27-699e399eedb9;cpos:1" >存股光環不再？金控股13檔成重災區</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a hpp="title_r" href="https://bit.ly/32g4sSM" data-ylk="elm:hdln;elmt:ct;itc:0;cat:5f962259-f27f-4687-9a27-699e399eedb9;cpos:2" >低價超值銅板股 資金避風港</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</td></tr></tbody></table><script lang="text/javascript">
   var tracked_mods = {};
 
   tracked_mods["threeHeadlines"] = "3headlines";
@@ -422,7 +422,7 @@ function stockmenu_submit (form)
 <link rel="stylesheet" href="https://s.yimg.com/nb/tw_stock_frontend/scripts/StockNavSearchBar/stockNavSearchBar-style_b156d00e.css">
 <div id="stockNavSearchBar" style="width: 750px">    <nav id="ystkglonav">
         <ul class="desktopNav">
-            <li class="parent"><a class="navLink current" href=https://tw.stock.yahoo.com/>首頁</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/pf/mypf>投資組合</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/h/getclass.php>當日行情</a><ul class="child"><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/major.html>法人進出</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/cap.html>成交比重</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/credit.html>資券餘額</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/hot.html>熱門排行</a></li></ul></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/s/tse.php>大盤</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/s/nine.php>類股</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/future/>期權</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/hkcn/>港滬深股</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/us/>美股</a></li><li class="parent">
+            <li class="parent"><a class="navLink current" href=https://tw.stock.yahoo.com/>首頁</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/pf/mypf>投資組合</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/h/getclass.php>當日行情</a><ul class="child"><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/major.html>法人進出</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/cap.html>成交比重</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/credit.html>資券餘額</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/d/i/hot.html>熱門排行</a></li></ul></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/s/tse.php>大盤</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/s/nine.php>類股</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/future/>期權</a><ul class="child"><li><a class="dropLink" href=https://tw.stock.yahoo.com/future/futures.html?fumr=futurefull>台指期貨</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/future/options.html?opmr=optionfull&opcm=WTXO&opym=202008>指數選擇權</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/future/futures_uncovered.html>未平倉數</a></li></ul></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/hkcn/>港滬深股</a></li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/us/>美股</a></li><li class="parent">
     <a
         class="navLink"
         href=https://tw.stock.yahoo.com/markets
@@ -432,8 +432,8 @@ function stockmenu_submit (form)
             style="width: 16px;height: 16px;"
         >
     </a>
-    <ul class="child"><li><a class="dropLink" href=https://tw.stock.yahoo.com/world-indices>國際指數</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/currencies>外匯</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/us-market>美股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/hk-market>港股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/cn-market>滬深股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/commodities>原物料</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/adr>ADR</a></li></ul>
-</li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/news>新聞</a><ul class="child"><li><a class="dropLink" href=https://tw.tv.yahoo.com/stock-watch/>五分鐘看台股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/tw-market>台股盤勢</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/intl-markets>國際財經</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/funds-news>基金動態</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/research>研究報告</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/personal-finance>小資理財</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/column>專家專欄</a></li></ul></li><li class="parent"><a class="navLink" href=https://tw.screener.finance.yahoo.net/screener/basic.html>選股</a></li><li class="parent"><a class="navLink" href=https://tw.money.yahoo.com/>理財</a><ul class="child"><li><a class="dropLink" href=https://tw.money.yahoo.com/fund>基金</a></li><li><a class="dropLink" href=https://tw.money.yahoo.com/currency-converter>匯率換算</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/author/----20120619-091951>Y投資風向球</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/author/%E6%9D%8E%E5%85%B6%E5%B1%95/>外匯致勝兵法</a></li><li><a class="dropLink" href=https://tw.news.yahoo.com/topic/2020tax>報稅季</a></li></ul></li>        </ul>
+    <ul class="child"><li><a class="dropLink" href=https://tw.stock.yahoo.com/world-indices>國際指數</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/currencies>外匯</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/us-market>美股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/hk-market>港股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/cn-market>滬深股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/commodities>原物料</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/adr>ADR</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/cryptocurrencies>加密貨幣</a></li></ul>
+</li><li class="parent"><a class="navLink" href=https://tw.stock.yahoo.com/news>新聞</a><ul class="child"><li><a class="dropLink" href=https://tw.tv.yahoo.com/stock-watch/>五分鐘看台股</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/tw-market>台股盤勢</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/intl-markets>國際財經</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/funds-news>基金動態</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/research>研究報告</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/personal-finance>小資理財</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/column>專家專欄</a></li></ul></li><li class="parent"><a class="navLink" href=https://tw.screener.finance.yahoo.net/screener/basic.html>選股</a></li><li class="parent"><a class="navLink" href=https://tw.money.yahoo.com/>理財</a><ul class="child"><li><a class="dropLink" href=https://tw.money.yahoo.com/fund>基金</a></li><li><a class="dropLink" href=https://tw.money.yahoo.com/currency-converter>匯率換算</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/author/----20120619-091951>Y投資風向球</a></li><li><a class="dropLink" href=https://tw.stock.yahoo.com/author/%E6%9D%8E%E5%85%B6%E5%B1%95/>外匯致勝兵法</a></li></ul></li>        </ul>
     </nav>
     <div id="stockSearchBar">
         <div class="barContainer" style="display: inline-table">
@@ -450,7 +450,7 @@ function stockmenu_submit (form)
                     <span>台股代號查詢</span>
                 </a>
             </div>
-            <div class="stockInfos"><span id=marketTimeCountDown>距離美股開盤還有1小時6分鐘</span><a href="javascript:window.location.reload();">更新</a></div>        </div>
+            <div class="stockInfos"><span id=marketTimeCountDown>距離美股開盤還有5小時33分鐘</span><a href="javascript:window.location.reload();">更新</a></div>        </div>
     </div>
 </div>
 <script type="text/javascript" charset="UTF-8">
@@ -501,7 +501,7 @@ function stockmenu_submit (form)
         }, 30000);
     }
 </script>
-<script src="https://s.yimg.com/nb/tw_stock_frontend/scripts/StockNavSearchBar/autocomplete-bar.c1ec85c9.bundle.js" type="text/javascript" charset="UTF-8" defer></script>
+<script src="https://s.yimg.com/nb/tw_stock_frontend/scripts/StockNavSearchBar/autocomplete-bar.a2b0587c.bundle.js" type="text/javascript" charset="UTF-8" defer></script>
 <table width="750" border="0" align="center" cellpadding="0" cellspacing="0" class="yui-text-left">
  <tr>
  <td width="440" valign="top"><table width="440" border="0" cellspacing="0" cellpadding="0">
@@ -521,25 +521,25 @@ function stockmenu_submit (form)
  <div class="colorline on">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/s/tse.php" data-ylk="elm:itm;elmt:link;itc:0">上市</a></th><td class="dx">11805.14</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up">101.72</td><td class="vol"><span>1887.39億</span></td></tr> </tbody>
+<tr><th><a href="/s/tse.php" data-ylk="elm:itm;elmt:link;itc:0">上市</a></th><td class="dx">12691.75</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up">83.17</td><td class="vol"><span>1986.77億</span></td></tr> </tbody>
  </table>
  </div>
  <div class="colorline">
  <table class="chartline e">
  <tbody>
-<tr><th><a href="/s/otc.php" data-ylk="elm:itm;elmt:link;itc:0">上櫃</a></th><td class="dx">165.15</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up">2.85</td><td class="vol"><span>833.80億</span></td></tr> </tbody>
+<tr><th><a href="/s/otc.php" data-ylk="elm:itm;elmt:link;itc:0">上櫃</a></th><td class="dx">165.11</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down">0.39</td><td class="vol"><span>496.51億</span></td></tr> </tbody>
  </table>
  </div>
  <div class="colorline">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/s/stock_cate.php?cat_id=%2523020" data-ylk="elm:itm;elmt:link;itc:0">電子</a></th><td class="dx">532.07</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up">5.46</td><td class="vol"><span>1245.45億</span></td></tr> </tbody>
+<tr><th><a href="/s/stock_cate.php?cat_id=%2523020" data-ylk="elm:itm;elmt:link;itc:0">電子</a></th><td class="dx">602.65</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up">5.58</td><td class="vol"><span>1281.28億</span></td></tr> </tbody>
  </table>
  </div>
  <div class="colorline">
  <table class="chartline e last">
  <tbody>
-<tr><th><a href="/s/stock_cate.php?cat_id=%2523010" data-ylk="elm:itm;elmt:link;itc:0">金融</a></th><td class="dx">1272.81</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up">3.53</td><td class="vol"><span>59.73億</span></td></tr> </tbody>
+<tr><th><a href="/s/stock_cate.php?cat_id=%2523010" data-ylk="elm:itm;elmt:link;itc:0">金融</a></th><td class="dx">1234.64</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up">7.86</td><td class="vol"><span>61.40億</span></td></tr> </tbody>
  </table>
  </div>
  </div>
@@ -553,28 +553,28 @@ function stockmenu_submit (form)
  <div class="colorline on">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^N225" data-ylk="elm:itm;elmt:link;itc:0">日經指數</a></th><td class="dx">22,145.96</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>24.23</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^N225" data-ylk="elm:itm;elmt:link;itc:0">日經指數</a></th><td class="dx">23,235.47</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>202.93</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline e">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^KS11" data-ylk="elm:itm;elmt:link;itc:0">韓國綜合</a></th><td class="dx">2,135.37</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>28.67</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^KS11" data-ylk="elm:itm;elmt:link;itc:0">韓國綜合</a></th><td class="dx">2,396.48</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>20.67</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^HSI" data-ylk="elm:itm;elmt:link;itc:0">香港恆生</a></th><td class="dx">25,124.19</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>697.00</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^HSI" data-ylk="elm:itm;elmt:link;itc:0">香港恆生</a></th><td class="dx">24,379.18</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>89.75</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline e  last">
  <tbody>
-<tr><th><a href="/us/q?stock_id=000001.SS" data-ylk="elm:itm;elmt:link;itc:0">上海綜合</a></th><td class="dx">3,090.57</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>64.59</span></td></tr>
+<tr><th><a href="/us/q?stock_id=000001.SS" data-ylk="elm:itm;elmt:link;itc:0">上海綜合</a></th><td class="dx">3,234.82</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>19.80</span></td></tr>
 </tbody>
  </table>
   </div> 
@@ -603,28 +603,28 @@ function stockmenu_submit (form)
  <div class="colorline on">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^FTSE" data-ylk="elm:itm;elmt:link;itc:0">英國FTSE</a></th><td class="dx">6,207.07</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>49.11</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^FTSE" data-ylk="elm:itm;elmt:link;itc:0">英國FTSE</a></th><td class="dx">5,983.26</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>29.58</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline e">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^GDAXI" data-ylk="elm:itm;elmt:link;itc:0">德國DAX</a></th><td class="dx">12,488.29</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>227.72</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^GDAXI" data-ylk="elm:itm;elmt:link;itc:0">德國DAX</a></th><td class="dx">13,229.11</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>8.10</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^FCHI" data-ylk="elm:itm;elmt:link;itc:0">法國CAC</a></th><td class="dx">5,005.58</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>78.65</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^FCHI" data-ylk="elm:itm;elmt:link;itc:0">法國CAC</a></th><td class="dx">5,031.87</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>11.11</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline e  last">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^AEX" data-ylk="elm:itm;elmt:link;itc:0">荷蘭AEX</a></th><td class="dx">566.02</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>3.36</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^AEX" data-ylk="elm:itm;elmt:link;itc:0">荷蘭AEX</a></th><td class="dx">551.41</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>0.64</span></td></tr>
 </tbody>
  </table>
   </div> 
@@ -653,28 +653,28 @@ function stockmenu_submit (form)
  <div class="colorline on">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^DJI" data-ylk="elm:itm;elmt:link;itc:0">道瓊工業</a></th><td class="dx">25,734.97</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>77.91</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^DJI" data-ylk="elm:itm;elmt:link;itc:0">道瓊工業</a></th><td class="dx">27,940.47</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>439.58</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline e">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^IXIC" data-ylk="elm:itm;elmt:link;itc:0">那斯達克</a></th><td class="dx">10,154.63</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>95.86</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^IXIC" data-ylk="elm:itm;elmt:link;itc:0">那斯達克</a></th><td class="dx">11,141.56</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>293.87</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline o">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^GSPC" data-ylk="elm:itm;elmt:link;itc:0">S&P500</a></th><td class="dx">3,115.86</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>15.57</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^GSPC" data-ylk="elm:itm;elmt:link;itc:0">S&P500</a></th><td class="dx">3,398.96</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>67.12</span></td></tr>
 </tbody>
  </table>
   </div> 
  <div class="colorline">
  <table class="chartline e  last">
  <tbody>
-<tr><th><a href="/us/q?stock_id=^SOX" data-ylk="elm:itm;elmt:link;itc:0">費城半導體</a></th><td class="dx">1,966.98</td><td class="im"><span class="downi"><i>跌</i></span></td><td class="chg down"><span>29.47</span></td></tr>
+<tr><th><a href="/us/q?stock_id=^SOX" data-ylk="elm:itm;elmt:link;itc:0">費城半導體</a></th><td class="dx">2,169.61</td><td class="im"><span class="upi"><i>漲</i></span></td><td class="chg up"><span>61.00</span></td></tr>
 </tbody>
  </table>
   </div> 
@@ -699,7 +699,7 @@ function stockmenu_submit (form)
  <cite><div id="ystkchatwtb-more"><a href="/us/worldidx.php" data-ylk="slk:more;elm:itm;elmt:link;itc:0">更多</a></div></cite>
  <div class="ft"><div></div></div>
   <script>
-    installYstkInnerTabBrowsing(2);
+    installYstkInnerTabBrowsing(1);
 
     // handle link views
     var tracked_mods = {
@@ -745,10 +745,10 @@ function stockmenu_submit (form)
     });
 
     // send first sight tab interaction
-    var currentTab = tabs[2];
+    var currentTab = tabs[1];
 
     if (currentTab) {
-      tabBeaconOnClick(currentTab, 2 + 1);
+      tabBeaconOnClick(currentTab, 1 + 1);
     }
 
     // also need to trigger link interaction when other redirection units in the same row is clicked
@@ -815,20 +815,20 @@ function stockmenu_submit (form)
  <tr>
  <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="2" id="headlineTable">
  <tr>
- <td id="headlineTitle" valign="top"><span class="title"><strong><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:5b908b64-e61d-3974-9dbf-049c2dffe4e0" href="/news/和泰車飆新天價-市值首見衝破4000億元超車中信金和台灣大-042719726.html" hpp="Headline_1">和泰車飆新天價 市值首見衝破4000億</a></strong></span><span class="t1">（鉅亨網 12:27）</span> </td>
+ <td id="headlineTitle" valign="top"><span class="title"><strong><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:dccde570-03ba-3c82-9014-d742798a1cc0" href="/news/%E5%8F%B0%E7%A9%8D%E9%9B%BB%E7%BA%8C%E5%AF%AB%E9%A9%9A%E5%96%9C-8%E6%9C%88%E7%87%9F%E6%94%B6%E5%86%8D%E8%A1%9D%E6%AD%B7%E5%8F%B2%E6%96%B0%E9%AB%98-060142509.html" hpp="Headline_1">台積電續寫驚喜 8月營收再衝歷史新高</a></strong></span><span class="t1">（Yahoo奇摩（即時新聞） 14:01）</span> </td>
  </tr>
  <tr>
- <td id="headlineDetail" height="50" valign="top"><span class="mbody">和泰車飆新天價 市值首見衝破 4000 億元超車中信金和台灣大...</span><span class="mbody">(<a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:5b908b64-e61d-3974-9dbf-049c2dffe4e0" href="/news/和泰車飆新天價-市值首見衝破4000億元超車中信金和台灣大-042719726.html" hpp="Headline_1">詳全文</a>)</span></td>
+ <td id="headlineDetail" height="50" valign="top"><span class="mbody">晶圓代工廠台積電8月業績表現亮麗，營收達新台幣1228.78億元，一舉創下單月歷史新高紀錄...</span><span class="mbody">(<a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:dccde570-03ba-3c82-9014-d742798a1cc0" href="/news/%E5%8F%B0%E7%A9%8D%E9%9B%BB%E7%BA%8C%E5%AF%AB%E9%A9%9A%E5%96%9C-8%E6%9C%88%E7%87%9F%E6%94%B6%E5%86%8D%E8%A1%9D%E6%AD%B7%E5%8F%B2%E6%96%B0%E9%AB%98-060142509.html" hpp="Headline_1">詳全文</a>)</span></td>
  </tr> <tr>
  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" id="headlineSubtitles"><tbody id="headlineInnerContainer"> <tr>
  <td width="8" class="stext style2" valign="top">&#9642;</td>
- <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:85a4172a-969c-3341-aa78-0caaa5535052" href="/news/半導體-q3旺季看俏-日月光投控飆4月新高-052301915.html" hpp='Headline_2'>Q3旺季看俏 日月光投控飆4月新高</a></span><span class="t1">（時報資訊 13:23）</span></td>
+ <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:f29579d9-1204-3a0c-8465-130df8528fd9" href="/news/dj%E5%9C%A8%E7%B7%9A-%E6%96%B0%E5%9B%BA%E5%BB%A2%E6%B3%95%E4%B8%8A%E8%B7%AF-%E6%A6%AE%E6%88%90%E7%BF%BB%E8%BA%AB-%E6%AD%A3%E9%9A%86%E6%88%B0%E6%96%B0%E9%AB%98-025600402.html" hpp='Headline_2'>《DJ在線》新固廢法上路，榮成翻身、正隆戰新高</a></span><span class="t1">（Moneydj理財網 10:56）</span></td>
  </tr> <tr>
  <td width="8" class="stext style2" valign="top">&#9642;</td>
- <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:ac051d70-ae8b-3bf2-8bfc-2177d77286e6" href="/news/熱門族群-需求蠢蠢欲動-太陽能族群發光-051036000.html" hpp='Headline_3'>需求蠢蠢欲動  太陽能族群發光</a></span><span class="t1">（時報資訊 13:10）</span></td>
+ <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:b96b82a7-0267-3b50-b1eb-a13001af684a" href="/news/%E7%9B%A4%E5%BE%8C%E8%A7%A3%E6%9E%90-%E9%9B%BB%E5%8A%9B%E4%B8%8D%E8%B6%B3-%E6%9C%88%E7%B7%9A%E6%9C%AA%E9%81%8E-055849813.html" hpp='Headline_3'>《盤後解析》電力不足 月線未過</a></span><span class="t1">（時報資訊 13:58）</span></td>
  </tr> <tr>
  <td width="8" class="stext style2" valign="top">&#9642;</td>
- <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:d71fb769-7bff-3151-9c80-76df84d815f9" href="/news/同欣電併購勝麗效益第3季顯現-毛利率可望上揚-051233110.html" hpp='Headline_4'>同欣電併購勝麗效益第3季顯現 毛利率可望上揚</a></span><span class="t1">（中央社 13:12）</span></td>
+ <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:重大要聞;elm:hdln;g:7f496491-3378-3f8c-9949-e52de6f72ee3" href="/news/%E7%AD%86%E9%9B%BB%E9%9C%80%E6%B1%82%E5%BC%B7-%E8%98%8B%E6%9E%9C%E5%A4%A7%E8%BF%BD%E5%96%AE-%E5%85%86%E5%88%A9%E8%A8%82%E5%96%AE%E6%97%BA%E5%88%B0-10-%E6%9C%88%E5%BA%95-043042674.html" hpp='Headline_4'>筆電需求強 蘋果大追單 兆利訂單旺到 10 月底</a></span><span class="t1">（鉅亨網 12:30）</span></td>
  </tr>
 </tbody>
 <tfoot>
@@ -838,7 +838,7 @@ function stockmenu_submit (form)
  <td valign="top">
      <div class="geminiAd">
         <div class="nativeAd">
-          <a href="https://beap.gemini.yahoo.com/mbclk?bv=1.0.0&es=371aAcMGIS.8UroSVyaz9fUxL9n79sr_ugHGoKpQFlSnjcOttUCem4hMJcymEcXK_kSh8I3hIvaUCGUQ6_llIFHwdwJfjWsem3sYj49_KpgntNZem0si_uODKYeCCGemkEEb7WUtxhOcQ7UbXqHxW2hxMshD1AMcSOWFkbZvvfVRQADVBSs97tRVl_ITqM8ISVDrY59AavCs_P6v7hMFC6.iuHtvZnxVljsxpKkqLPNVzfBoK78lVlHIYfCkGD7fwVDRS6K93JFvDePb0fSBaEilaW0CihMENbu5yMopucYEfMTvKavXCF23Fz94bH7XBcgnoZ1W8QA_0INRbO3n_TFiIFaKBWMwmMLkFlnn9OVJaVa6bH0flqYU._KTVVBjwUxdVu9LHtCDKkIqiqzuE2FmrIfst3GlqBkqprjj0BkTNIhsMUe4DQbiP0eQVFHgMcB9MagyGrqJVbtlqg4F1uc4d_cBywB4QbT_KF0XRRmwxS_F7NGisdm2ne9Qb.80JJHnDfzpp7ul588R.6OVtEVxDmmGg3GH2RWa1ntMC62nC45cnTOTd001BUOL2vlQzbREp6VW49e.UMJHP7e_YJxSbBHzD2unLhDFnOfUaR.QPwt4frkEItEeqz3FxBYaf_CHLGTz1XWsAI8sQNNNZ9O92hyrsvnSol3QD5kNCV4lENRcqwI4yxvmQKoGhaK3slBQ4FaLGshKqbEzXB_PWsgxWh1tQVSV6nKZP1oq91re.Hkl6n3eioFctzlzWUi1bg1YLjH1gxAb0k383mc2qop.BP8R1L2g13HR0aeL2fjaf0Im5HBJrNONaQVUhO0iuxrA%26lp=" target="_blank">&#12304;&#27599;&#26376;&#65297;&#65299;&#65304;&#20803;&#12305;&#20778;&#36074;&#19978;&#32178;&#21507;&#21040;&#39165;&#9658;&#36229;&#21830;&#19968;&#27425;&#36774;&#22909;&#26368;&#21083;&#22909;</a>
+          <a href="https://b.gemini.yahoo.com/mbclk?bv=1.0.0&es=Oxr.xqkGIS_gxzF_MGd3y.FGTBHhi0uekQiTKLvWdhX_tSACdSn4OeFF1KocEkpdaVBO1wUUse8r4tRR0Vx7eL2dH.weQ3l9lGUSS6TbABNKMx3oLcfvAxjlF2bv_2DXRrGstWHGXSnCbT_yFhxgG0MlT4EB2K8PVxHTKYiCQr3PPd.tqyTYscSKuQvOoPjxSkuF5c873PQ3WTMTfhqD9jfLHx.TND.I4U0OZsQFSSKJ9MQjNwcJThwVqXV71MTqYmDuEEogwFaHUHDtEiyoQbUlGz.QEZXeVE8UNbS2czU_658o4wGwtAUpOyKduzp_K3Pvtuf0ZukHPVtohnW7m.5TiiRjD8vWr9dIcmfw0sjlNIhzv_NyG0qrKNaEScBl5ftk54YXgWSuGhFX7WYLXT4.1rfFhBDc4gRjY5mKmqZlgq9v.48WdSTZyTXYSpmKFAk5EbQVuC0Qqa1VeOqMDIJvdDQZijywEOrVi1NN_jMftJ8jqQb6DvbHfmEj3irxo771CsnYyHaxp3cIJsM2DI35eTxBCx.wMWP55Reu54AXTLHhFD2yidiW1gDJgrhUje6Vydf7EwkRAMinch4h.GGFu8Dwdd1p" target="_blank">&#39318;&#20184;68&#33836;&#36215;2&#25151;&#65291;&#24179;&#38754;&#36554;&#20301;&#65292;&#26089;&#40165;&#38480;&#23450;&#32080;&#27083;&#24037;&#31243;0&#20184;&#27454;</a>
         </div>
         <div class="dollar">
           <a href="https://tw.emarketing.yahoo.com/ysmacq/project.html" target="_blank">
@@ -846,7 +846,7 @@ function stockmenu_submit (form)
         </div>
         <div class="t1">
            <span class="sponsored">Sponsored</span>
-           <span>Gt&#26234;&#24935;&#29983;&#27963;</span>
+           <span>&#33707;&#20839;&#33457;&#22290;</span>
         </div>
       </div>
 </td>
@@ -966,13 +966,13 @@ document.addEventListener('DOMContentLoaded', function() {
  <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="itemTable"><tbody id="researchNewsInner">
  <tr class="newsItem">
  <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
- <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:研究報告;elm:hdln;g:2404050b-b33c-3f13-912c-fbbe44f6d9ac" href="/news/法人觀點-匯豐銀行預期全球經濟進入分段重啟和u型復甦-h2加重配置全球股票-082340114.html">法人觀點：匯豐銀行預期全球經濟進入分段重啟和U型復甦，H2加重配置全球股票</a></span><span class="t1">（財訊快報 16:23）</span></td>
+ <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:研究報告;elm:hdln;g:d3fed83a-dec3-367d-9302-2f0493f345d3" href="/news/%E5%88%A5%E6%80%A5%E8%91%97%E9%80%A2%E4%BD%8E%E8%B2%B7%E9%80%B2-%E5%88%86%E6%9E%90%E5%B8%AB%E7%A8%B1-%E8%82%A1%E5%B8%82%E5%B0%9A%E6%9C%AA%E8%A7%B8%E5%BA%95-%E6%B3%A2%E5%8B%95%E6%8C%81%E7%BA%8C%E8%87%B3%E5%A4%A7%E9%81%B8-070017871.html">別急著逢低買進！分析師稱：股市尚未觸底、波動持續至大選</a></span><span class="t1">（鉅亨網 15:00）</span></td>
  </tr> <tr class="newsItem">
  <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
- <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:研究報告;elm:hdln;g:a5e499c3-cc2b-32bc-a4e6-e04f4e6c8cf3" href="/news/每日外資外匯觀點-經濟數據強勁表現-愈來愈不利美元走勢-073042462.html">〈每日外資外匯觀點〉經濟數據強勁表現 愈來愈不利美元走勢</a></span><span class="t1">（鉅亨網 15:30）</span></td>
+ <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:研究報告;elm:hdln;g:bf80715d-035f-371e-bf78-2c87d3d39219" href="/news/%E6%B2%92%E6%AF%94%E8%BC%83%E6%B2%92%E5%82%B7%E5%AE%B3-%E5%88%86%E6%9E%90%E5%B8%AB-slack%E6%88%90%E9%95%B7%E4%BB%8D%E9%AB%98%E6%96%BC%E5%B9%B3%E5%9D%87-%E5%B8%82%E5%A0%B4%E8%B7%8C%E5%A4%AA%E7%8B%A0-055014881.html">沒比較沒傷害！分析師：Slack成長仍高於平均 市場跌太狠</a></span><span class="t1">（鉅亨網 13:50）</span></td>
  </tr> <tr class="newsItem">
  <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
- <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:研究報告;elm:hdln;g:179ffd7d-91f5-3126-8fa4-e0b7b85639ff" href="/news/難撼港地位-星交易所爆下市潮-分析師指瀕存亡危機-054200879.html">難撼港地位？星交易所爆下市潮 分析師指瀕存亡危機</a></span><span class="t1">（Moneydj理財網 13:42）</span></td>
+ <td valign="top"><span class="mbody"><a data-ylk="itc:0;sec:研究報告;elm:hdln;g:cece35bb-ffd3-399d-a6f9-c8ef67d9c414" href="/news/%E7%A0%94%E7%A9%B6%E5%A0%B1%E5%91%8A-%E9%95%B7%E9%9D%92%E6%A8%B9%E5%B9%B3%E8%A1%A1%E5%9F%BA%E9%87%91-%E6%93%81%E6%94%B6%E7%9B%8A-%E6%8E%A7%E6%B3%A2%E5%8B%95-003532173.html">《研究報告》長青樹平衡基金 擁收益、控波動</a></span><span class="t1">（時報資訊 08:35）</span></td>
  </tr></tbody>
 <tfoot>
 <!-- native ads (2) start -->
@@ -980,7 +980,7 @@ document.addEventListener('DOMContentLoaded', function() {
  <td valign="top">
      <div class="geminiAd">
         <div class="nativeAd">
-          <a href="https://beap.gemini.yahoo.com/mbclk?bv=1.0.0&es=K6UodAMGIS_kKuq.v3JsHyu60hI8GI3GxpWMZvXhDC7fdZy.VhRxI8tAHOFx81NiBkSDbsWpJa9sRRj4fOuhZuRbicaHLvuBlPTNYFPsTNjP03SY.AxA8mT2jGd.MoOLJBfTo.lf63rRsh1UBKLKAmIiF1_xOjTZHzjNe_DsX4rxzlZGKpQgb1pozzv98yhMaZLwENH4OaEa8fUcPU.uq9J.mpVvrXaf3e5G.nOO1ylVNt7.IrpXQVV9k5q6bdsOR3.m1zn_U.arqglu8zKixe20e2KB7XbJ24p8cf9ZKJyAYxgxjCYI9gyHy3siwQQED2VCYZ3_n_Vn0HwWvqTaEHdsWUZTWcj3342Hby.okeMPWNbo78MEeTv4xZgFlRkgq7nv3PbsjveibGxa3Pmuwr1ntZgp12vHZoiDq7HtoOEB.TWcJAi9k_PM9sjP3QLPudnsZPgScM_adA5uPwUAGB_taQa.Vjyw.D4Vf391JvyWSw7C012CwSKj2v1Twisgub7wsTtHeE32WlNh1X1jT8tGYjj2nRr.ZJcxA7H5slkJElFgaiVR15Q8dFZK02IXmRc-%26lp=" target="_blank">&#39640;&#21697;&#36074;&#37509;&#24163;&#37956;&#36896; - &#23815;&#20809;&#37329;&#21697;</a>
+          <a href="https://b.gemini.yahoo.com/mbclk?bv=1.0.0&es=kWX9nW4GIS.5GxMFryhvWQCMOURyEGLUBO626lrfHk8S4h8B9VMHO2aCwOZX_RVxBjLnNHQbMLk3WPmXI6FiRaLa6tNPrtcgyF6jks0W6ni4OKPWZdle0siqf.e7a3LfB.gnskMxQlFchdtY9M_YE7nPOrC6h7oxWq_QR2Nv5_XQc1BiLUER7o43LnVyhD5dJtblQVNc0PIH_HMBnAPKzZtc4d8KTUNG5VBWNQEPanjds2.AX16W8C0.fD0iAikuOUknCwtoncOPHNCHPWXUTscMGmUqAnPebDIJ9pUIDyjCkIQ0ofXhFdXIdd9Y6j_XVMd5UHE8z_xu2dhdwjzPsb5ODUZn5LIZ2VA9DSYPmejUnfbDVnPcgBXNwTmVQzVzx1E92x5rTc.5_Hq2..3esoHsl_zbHjRe4QbkiWR.xlE6nraniQmY3fPC23zbUeSo1g3JLj9LTd8bLXoq8kJ3J.3OU4NXx9eVmhOJ_l1Et1zKRa29AA--" target="_blank">&#25105;&#35201;&#30332;&#21839;&#25277;&#26085;&#31435;&#23478;&#38651;&#65306;&#26009;&#29702;&#29200; &#21560;&#22645;&#22120; &#28900;&#31665;&#9658;&#31435;&#21363;&#21443;&#21152;</a>
         </div>
         <div class="dollar">
           <a href="https://tw.emarketing.yahoo.com/ysmacq/project.html" target="_blank">
@@ -988,7 +988,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="t1">
            <span class="sponsored">Sponsored</span>
-           <span>&#23815;&#20809;&#37329;&#21697;</span>
+           <span>&#26085;&#31435;&#23478;&#38651;</span>
         </div>
       </div>
 </td><!-- native ads (2) end -->
@@ -1017,22 +1017,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr>
 <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody id="M1NewsInner"><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:f772a00e-f0ef-3544-b15e-bdd10631f829" href="/news/台股下半年3大挑戰-謝金河-金管會該如何成為台灣下個避風港-030001190.html">台股下半年3大挑戰 謝金河：金管會該如何成為台灣下個避風港！</a></span><span class="t1">（今 周刊 11:00）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:e5ab961f-9e37-3627-857c-c15cd172c859" href="/news/%E5%8F%B0%E7%A9%8D%E9%9B%BB%E7%99%BB%E9%AB%98-%E5%91%BC%E5%8A%A9%E6%94%BB-%E5%8F%B0%E8%82%A1%E6%94%B6%E5%BE%A9%E7%9F%AD%E5%9D%87-%E6%BC%B283%E9%BB%9E%E6%94%B612691%E9%BB%9E-054252243.html">台積電登高一呼助攻 台股收復短均 漲83點收12691點</a></span><span class="t1">（鉅亨網 13:42）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:b65053c5-b07e-3a0c-95f0-4fb9007868d5" href="/news/櫃買中心-週四-2日-三大法人賣超前二十名上櫃股票-071505707.html">櫃買中心：週四(2日)三大法人賣超前二十名上櫃股票</a></span><span class="t1">（財訊快報 15:15）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:37fb9a27-ccfe-39fa-9c4a-1d629d52a99a" href="/news/%E5%8F%B0%E8%82%A1%E7%9B%A4%E5%BE%8C-%E5%8F%B0%E7%A9%8D%E9%9B%BB%E8%B5%B0%E5%A0%85-%E5%8F%B0%E8%82%A1%E6%BC%B283%E9%BB%9E%E6%94%B6%E5%BE%A9%E7%9F%AD%E6%9C%9F%E5%9D%87%E7%B7%9A-063428544.html">【台股盤後】台積電走堅 台股漲83點收復短期均線</a></span><span class="t1">（中央社 14:34）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:f4a905d8-e5c8-32c2-addb-6e96e0269939" href="/news/櫃買中心-週四-2日-三大法人買賣上櫃股票-覽表-071500928.html">櫃買中心：週四(2日)三大法人買賣上櫃股票一覽表(八)</a></span><span class="t1">（財訊快報 15:15）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:683dbf3f-9990-3d72-a444-f0749f92173a" href="/news/%E5%8F%B0%E8%82%A1%E7%9B%A4%E5%BE%8C-%E9%9B%BB%E5%AD%90%E8%82%A1%E9%87%8D%E5%95%9F%E6%BC%B2%E5%8B%A2-%E5%B0%8F%E6%BC%B2%E7%AB%99%E7%A9%A912600%E9%BB%9E-062239381.html">〈台股盤後〉電子股重啟漲勢 小漲站穩12600點</a></span><span class="t1">（鉅亨網 14:22）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:04a23433-b0b2-3bfe-80ab-31ab9ca204dd" href="/news/盤後解析-闖上11800-台股再攀高-062855375.html">《盤後解析》闖上11800 台股再攀高</a></span><span class="t1">（時報資訊 14:28）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:22daac76-c892-347c-b0d2-1c72ac50b363" href="/news/%E5%8F%B0%E5%8C%97%E8%82%A1%E5%B8%82-%E5%8F%B0%E7%A9%8D%E6%8E%A7%E7%9B%A4-%E9%9B%86%E5%9C%98%E8%82%A1%E4%BD%9C%E5%B8%B3-%E5%8F%B0%E8%82%A1%E7%99%BB%E9%AB%9812691-062227254.html">《台北股市》台積控盤、集團股作帳 台股登高12691</a></span><span class="t1">（時報資訊 14:22）</span></td>
 </tr><!--native ads (3,4,5,6) start -->
 </tbody> <td width="8" class="stext style2" valign="top">&#9642;</td>
  <td valign="top">
      <div class="geminiAd">
         <div class="nativeAd">
-          <a href="https://beap.gemini.yahoo.com/mbclk?bv=1.0.0&es=.uT7X2MGIS8K9DjrgLaXs6yW7cY6.lBrrMUtEOxhlIOrvs8QIs.hxow_XrpvEvBV7nswHO2P4g_eakXoQ5Ucxtkvg1aQVx1fBEGPZh30OnZcfGxlZFyD0qJ6iHDzFOD_EaadgOcVDNtuZ5de4swjo6nGqOil_Dq8UX8rRM3j_3G4GJ6YjV2h8rUCoA0tc9oehx5MeG36UokFXeet.TVF2sOIxWkvxnJ9hEqSFLUiXlYMS49g129OZmOh2lMD7BwsuoEsxW3LzWI4zHyjEMa8H5svuWgJ_Q4ttMYdn_Hw.SBlonFe0ZnKZVTD.0qpurt0Ro3gIry7MzlPWryJVwK1EFXA_hjgzxnMjIKrtcrsPzzXfs4Z9uts569aNdJyOK64KB60AX7dTkjd6kZuZ_kV8kdfmrcJaHOyTwtNLgpcs5s9s8.JJz6i2bklji8C0hoQiWL94KY.koN.PD5xuY00SuDnDTy0OjkqZmk2K3VWjOZxN1jDeaIupFwH9vs4HxIZGEeX3Ucxa1ouNOQL8iJWss6lQIx2td8si4PBNOfCp9LUevmT1E.ogsYYPky8fxv5wzuH9SjLUwY4bXadcYlmNq.HzMlwGcSS.dZGreJ39j8rC.uoI1XuBscG42b6gJ9sTdy44Sm.5Ku_ZTtTtgO28vgwdymrkruQ8WLx37JRHFoMQTMxguKgjCPyhOKA1pVUmT.3ELdL6laqHYMHc09oEFe6fvd.bVk-%26lp=" target="_blank">&#32819;&#27231;&#34987;&#38620;&#35338;&#20837;&#20405;&#65311;&#20140;&#26481;&#12302;&#34253;&#33469;&#22122;&#38477;&#32819;&#27231;&#12303;&#38480;&#26178;&#9658;&#21488;&#28771;&#20813;&#36939;</a>
+          <a href="https://b.gemini.yahoo.com/mbclk?bv=1.0.0&es=kHVns1EGIS._MovPa6EQJZKckOCUgvlS.Xi.65yDPf35uT8R0tEkEegxZfUo2zvuy0F5pflFfE.AsMK4U.z7NlAPRXIeaew1qhLQJotVglHSBnk72jLkHFdIaaCUAKa_jpT18uxAFSPgwpMbuefKVXwal3bfl4Gbg7rWjOmlGjAhlY5i6bBfelRSeo1n5.qBsvf1yz.om004HYTS5PkFUbfUAVx4nFW37oSvaMTloBmiI2__S.nXy0YoFEhH60xSmpUqSiMzlWe_sxax5uiKtNsCVpNeY7UT28r8AP2YZwMZPCjb5.4hp2cfotLg.Y9LDwK.RjwQxWL04a6UEaPMB6NuqK.GWqhYjabXg6b2pT_D6Qj47XDYM4lB6t8E3iEEDsdSuRmPlqhulFYRJLwF1zUpnTROJ0xyYR.qiwipOB3zGd.yd84WqVVw59JCkWDyJw_G8T4NNZnRhIdzeTS0GGv.qo3dYNM7bDZZOrw1wSVdy_7R" target="_blank">&#20843;&#24180;&#32026;&#29983;&#28818;&#21295;&#33268;&#23500;&#32147;&#27511;&#22823;&#26333;&#20809;&#65281;&#36090;&#37666;&#36889;&#40636;&#31777;&#21934;&#65311;</a>
         </div>
         <div class="dollar">
           <a href="https://tw.emarketing.yahoo.com/ysmacq/project.html" target="_blank">
@@ -1040,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="t1">
            <span class="sponsored">Sponsored</span>
-           <span>&#20140;&#26481;</span>
+           <span>&#25705;&#26031;&#26234;&#25237;</span>
         </div>
       </div>
 </td></table></td>
@@ -1067,22 +1067,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr>
 <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody id="M2NewsInner"><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:c7467028-2378-384e-a92a-54aaefd1979c" href="/news/槓桿操作要謹慎一不小心就gg-041631908.html">槓桿操作要謹慎！一不小心就GG</a></span><span class="t1">（黃逸強 12:16）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:1c81a2db-4e6f-3aa3-afe6-dceefeef9291" href="/news/%E4%BA%BA%E7%94%9F%E9%A2%A8%E9%9A%AA-%E8%AA%B0%E4%BE%86%E6%8E%A7%E7%AE%A1-061855622.html">人生風險 誰來控管？！</a></span><span class="t1">（歐陽姚 14:18）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:dc081cdf-c64f-3449-9d17-41a23e2160a2" href="/news/台股連三紅-站上-11800-點-挑戰-12000-點大關-091249906.html">台股連三紅 站上11800點 挑戰12000點大關</a></span><span class="t1">（精誠金融學院 17:12）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:21954169-0bbe-35e2-a678-a9a61af7f20f" href="/news/%E5%93%AA%E7%A8%AE%E6%8A%95%E8%B3%87%E5%92%8C%E4%BD%A0%E6%9C%80%E9%80%9F%E9%85%8D-071026070.html">哪種投資和你最速配？！</a></span><span class="t1">（黃珮婷 15:10）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:d3bee50f-f8cf-3fc0-aa11-670c40ebc868" href="/news/小心高配息陷阱尤其這-2-種類型不適合存股-055422390.html">小心高配息陷阱！尤其這2種類型不適合存股</a></span><span class="t1">（陳唯泰 13:54）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:b6a198b1-04af-3dcf-bade-53cfaa6bd3ea" href="/news/%E7%BE%8E%E8%82%A1%E4%B8%8B%E8%B7%8C%E7%9F%9B%E9%A0%AD%E6%8C%87%E5%90%91%E8%98%8B%E6%9E%9C%E7%89%B9%E6%96%AF%E6%8B%89%E8%83%8C%E5%BE%8C%E5%8E%9F%E5%9B%A0%E6%98%AF-054730563.html">美股下跌矛頭指向蘋果、特斯拉！背後原因是…</a></span><span class="t1">（陳唯泰 13:47）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:cdd9ea5f-9c82-370c-a2bd-296e9369375b" href="/news/月底月初可留意營收成長股-104416221.html">月底月初可留意「營收成長股」</a></span><span class="t1">（精誠金融學院 18:44）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:404ae2e8-9d43-3297-a1ab-80a788e5ef2f" href="/news/y%E6%8A%95%E8%B3%87%E9%A2%A8%E5%90%91%E7%90%83%E7%BE%8E%E5%9C%8B%E5%BC%B7%E5%8A%9B%E5%9C%8D%E5%A0%B5-%E4%B8%AD%E5%9C%8B%E5%9F%BA%E9%87%91%E4%B8%8D%E7%95%8F%E9%A2%A8%E6%9A%B4-032309224.html">Y投資風向球：美國強力圍堵 中國基金不畏風暴</a></span><span class="t1">（林奇芬 11:23）</span></td>
 </tr><!--native ads (3,4,5,6) start -->
 </tbody> <td width="8" class="stext style2" valign="top">&#9642;</td>
  <td valign="top">
      <div class="geminiAd">
         <div class="nativeAd">
-          <a href="https://beap.gemini.yahoo.com/mbclk?bv=1.0.0&es=twFwd_MGIS8eIxUgnaVX_3.LecSt72Uqc1z_B40II2ZRNGC5ci59RPxIQ7XLoesc6RW8MybD4EYHf1Bfbz1NGu_1gYAs24vO3rw2T1FvnA0YDQw4gb7eddc87Rt4QIwUmQqLPjTT2uSedlTop7bf_JvaYYfGoRH_Mk3ysFgTSbRBPEgr6rdGeLqV3Dc7Xy1TQNlFGwwwuuIj7cGkOFrFXVmySyTb7OL_a_1U8pz9W0lNh0eZGU_abK_JpSGGDP4hSsw5GiX_YGpvLCNXuIpuHT_yS.NMZpldit7vhOWX2Ygss2DWuWXvevw.BgPPJ6EZFdo2L_Gx2CfZxICe.z4fvcTO7SpajrtHB3TCjXC_numCMYr1C7y98rkYKphXrsFggAoRav4o9tyZ.lbtGwyOr04Oqbgf6ZoPyeG0E.8z2KuqhhxuA86N.bccvFevpiXix9soqTQyphlEgaOzxAfqPpQZ6Sg2n98xr8vRHGjAAwkEw.Br2BefI_J5EdNuTYg9BwYvoYxa22eD7lRDLliWYsWkqJ4WD2opR9AI1qHaiBmSZaPLCVwUoDaFPhnF0.xbxny5OGxkjQbyCLWoxJP1eZj8d.I2d6blShK9Vs_jsTWQyNME1lIPGLTCpjgpElpts2jOq.nYYQ--%26lp=" target="_blank">The Tiguan and The Touran&nbsp;&#25391;&#33288;10&#20493;&#20778;&#24800;</a>
+          <a href="https://b.gemini.yahoo.com/mbclk?bv=1.0.0&es=XpUb_IkGIS9uiqz4IWKUdMVdy1vd2f39x1oZdQDs1FnUuLQ5htBeRPRN4.unwg1Egc9pLJI1WBTYgdDLyi08ihfDcqysHDpFT5WUDQwBEe95qmVfiamddG55U.58SrV5xuPcI_QUvn7iG8cU3dmpNOuis5s0T3.3LrZZDVb32xz2jo546j5b38jfewfK2Cdodl7AKF_9CiBdlY5j7f78XMYrWow_tb9rgkT7VWwmw3guv8itsiScKSVlB9ud9INk4cxL1yOrt4fy003WvePcH6oRwp4Q7I7fKBclzZ46.VGUQojLJqDkdAch.6fKyuFE3FcTSw1CBxOehzYfVWcL4D32Mj7i0Uyie0HP5qAzd3Gb3EsJaxYgqn.Fcj0BdNoZE6tZtW1lD3WUrI2s1qVY2lV06V0dUqIvPafSff1IRSRa_B20pWXWug7IOFs4MYdg.ftAin6d3aUc02t62grByQfPAytDSq53AjgpVQBqtb9Y68RwW1RgDuURvsazs7nUjVK6cDq9bSuRNru36S55TfFJ8vK14zxCaWFJVjlZG_6bvf2UgfuO9mB5DBDS6PVkUSgZl2EJY47dq1Dyzh8Q39ahY_p.0fVIflllvAt05KSHKcZuqiwExQ--" target="_blank">&#26085;&#26376;&#20809;&#38598;&#22296;&#12304;&#23439;&#29855;&#27054;&#33775;&#12305;SRC&#37628;&#39592;&#21046;&#38663;&#37048;&#39318;&#29563;&#21103;&#37117;&#24515;&#65281;</a>
         </div>
         <div class="dollar">
           <a href="https://tw.emarketing.yahoo.com/ysmacq/project.html" target="_blank">
@@ -1090,7 +1090,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="t1">
            <span class="sponsored">Sponsored</span>
-           <span>Volkswagen</span>
+           <span>&#23439;&#29855;&#27054;&#33775;</span>
         </div>
       </div>
 </td></table></td>
@@ -1116,22 +1116,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr>
 <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody id="M3NewsInner"><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:66dbaebf-2f49-3908-9487-dfc3312565d3" href="/news/半夜預購三倍券遭拒-經濟部-超商只開放9時到22時-022535917.html">半夜預購三倍券遭拒 經濟部：超商只開放9時到22時</a></span><span class="t1">（中廣新聞網 10:25）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:8b294b32-cdf5-32e6-a52c-6c4c32a5ad1a" href="/news/%E8%B2%B7%E6%88%BF%E5%AD%90%E7%A9%BA%E8%91%97%E6%8A%97%E8%B7%8C-%E5%B0%88%E5%AE%B6-%E7%95%B6%E5%BF%83%E6%85%98%E8%B3%A0-062041709.html">買房子空著抗跌？專家：當心慘賠…</a></span><span class="t1">（三立新聞網 setn.com 14:20）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:def80ce2-57c9-3b23-9a93-b35d60a82cdd" href="/news/振興三倍券聰明用-業者建議信用卡回饋最優惠-141422073.html">振興三倍券聰明用 業者建議信用卡回饋最優惠</a></span><span class="t1">（中央社 22:14）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:503bd2fe-bdad-3813-a50f-446ba00d4fe6" href="/news/%E4%B8%AD%E7%A7%8B%E5%9C%8B%E6%85%B6%E9%80%A3%E5%81%87%E6%97%85%E9%81%8A%E6%BD%AE-%E4%BF%A1%E7%94%A8%E5%8D%A1%E5%8A%A0%E7%A2%BC%E5%A4%A7%E7%9C%81%E6%97%85%E8%B2%BB-232435554.html">中秋國慶連假旅遊潮　信用卡加碼大省旅費</a></span><span class="t1">（卡優新聞網 07:24）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:b7e885f7-cee2-3d60-9864-c57a40b2b401" href="/news/三倍券加碼優惠秒殺-李長庚看好信用卡業績成長-120417899.html">三倍券加碼優惠秒殺 李長庚看好信用卡業績成長</a></span><span class="t1">（中央社 20:04）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:6ad76b17-090e-36d8-9f8d-b93175e3db22" href="/news/%E4%BF%A1%E7%94%A8%E5%8D%A1%E7%B9%B3%E7%A8%85-%E5%A0%B1%E5%BE%A9%E6%80%A7%E6%B6%88%E8%B2%BB-7%E6%9C%88%E5%88%B7%E5%87%BA3626%E5%84%84%E5%85%83%E5%89%B5%E6%96%B0%E9%AB%98-%E4%B8%AD%E5%9C%8B%E4%BF%A1%E8%A8%97%E5%A5%AA%E5%88%B7%E5%8D%A1%E7%8E%8B-103025227.html">信用卡繳稅+報復性消費 7月刷出3626億元創新高 中國信託奪刷卡王</a></span><span class="t1">（鉅亨網 18:30）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:be66ab57-2dfe-32e6-bb7b-18c154d0c602" href="/news/爭搶三倍券加碼優惠-銀行辦信用卡電話暴增6倍-041349269.html">爭搶三倍券加碼優惠 銀行辦信用卡電話暴增6倍</a></span><span class="t1">（中央社 12:13）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:2cf1e626-0797-3974-ab09-bbbb88525e60" href="/news/%E9%96%8B%E7%AE%B1%E6%96%87-%E7%94%B3%E8%BE%A6%E5%87%B1%E5%9F%BA%E4%BF%A1%E7%94%A8%E5%8D%A1-%E4%B8%89%E4%BA%95%E6%AD%A6%E7%94%B0%E7%AD%8B%E6%91%A9%E6%A7%8D-%E6%AD%8C%E6%9E%97%E7%84%A1%E7%B7%9A%E8%97%8D%E7%89%99%E8%80%B3%E6%A9%9F%E9%80%81%E7%B5%A6%E4%BD%A0-041711190.html">【開箱文】申辦凱基信用卡，三井武田筋摩槍/歌林無線藍牙耳機送給你</a></span><span class="t1">（卡優新聞網 17:59）</span></td>
 </tr><!--native ads (3,4,5,6) start -->
 </tbody> <td width="8" class="stext style2" valign="top">&#9642;</td>
  <td valign="top">
      <div class="geminiAd">
         <div class="nativeAd">
-          <a href="https://beap.gemini.yahoo.com/mbclk?bv=1.0.0&es=6czm.S0GIS.kUpQNbDJSB6koLsINw0xnRUXsn7BrIGGxYI57igN23y17ERp6XLazJWTaK3ZLO43UIjM5JtM7prOoQAb_Z9oet5iSB6zTgM8p6kT_MAN5hTuAam5rKV6n6nNexxzBS4SN3P.yOBAedfyNKEQ_z2YohGIRhgkwuXyMLNgJQIfz2ptYfarIJdlBEqGqcZkLbFgaT5ziqxYIHjIKpdopIEFFyI4pkjtyk.S4Sar_JshReWd5dqtZpwM_Onq64c7oPUoTrdmzhGcAW7E41vmhjnnYLXubuaBQT69Jom3ixNQmaGpsNIGkozhqevdgXHhyd52kgIDAuB_7erVRBhS4IQ26W1nYr67WMXI9SyvwJklKJzkYJNJJsKYtZEekwyYVQiDw58u9Psva7gZEVIuUrr6dDoMe8WqG50O8CBSoBZvm0DPimOEytjx37CJ.zKLCKOmhWlfC8SGb61CDinNo6TOqk0tAx.OvP_ex1ydOIRn7HXlenydw.Af_bdAqsdvFsU1C6W52MJEYQF169JI3SGGiizRgDCW3XUViSp5RB1_vF9P3TbO9VywEXsDy_5XrYc_jKzr6sqY50ItHttcgHptOCOar6m.L5O33oQoYLSqb_ueO5UjjJA--%26lp=" target="_blank">&#20813;&#36027;&#23492;&#36865;&#33394;&#31080;&#65281;&#28961;&#27602;&#26032;&#22615;&#35037;&#12317;&#32654;&#22283;&#29872;&#20445;&#20083;&#33184;&#28422;&#12318;&#23621;&#23478;&#25563;&#26032;&#34915;&#9658;</a>
+          <a href="https://b.gemini.yahoo.com/mbclk?bv=1.0.0&es=aG912ncGIS.WbjCDmzWwF2rXjzohzsILLGHFnnW5PpXpZqfg.MST1kAFel0oJkXgiENPV24BO2aY0aeq13uqM_44aUNqPLFnDtMcwxMvjqQ7hwRP5ZOInRRRteUMUL7m1pxpXLI0mhX0ezg1m5mKxMnPNAvNX4Am8wPGxlBJ03gybZ1SQ1QYG2uDXt1E9gFjWZCFOYUPsV0KSa2FRYtrKgLL0XsEP2.pPPBYNWXuy_Kyecli9hyy9dIcYONjCVL8czqyJaYHCXJQWGO9STgoH7kI96IgCVYFp335vxY5XyHvq7Wb_wlO.XJ0dYdc6QEbp7JkJkx32HJM4m80O9wyjmvJo45j7r.1yDzUW9RQYuZxdDh8ee.w0z9sv_oaYT4hgFcDpAsPKZoziYg7K_BFQR9OSmR1xG3GfLH93zesCs5WkSxZ29UpslJSwsh7wzudJNxG0ztsuY0_R1hgP0nLWREoTubhOURWsAoYPdlpSwB0N1Xu2XIewXvdaq_0Ai76_tRs6F2A.Ai.Soi_E2M-" target="_blank">&#38283;&#23416;&#25505;&#36092;&#30475;&#36889;&#35041;&#65281;&#12298;Lenovo&#38283;&#23416;&#23395;&#12299;&#26368;&#39640;&#22238;&#39243;5000</a>
         </div>
         <div class="dollar">
           <a href="https://tw.emarketing.yahoo.com/ysmacq/project.html" target="_blank">
@@ -1139,7 +1139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="t1">
            <span class="sponsored">Sponsored</span>
-           <span>&#29677;&#20625;&#26126;&#25705;&#29246;</span>
+           <span>Lenovo</span>
         </div>
       </div>
 </td></table></td>
@@ -1165,22 +1165,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr>
 <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody id="M4NewsInner"><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:a5e499c3-cc2b-32bc-a4e6-e04f4e6c8cf3" href="/news/每日外資外匯觀點-經濟數據強勁表現-愈來愈不利美元走勢-073042462.html">經濟數據強勁表現 愈來愈不利美元走勢</a></span><span class="t1">（鉅亨網 15:30）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:c5ba797b-2f35-3364-b0c9-e68cb7dd5af6" href="/news/%E5%A6%96%E8%82%A1%E7%9A%84%E9%AD%94%E6%B3%95-%E7%89%B9%E6%96%AF%E6%8B%89%E9%81%8E%E5%BE%8019%E6%AC%A1%E9%87%8D%E6%8C%AB-%E7%B5%90%E5%B1%80%E9%83%BD%E8%AE%93%E6%8A%95%E8%B3%87%E4%BA%BA%E8%B6%85%E5%B9%B8%E7%A6%8F-063600892.html">妖股的魔法？ 特斯拉過往19次重挫 結局都讓投資人超幸福</a></span><span class="t1">（EBC東森新聞 14:36）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:8d59bfad-7496-30eb-9332-85a9adc64f02" href="/news/聯發科ai技術獲肯定-國際cvpr會議收錄論文-092746236.html">聯發科AI技術獲肯定  國際CVPR會議收錄論文</a></span><span class="t1">（中央社 17:27）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:364ef732-d2fb-3c61-8a20-7e31642e6817" href="/news/%E5%95%86%E6%83%85-%E9%BB%83%E9%87%91%E4%BA%9E%E6%B4%B2%E9%9B%BB%E5%AD%90%E7%9B%A4%E6%8C%81%E7%A9%A9-073947084.html">《商情》黃金亞洲電子盤持穩</a></span><span class="t1">（時報資訊 15:39）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:93501480-3b67-31be-895f-ad349535520d" href="/news/國際社會-新冠疫情止不住-印度確診破60萬-082540985.html">《國際社會》新冠疫情止不住 印度確診破60萬</a></span><span class="t1">（時報資訊 16:25）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:9cdfcb04-b088-322c-993d-ec5df7f7bb9a" href="/news/%E8%8F%AF%E9%80%9A%E7%99%BD%E9%8A%80-9%E6%9C%8810%E6%97%A5-%E8%99%9F%E5%9C%8B%E9%9A%9B%E7%99%BD%E9%8A%80%E6%BC%B296%E5%85%83-%E6%AF%8F%E5%85%AC%E6%96%A4%E6%94%B65934%E5%85%83%E4%BA%BA%E6%B0%91%E5%B9%A3-073933370.html">《華通白銀》9月10日一號國際白銀漲96元，每公斤收5934元人民幣</a></span><span class="t1">（時報資訊 15:39）</span></td>
 </tr><tr class="tableItem">
 <td width="8" valign="top"><span class="stext style2">&#9642;</span></td>
-<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:f035c636-9d9a-3b58-94ed-143fa1bb351c" href="/news/美股那斯達克指數收漲激勵-日股微幅收高-081025812.html">美股那斯達克指數收漲激勵 日股微幅收高</a></span><span class="t1">（中央社 16:10）</span></td>
+<td valign="top"><span class="mbody"><a data-ylk="itc:0;elm:hdln;g:29108788-6c30-3116-9a83-a97ce182a31d" href="/news/%E5%9C%8B%E9%9A%9B%E7%B6%93%E6%BF%9F-%E5%8F%83%E9%99%A2%E7%89%88%E6%96%B0%E7%B4%93%E5%9B%B0%E6%A1%88-%E4%B8%8D%E5%90%AB%E7%AC%AC%E4%BA%8C%E8%BC%AA%E6%94%AF%E7%A5%A8-072826204.html">《國際經濟》參院版新紓困案 不含第二輪支票</a></span><span class="t1">（時報資訊 15:28）</span></td>
 </tr><!--native ads (3,4,5,6) start -->
 </tbody> <td width="8" class="stext style2" valign="top">&#9642;</td>
  <td valign="top">
      <div class="geminiAd">
         <div class="nativeAd">
-          <a href="https://beap.gemini.yahoo.com/mbclk?bv=1.0.0&es=f_nnU1MGIS9PHjRSIYzM1maCS1bkBvI5.r4fStyoAcO76jqlCVWC6aBS20y_6L4tsGg4AygiEb.z5XOPbZ0aFHJH6JaG9BMlNRcFV2lZlBPaLpwWLdy469Sqho6rvwuipQj17jsHZHGHWUay9FAsNE9e5uwNWdEibQjfTsdV7wekg2E7TD8X.1Ncv8YKKTYa4JoSMMBMbTNkknSu8FHKHcEHWa2Fhp7D0.jCJikxAqr6YpM9W855GQRIe9xhmqddd5b1s.vxcxD3X3O0Vg3RRXvGeiJszM.tpg43ImBSCRT55UEeAOPauzf9RP58cr1jbCPqLTdvk52dF5rpZ7XlH.vt4y0ksqNTXJPvl2NDTdnQm8qVpv3mmpQZhUv5kKmJwfQ18HZfKm1wCXs9pMgY6P4VVRHPlN17FUKJ0XYRyd7EYzncqR8lK0IuEYmBk5RadDEq7axYseSWSsvX2GQdXuE2IGTE0KbOBAxjN3F5P1XAQ9i_w_MxzJKRZ0JzjxLCRDpAWjaVAuKv.D7yb1awhnLWSDP3reMHGnm9OUI6nWDzGjQSJnusxdGLFXCIxH_U8UrVFUpd2rv6LjjdN.YJl0dLPzx4Qs97dXwjLNYtrSt9CqB7IANYpDWl3Kjn.KV8lGAKEF4GijJtKdPgWRZ5FD5e.SWO46yylwKVJ3.ObSTo_ByUhPE6kD31tWsjxx2.heEv7JD1c9bGNkIr5Ep3_upS3Ge7hn_JYCnAeotfpo_RVpjtbhlP4ijATSSSQjOEqvVMXt4asT0ZF2PV0U4RDFDgcZAuxK6F9sv7XMJwxs1OBi2rPKy5RUlgckX6lTVZDUIuy41Rvi5phu0AKgVG2PhOyvnn_zY7ZAS6QtSEvek-%26lp=" target="_blank">&#21608;&#24188;&#23159;&#65306;&#25105;&#30340;&#20445;&#39178;&#37117;&#38752;&#23567;&#27224;&#29942;&#65281;&#32173;&#25345;&#24180;&#36629;&#19968;&#29942;&#23526;&#29694;</a>
+          <a href="https://b.gemini.yahoo.com/mbclk?bv=1.0.0&es=LYJniRwGIS.6BsAXazHUbyGLnDKiuBjlnbMst2XfPtrb3l0bbZG6lXurCUjWl9h7Q.7E1eph4eRvrVeIqJ4..HrCoQQuL7NfntDMecqPskUlrijmepvK4Z4mAkW9HCQ1PQyaZyGDIqX2kzmZYEacxfX.1brjuXJczslTfjQ2wDHm.AxSYoANmIm3a9tjWe53up71MXpddlS4UZeNUbsIPGYl_KdrBrWCnJUrY8l4z1ziVtxnkJl_..D5zE68uf.G4cFtwtrRj_ervPq3rLMkn6kr_obPaAXR6DNszYnhy8UJ0loH1.aNxMqPyCl7b0dleCVeoYrDqgsznDPcNcir4SuPMNJDkz5qz2ZA9QmKjgiwpXWDNWeG.YdDo3YoBurKx41OzWDFGFgRXUw7R9v9LszOKpslXeLodTGLnfP6u4Ac8o3l11Kms_H3O.WTyhrqDAWX8v1f28OqH6h8Y_AxOiKSJvFeLZlKx2gjXms4NYq.Qf_oFb5tivxiT6WfljutFp_reWxgLBd9iNhpW1jvFh_KoZ1NtJ9nsONOyVhcsO6vIQ2mQBuCUv3TECxWkjj9heDKV4i2jr9wSkFJnWpFQ_MtR3loEJuyL6.AHTepzii9dHeBKguIgMTGcZ15BEZovzalMeDERZl2nFvDA6t6pTt5W7_kCa3CZgBf0p.bNf0c0JU9LYMFXQ0meHIwC_iTgFT5FJb3Jhz1W31XDhRGnu1fmIWoumqQY7nfPV_Sr4uP6CvUMzBmcgi8HtHvbkhoTX9.OX5qmFC1S5OMuMlTyneD5TjC3Na0ZHzugtpiOcm_cgp4Tkuu_HNt" target="_blank">&#11093;&#26032;&#21271;&#36229;&#24375;&#39318;&#36092;&#12304;1288&#33836;&#65295;3&#25151;&#21547;&#36554;&#20301;&#12305;&#26185;&#21319;&#26377;&#25151;&#26063;&#9654;</a>
         </div>
         <div class="dollar">
           <a href="https://tw.emarketing.yahoo.com/ysmacq/project.html" target="_blank">
@@ -1188,7 +1188,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="t1">
            <span class="sponsored">Sponsored</span>
-           <span>&#19977;&#24471;&#21033;&#20581;&#24247;&#32178;&#36335;&#21830;&#24215;</span>
+           <span>Yahoo&#22855;&#25705;&#25151;&#22320;&#29986;</span>
         </div>
       </div>
 </td></table></td>
@@ -1283,7 +1283,7 @@ document.addEventListener('DOMContentLoaded', function() {
  </tr>
  <tr>
  <td>
-<a href="https://tw.news.yahoo.com/topic/2020tax" title="" ><img src="https://s.yimg.com/vd/ec-material/media_tw_twfinance/s_group_banner-g_banner2_config-f_banner_img-5ecf5fb6de8f6.gif" border="0" width="300"></a> </td>
+<a href="https://tw.news.yahoo.com/topic/moneyguide" title="" ><img src="https://s.yimg.com/vd/ec-material/media_tw_twfinance/s_group_banner-g_banner2_config-f_banner_img-5f02caf7c052a.jpg" border="0" width="300"></a> </td>
  </tr>
  <tr>
  <td height="10"></td>
@@ -1324,17 +1324,17 @@ document.addEventListener('DOMContentLoaded', function() {
  <th>%</th><th>量(張)</th></tr>
  </thead>
  <tbody>
- <tr class="o"><th><a href="/q/q?s=00677U" title="富邦VIX" data-ylk="elm:itm;elmt:qte;itc:0;cpos:1"><span>00677U</span>富邦VIX</a></th><td>5.94</td><td><span class="downi"><i>跌</i></span></td>
- <td><span class="down">0.26</span></td>
- <td><span class="down">-4.19%</span></td><td>412,512</td></tr> <tr class="e"><th><a href="/q/q?s=00632R" title="元大台灣50反1" data-ylk="elm:itm;elmt:qte;itc:0;cpos:2"><span>00632R</span>元大台灣50...</a></th><td>9.33</td><td><span class="downi"><i>跌</i></span></td>
- <td><span class="down">0.11</span></td>
- <td><span class="down">-1.17%</span></td><td>135,799</td></tr> <tr class="o"><th><a href="/q/q?s=00637L" title="元大滬深300正2" data-ylk="elm:itm;elmt:qte;itc:0;cpos:3"><span>00637L</span>元大滬深30...</a></th><td>19.22</td><td><span class="upi"><i>漲</i></span></td>
- <td><span class="up">0.78</span></td>
- <td><span class="up">+4.23%</span></td><td>112,351</td></tr> <tr class="e"><th><a href="/q/q?s=3481" title="群創" data-ylk="elm:itm;elmt:qte;itc:0;cpos:4"><span>3481</span>群創</a></th><td>7.95</td><td><span class="upi"><i>漲</i></span></td>
- <td><span class="up">0.07</span></td>
- <td><span class="up">+0.89%</span></td><td>106,819</td></tr> <tr class="o"><th><a href="/q/q?s=2409" title="友達" data-ylk="elm:itm;elmt:qte;itc:0;cpos:5"><span>2409</span>友達</a></th><td>9.48</td><td><span class="upi"><i>漲</i></span></td>
- <td><span class="up">0.25</span></td>
- <td><span class="up">+2.71%</span></td><td>102,593</td></tr> </tbody>
+ <tr class="o"><th><a href="/q/q?s=2409" title="友達" data-ylk="elm:itm;elmt:qte;itc:0;cpos:1"><span>2409</span>友達</a></th><td>12.25</td><td><span class="downi"><i>跌</i></span></td>
+ <td><span class="down">0.15</span></td>
+ <td><span class="down">-1.21%</span></td><td>336,258</td></tr> <tr class="e"><th><a href="/q/q?s=3481" title="群創" data-ylk="elm:itm;elmt:qte;itc:0;cpos:2"><span>3481</span>群創</a></th><td>10.15</td><td><span class="flati"><i>平盤</i></span></td>
+ <td><span class="flat">0.00</span></td>
+ <td><span class="flat">+0.00%</span></td><td>309,477</td></tr> <tr class="o"><th><a href="/q/q?s=6116" title="彩晶" data-ylk="elm:itm;elmt:qte;itc:0;cpos:3"><span>6116</span>彩晶</a></th><td>9.69</td><td><span class="ceili"><i>漲停</i></span></td>
+ <td><span class="ceil">+0.88</span></td>
+ <td><span class="ceil">+9.99%</span></td><td>248,075</td></tr> <tr class="e"><th><a href="/q/q?s=00632R" title="元大台灣50反1" data-ylk="elm:itm;elmt:qte;itc:0;cpos:4"><span>00632R</span>元大台灣50...</a></th><td>8.39</td><td><span class="downi"><i>跌</i></span></td>
+ <td><span class="down">0.05</span></td>
+ <td><span class="down">-0.59%</span></td><td>205,440</td></tr> <tr class="o"><th><a href="/q/q?s=2888" title="新光金" data-ylk="elm:itm;elmt:qte;itc:0;cpos:5"><span>2888</span>新光金</a></th><td>8.65</td><td><span class="upi"><i>漲</i></span></td>
+ <td><span class="up">+0.29</span></td>
+ <td><span class="up">+3.47%</span></td><td>169,361</td></tr> </tbody>
  </table>
  </div>
  <h3>成交值大</h3>
@@ -1353,17 +1353,17 @@ document.addEventListener('DOMContentLoaded', function() {
  <th>%</th><th>值(億)</th></tr>
  </thead>
  <tbody>
- <tr class="o"><th><a href="/q/q?s=2330" data-ylk="elm:itm;elmt:qte;itc:0;cpos:1"><span>2330</span>台積電</a></th><td>322.00</td><td><span class="upi"><i>漲</i></span></td>
- <td><span class="up">4.50</span></td>
- <td><span class="up">+1.42%</span></td><td>110.0548</td></tr> <tr class="e"><th><a href="/q/q?s=3406" data-ylk="elm:itm;elmt:qte;itc:0;cpos:2"><span>3406</span>玉晶光</a></th><td>753.00</td><td><span class="upi"><i>漲</i></span></td>
- <td><span class="up">20.00</span></td>
- <td><span class="up">+2.73%</span></td><td>80.0124</td></tr> <tr class="o"><th><a href="/q/q?s=4142" data-ylk="elm:itm;elmt:qte;itc:0;cpos:3"><span>4142</span>國光生</a></th><td>77.20</td><td><span class="upi"><i>漲</i></span></td>
- <td><span class="up">1.80</span></td>
- <td><span class="up">+2.39%</span></td><td>55.4380</td></tr> <tr class="e"><th><a href="/q/q?s=2327" data-ylk="elm:itm;elmt:qte;itc:0;cpos:4"><span>2327</span>國巨</a></th><td>377.00</td><td><span class="downi"><i>跌</i></span></td>
- <td><span class="down">2.50</span></td>
- <td><span class="down">-0.66%</span></td><td>35.7275</td></tr> <tr class="o"><th><a href="/q/q?s=2454" data-ylk="elm:itm;elmt:qte;itc:0;cpos:5"><span>2454</span>聯發科</a></th><td>574.00</td><td><span class="downi"><i>跌</i></span></td>
- <td><span class="down">3.00</span></td>
- <td><span class="down">-0.52%</span></td><td>34.5407</td></tr> </tbody>
+ <tr class="o"><th><a href="/q/q?s=2330" data-ylk="elm:itm;elmt:qte;itc:0;cpos:1"><span>2330</span>台積電</a></th><td>435.00</td><td><span class="upi"><i>漲</i></span></td>
+ <td><span class="up">+8.00</span></td>
+ <td><span class="up">+1.87%</span></td><td>150.6116</td></tr> <tr class="e"><th><a href="/q/q?s=3661" data-ylk="elm:itm;elmt:qte;itc:0;cpos:2"><span>3661</span>世芯-KY</a></th><td>415.00</td><td><span class="upi"><i>漲</i></span></td>
+ <td><span class="up">+14.50</span></td>
+ <td><span class="up">+3.62%</span></td><td>62.4770</td></tr> <tr class="o"><th><a href="/q/q?s=2454" data-ylk="elm:itm;elmt:qte;itc:0;cpos:3"><span>2454</span>聯發科</a></th><td>599.00</td><td><span class="upi"><i>漲</i></span></td>
+ <td><span class="up">+4.00</span></td>
+ <td><span class="up">+0.67%</span></td><td>43.5975</td></tr> <tr class="e"><th><a href="/q/q?s=2409" data-ylk="elm:itm;elmt:qte;itc:0;cpos:4"><span>2409</span>友達</a></th><td>12.25</td><td><span class="downi"><i>跌</i></span></td>
+ <td><span class="down">0.15</span></td>
+ <td><span class="down">-1.21%</span></td><td>42.2660</td></tr> <tr class="o"><th><a href="/q/q?s=2303" data-ylk="elm:itm;elmt:qte;itc:0;cpos:5"><span>2303</span>聯電</a></th><td>23.35</td><td><span class="downi"><i>跌</i></span></td>
+ <td><span class="down">0.35</span></td>
+ <td><span class="down">-1.48%</span></td><td>34.0998</td></tr> </tbody>
  </table></div>
  <div class="ft"><div></div></div>
  <script>
@@ -1744,4 +1744,4 @@ stockSiteRapid.addModules(tracked_mods);
      </script><!-- Gemini Ads Beacon -->
 <noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript><noscript><img src="" width="1" height="1" alt=""/></noscript></html>
 
-<!-- w217.finance.tp2.yahoo.com Thu Jul  2 12:23:52 UTC 2020 -->
+<!-- w206.finance.tw1.yahoo.com Thu Sep 10 07:56:34 UTC 2020 -->
