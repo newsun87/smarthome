@@ -122,11 +122,12 @@ def handle_message(event):
   print('profile...',profile)      
   if ref.child(base_users_userId+userId).get():
    print('database... exists')
+   #ref.child(base_users_userId + userId + '/youtube_music/').update({"state":"0"})
    state = ref.child(base_users_userId + userId + '/youtube_music/state').get()
    if state == 0:
     client.publish("music/userId", userId, 2, retain=True) #發佈訊息
     time.sleep(1)
-    client.publish("music/userId", '', 2, retain=True) #發佈訊息 
+    client.publish("music/userId", '', 2, retain=True) #發佈訊息
 	   
    print('state...', state)
   else:
