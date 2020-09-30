@@ -126,7 +126,7 @@ def handle_message(event):
    user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
    ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
    ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":"60"})
-   ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":""})
+   ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
    ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})
      
   global nlu_text
@@ -311,7 +311,7 @@ def handle_message(event):
         event.reply_token, confirm_template_message)     
       
   elif event.message.text == '歌曲資訊':      
-      users_userId_ref = ref.child('youtube_music/'+ userId)
+      users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music/')
       videourl = users_userId_ref.get()['videourl']   	        
       line_bot_api.reply_message(
       event.reply_token,
