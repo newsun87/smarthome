@@ -70,11 +70,18 @@ def getData():
   with open('record.txt','r', encoding = "utf-8") as fileobj:
     word = fileobj.read().strip('\n')
     print(word)  
-  return word
+  return word  
+  
+
+# 回應圖片的 imgurl    
+image_url = {'sticker_imag1':'https://i.imgur.com/GDsd8KJ.jpg'}
+host = 'https://liff.line.me/1654118646-4ANQr5B3'
+base_users_userId  = 'smarthome-bot/'
+ref = db.reference('/') # 參考路徑 	
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
-def callback():
+def callback():	
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -90,8 +97,6 @@ def callback():
         abort(400)
     return 'OK'
 
-# 回應圖片的 imgurl    
-image_url = {'sticker_imag1':'https://i.imgur.com/GDsd8KJ.jpg'}
 # 處理訊息
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event): 
@@ -109,9 +114,21 @@ def handle_image_message(event):
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-  ref = db.reference('/') # 參考路徑 	
-  userId = 'ypl'
-  users_userId_ref = ref.child('youtube_music/'+ userId)  
+  ref = db.reference('/') # 參考路徑 
+  userId = event.source.user_id
+  #print('userId...', userId)
+  #print('base_users_userId...',base_users_userId)
+  profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
+  print('profile...',profile)      
+  if ref.child(base_users_userId+userId).get():
+   print('database... exists')
+  else:
+   user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
+   ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
+   ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":"60"})
+   ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":""})
+   ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})
+     
   global nlu_text
   global imagga_api_key , imagga_secret_key  
   
@@ -208,7 +225,7 @@ def handle_message(event):
       split_array = event.message.text.split("~")
       volume = int(split_array [1])
       ref = db.reference('/') # 參考路徑  	
-      users_userId_ref = ref.child('smarthome/config')      
+      users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music')      
       users_userId_ref.update({'volume':volume})       
       message = TextSendMessage(text = '音量設定為： ' + split_array [1] + '%')
       line_bot_api.reply_message(event.reply_token, message)  
@@ -240,7 +257,8 @@ def handle_message(event):
 	  line_bot_api.reply_message(event.reply_token, buttons_template_message)	  
 	  
   elif event.message.text == 'music_play':
-      ref = db.reference('/') # 參考路徑      
+      ref = db.reference('/') # 參考路徑
+      users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music')            
       videourl = users_userId_ref.get()['videourl'] 
       line_bot_api.reply_message(
         event.reply_token,
@@ -323,7 +341,7 @@ def handle_message(event):
       split_array = event.message.text.split("~")
       language = split_array [1]
       ref = db.reference('/') # 參考路徑  	
-      users_userId_ref = ref.child('smarthome/config')
+      users_userId_ref = ref.child(base_users_userId + userId + '/translate/')
       if language == '英文':
         lang_text = 'en'        
       elif language == '日文':
@@ -346,7 +364,7 @@ def handle_message(event):
       split_array = event.message.text.split("~")
       text = split_array [1]      
       ref = db.reference('/') # 參考路徑  	
-      users_userId_ref = ref.child('smarthome/config/lang')      
+      users_userId_ref = ref.child(base_users_userId + userId + '/translate/lang')      
       language = users_userId_ref.get()
       print('language...', language)
       message = translation(text, language)      
@@ -359,7 +377,7 @@ def handle_message(event):
 # ----------------------------------------------------------------          
 
 from translate import Translator   
-baseurl = 'https://smarthome-123.herokuapp.com/static/'
+baseurl = host + '/static/'
 def translation(text, language):       
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)
@@ -1055,7 +1073,7 @@ def get_pm25(cityname): #取得 PM2.5資訊
          
 ref = db.reference('/') # 參考路徑  	
 userId = 'volume'
-users_userId_ref = ref.child('smarthome/config/'+ userId)
+users_userId_ref = ref.child(base_users_userId + '/config/'+ userId)
 volume_num = users_userId_ref.get() 
 print('volume....', volume_num)
 mqttmsg = str(volume_num )+ '%' 
@@ -1161,7 +1179,7 @@ def nlu(text): # 取得語意分析結果
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
               client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息
-         ref.child('smarthome/config').update({
+         ref.child(base_users_userId +'/youtube_music').update({
                'volume':volume_num}                
          )
          
@@ -1219,7 +1237,7 @@ def airbox_menu():
             actions = [ # action 最多只能4個喔！
                 URIAction(
                     label = '使用說明', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-LAoV1RPG'  
+                    uri = host + '/airbox'  
                 ),                 
                 PostbackAction(
                     label = '即時感測', # 在按鈕模板上顯示的名稱
@@ -1245,15 +1263,19 @@ def setup_menu():
             thumbnail_image_url = 'https://i.imgur.com/he05XcJ.png', 
             title = '系統設定選單',  # 你的標題名稱
             text = '請選擇：',  # 你要問的問題，或是文字敘述            
-            actions = [ # action 最多只能4個喔！                
-                PostbackAction(
-                    label = '音量設定', # 在按鈕模板上顯示的名稱
-                    data = 'volume'  
-                ), 
+            actions = [ # action 最多只能4個喔！
+                URIAction(
+                    label = 'LineNotify 連動設定', # 在按鈕模板上顯示的名稱
+                    uri = 'https://liff.line.me/1654118646-nPa4OL57'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                ),
                  PostbackAction(
                     label = '翻譯設定', # 在按鈕模板上顯示的名稱
                     data = 'translator'  
-                )              
+                ),                    
+                PostbackAction(
+                    label = '音量設定', # 在按鈕模板上顯示的名稱
+                    data = 'volume'  
+                )        
             ]
          )
         )
@@ -1269,11 +1291,11 @@ def music_menu(): #雲端音樂按鈕選單樣板
             actions = [ # action 最多只能4個喔！
                 URIAction(
                     label = '使用說明', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-nPa4OL57'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                    uri = host + '/music'  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
                 URIAction(
                     label = '網頁點歌', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-4ANQr5B3'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                    uri = host  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
                 # 跟上面差不多
                 MessageAction(
@@ -1300,7 +1322,7 @@ def appliances_menu():
             actions = [ # action 最多只能4個喔！
                 URIAction(
                     label = '使用說明', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-BEX5p8QD'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                    uri = host +'/appliances' # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
                 PostbackAction(
                     label = '智慧插座', # 在按鈕模板上顯示的名稱

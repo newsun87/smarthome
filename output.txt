@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1599725984897&sign=a3431afbe6993d20f0e3806569474f61&rq=我要聽歌手五月天的歌'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1601443707753&sign=e96fdd30bac782c22c3170cee88e2abb&rq=我要聽歌手鄧紫棋的歌'
 
 Here is the result:
 
-{"data":{"seg":"我 要 聽 歌手 五月 天 的 歌 "},"status":"ok"}
+{"data":{"seg":"我 要 聽 歌手 鄧 紫 棋 的 歌 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1599725985336&sign=0d93e84afabe092de01f70708a39597a&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手五月天的歌"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1601443708994&sign=85e746386f9382cc5ac48eda8bd076bd&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手鄧紫棋的歌"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放五月天的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手五月天的歌","slots":[{"name":"歌手名","value":"五月天"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放鄧紫棋的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手鄧紫棋的歌","slots":[{"name":"歌手名","value":"鄧紫棋"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
