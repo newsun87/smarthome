@@ -111,26 +111,37 @@ def handle_image_message(event):
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message)    
 
+
 # 處理文字訊息
+userId=''
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
+def handle_message(event):  
   ref = db.reference('/') # 參考路徑 
-  userId = event.source.user_id
-  #print('userId...', userId)
-  #print('base_users_userId...',base_users_userId)
+  userId = event.source.user_id  
   profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
   print('profile...',profile)      
   if ref.child(base_users_userId+userId).get():
    print('database... exists')
+   state = ref.child(base_users_userId + userId + '/youtube_music/state').get()
+   if state == 0:
+    client.publish("music/userId", userId, 2, retain=True) #發佈訊息
+    time.sleep(1)
+    client.publish("music/userId", '', 2, retain=True) #發佈訊息 
+	   
+   print('state...', state)
   else:
    user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
    ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
    ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":"60"})
+   ref.child(base_users_userId + userId + '/youtube_music/').update({"state":""})
    ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
    ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})
+   client.publish("music/userId", userId, 2, retain=True) #發佈訊息
+   time.sleep(1)
+   client.publish("music/userId", '', 2, retain=True) #發佈訊息 
      
   global nlu_text
-  global imagga_api_key , imagga_secret_key  
+  global imagga_api_key, imagga_secret_key  
   
 # -----雲端音樂 quickreply 的指令操作-------------- 
   if event.message.text.startswith('【youtube url】'):
@@ -993,7 +1004,6 @@ def switch_plug(deviceSN):
             message = TextSendMessage(text = "插座未連線.....") 
         return message
 
-#https://service.wf8266.com/api/mqtt/08630817/IRSend/ADu2FL4V7LdfprFNL9xpKkbVw873/15, 5
 def switch_infrared_device(IR_num): # 切換紅外線裝置
         URL_API_IRSend = '{host_url}/{SN}/IRSend/{KEY}/15,{value}'.format( 
 		   host_url = 'https://service.wf8266.com/api/mqtt', 
@@ -1071,9 +1081,9 @@ def get_pm25(cityname): #取得 PM2.5資訊
         print(message)
         return message 
          
-ref = db.reference('/') # 參考路徑  	
-userId = 'volume'
-users_userId_ref = ref.child(base_users_userId + '/config/'+ userId)
+ref = db.reference('/') # 參考路徑 
+userId = 'Ubf2b9f4188d45848fb4697d41c962591'
+users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music/volume')
 volume_num = users_userId_ref.get() 
 print('volume....', volume_num)
 mqttmsg = str(volume_num )+ '%' 
@@ -1179,7 +1189,7 @@ def nlu(text): # 取得語意分析結果
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
               client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息
-         ref.child(base_users_userId +'/youtube_music').update({
+         ref.child(base_users_userId + userId + '/youtube_music').update({
                'volume':volume_num}                
          )
          

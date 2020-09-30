@@ -1,1 +1,1 @@
-{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放鄧紫棋的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手鄧紫棋的歌","slots":[{"name":"歌手名","value":"鄧紫棋"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"音量已調小聲","status":0},"semantic":[{"app":"smarthome","input":"音量小聲一點","slots":[{"name":"音量","value":"小聲"}],"modifier":["adjust"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
