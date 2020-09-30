@@ -25,9 +25,11 @@ config = configparser.ConfigParser()
 config.read('smart_home.conf')
 
 #取得通行憑證
-cred = credentials.Certificate("serviceAccount.json")
+#cred = credentials.Certificate("serviceAccount.json")
+cred = credentials.Certificate("newsun87app-firebase-adminsdk-9xkh0-2e34b341b9.json")
 firebase_admin.initialize_app(cred, {
-    'databaseURL' : 'https://line-bot-test-77a80.firebaseio.com/'
+   # 'databaseURL' : 'https://line-bot-test-77a80.firebaseio.com/'
+	'databaseURL' : 'https://newsun87app.firebaseio.com/'	
 })
 
 weather_url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore'
@@ -134,7 +136,7 @@ def handle_message(event):
    user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
    ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
    ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":"60"})
-   ref.child(base_users_userId + userId + '/youtube_music/').update({"state":""})
+   ref.child(base_users_userId + userId + '/youtube_music/').update({"state":"0"})
    ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
    ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})
    client.publish("music/userId", userId, 2, retain=True) #發佈訊息
