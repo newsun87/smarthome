@@ -80,6 +80,7 @@ image_url = {'sticker_imag1':'https://i.imgur.com/GDsd8KJ.jpg'}
 host = 'https://liff.line.me/1654118646-4ANQr5B3'
 base_users_userId  = 'smarthome-bot/'
 ref = db.reference('/') # 參考路徑 
+singerList = []
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -117,38 +118,27 @@ def handle_image_message(event):
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event): 
-  global userId	 
+  global userId, nlu_text, imagga_api_key, imagga_secret_key, singerList  
   ref = db.reference('/') # 參考路徑 
   userId = event.source.user_id  
   profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
   print('profile...',profile)      
   if ref.child(base_users_userId+userId).get():
-   print('database... exists')
-   #ref.child(base_users_userId + userId + '/youtube_music/').update({"state":"0"})
-   state = ref.child(base_users_userId + userId + '/youtube_music/state').get()
-   if state == 0:
-    client.publish("music/userId", userId, 2, retain=True) #發佈訊息
-    time.sleep(1)
-    client.publish("music/userId", '', 2, retain=True) #發佈訊息
-	   
-   print('state...', state)
+   print('database... exists')  
   else:
    user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
    ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
    ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":60})
-   ref.child(base_users_userId + userId + '/youtube_music/').update({"state":"0"})
+   singerList = [0]
+   ref.child(base_users_userId + userId + '/youtube_music/favorsinger').set( singerList )   
    ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
-   ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})
-   client.publish("music/userId", userId, 2, retain=True) #發佈訊息
-   time.sleep(1)
-   client.publish("music/userId", '', 2, retain=True) #發佈訊息 
-     
-  global nlu_text
-  global imagga_api_key, imagga_secret_key  
+   ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"}) 
   
 # -----雲端音樂 quickreply 的指令操作-------------- 
   if event.message.text.startswith('【youtube url】'):
       new_message = event.message.text.lstrip('【youtube url】')
+      ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":videourl})
+      print("歌曲 {videourl} 更新成功...".format(videourl=new_message))
       line_bot_api.reply_message(
         event.reply_token, TextSendMessage(text="馬上播放 " + new_message))
       client.publish("music/youtubeurl", new_message, 2, retain=True) #發佈訊息
@@ -158,7 +148,9 @@ def handle_message(event):
   elif event.message.text.startswith('https://youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
-      TextSendMessage(text="馬上播放 " + event.message.text))      
+      TextSendMessage(text="馬上播放 " + event.message.text))
+      ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":event.message.text})
+      print("歌曲 {videourl} 更新成功...".format(videourl=event.message.text))      
       client.publish("music/youtubeurl", event.message.text, 2, retain=True) #發佈訊息 
       time.sleep(1)
       client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息     
@@ -166,11 +158,42 @@ def handle_message(event):
   elif event.message.text.startswith('https://www.youtube.com/watch?'):      
       line_bot_api.reply_message(
       event.reply_token,
-      TextSendMessage(text="馬上播放 " + event.message.text))      
+      TextSendMessage(text="馬上播放 " + event.message.text))
+      ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":event.message.text})
+      print("歌曲 {videourl} 更新成功...".format(videourl=event.message.text))          
       client.publish("music/youtubeurl", event.message.text, 2, retain=True) #發佈訊息
       time.sleep(1)
       client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息       
 # -----------------------------------------------------------------------
+# -------新增或刪除喜愛歌手功能-------------------------------
+  elif event.message.text.startswith('addsinger'): 
+      split_array = event.message.text.split("~")
+      singername = split_array [1]
+      print('singername..', singername)
+      favorsingerList = ref.child(base_users_userId + userId + '/youtube_music/favorsinger').get()
+      if singername not in favorsingerList: 
+        number = len(favorsingerList)
+       # print( 'number...', number) 
+        ref.child(base_users_userId + userId + '/youtube_music/favorsinger').update({number:singername})
+        message = TextSendMessage(text="新增喜愛的歌手 " + singername + " 已成功" )  
+      else:
+        message = TextSendMessage(text="歌手已在清單中...")           
+      line_bot_api.reply_message(event.reply_token, message)
+  elif event.message.text.startswith('delsinger'): 
+      split_array = event.message.text.split("~")
+      singername = split_array [1]
+      print('singername..', singername)
+      favorsingerList = ref.child(base_users_userId + userId + '/youtube_music/favorsinger').get()
+      if singername in favorsingerList:
+       for key in range(len(favorsingerList)):
+        if favorsingerList[key] == singername:
+         print(key)       
+         ref.child(base_users_userId + userId + '/youtube_music/favorsinger').update({key:None})
+         message = TextSendMessage(text="刪除喜愛的歌手 " + singername + " 已成功" )  
+      else:
+        message = TextSendMessage(text="歌手不在清單中...")           
+      line_bot_api.reply_message(event.reply_token, message)          
+# ----------------------------------------------------------------------- 
 # -------地區天氣查詢功能-------------------------------
   elif event.message.text.startswith('weather'): 
       split_array = event.message.text.split("~")
@@ -613,10 +636,6 @@ def getQuickReply_music_work():
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
-            action = MessageAction(label = "重新開機", text = "player_restart"),
-            image_url = 'https://i.imgur.com/mtQhzCP.png'
-          ),
-          QuickReplyButton(
             action = MessageAction(label = "停止播放", text = "停止播放"),
             image_url = 'https://i.imgur.com/PEHPvG8.png'
           ),
@@ -673,66 +692,22 @@ def getQuickReply_camera_work():
       )
 	return QuickReply_text_message	
 	
-def getQuickReply_music():
+def getQuickReply_music():	 
+	singerList = ref.child(base_users_userId + userId + '/youtube_music/favorsinger').get() 
+	items = []
+	# 動態加入歌手清單
+	for key in range(len(singerList)):	
+	 items.append(QuickReplyButton(
+            action = MessageAction(label = singerList[key], text = "我要聽歌手"+singerList[key]+"的歌"),
+            image_url = 'https://i.imgur.com/0yjTHss.png'
+     ))
+            
 	QuickReply_text_message = TextSendMessage(
        text="點選你喜歡的音樂",
-       quick_reply = QuickReply(
-        items = [
-          QuickReplyButton(
-            action = MessageAction(label = "張惠妹", text = "我要聽歌手張惠妹的歌"),
-            image_url = 'https://i.imgur.com/0yjTHss.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "張信哲", text = "我要聽歌手張信哲的歌"),
-            image_url = 'https://i.imgur.com/Q3lUQJa.png'
-          ),
-           QuickReplyButton(
-            action = MessageAction(label = "田馥甄", text = "我要聽歌手田馥甄的歌"),
-            image_url = 'https://i.imgur.com/0yjTHss.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "鄧紫棋", text = "我要聽歌手鄧紫棋的歌"),
-            image_url = 'https://i.imgur.com/0yjTHss.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "藍又時", text = "我要聽歌手藍又時的歌"),
-            image_url = 'https://i.imgur.com/0yjTHss.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "李玖哲", text = "我要聽歌手李玖哲的歌"),
-            image_url = 'https://i.imgur.com/Q3lUQJa.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "蔡藍欽", text = "我要聽歌手蔡藍欽的歌"),
-            image_url = 'https://i.imgur.com/Q3lUQJa.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "伍佰", text = "我要聽歌手伍佰的歌"),
-            image_url = 'https://i.imgur.com/Q3lUQJa.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "陳奕迅", text = "我要聽歌手陳奕迅的歌"),
-            image_url = 'https://i.imgur.com/sC1Xf98.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "郁可唯", text = "我要聽歌手郁可唯的歌"),
-            image_url = 'https://i.imgur.com/0yjTHss.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "浪漫", text = "我要聽浪漫的歌"),
-            image_url = 'https://i.imgur.com/bwOyWxe.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "抒情", text = "我要聽抒情的歌"),
-            image_url = 'https://i.imgur.com/bwOyWxe.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "鋼琴", text = "我要聽鋼琴音樂的歌"),
-            image_url = 'https://i.imgur.com/bwOyWxe.png'
-          )                        
-        ]
+       quick_reply = QuickReply(        
+         items 
        )
-      )
+    )
 	return QuickReply_text_message
 	
 def getQuickReply_weather():
@@ -1321,7 +1296,7 @@ def music_menu(): #雲端音樂按鈕選單樣板
                 ),
                 # 跳轉到URL
                 MessageAction(
-                    label = '歌曲播放選項',  # 在按鈕模板上顯示的名稱
+                    label = '歌曲播放',  # 在按鈕模板上顯示的名稱
                     text = 'menu'
                 )
             ]
