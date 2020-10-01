@@ -1,1 +1,1 @@
-{"data":{"nli":[{"desc_obj":{"result":"音量已調小聲","status":0},"semantic":[{"app":"smarthome","input":"音量小聲一點","slots":[{"name":"音量","value":"小聲"}],"modifier":["adjust"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"音量已調最小聲","status":0},"semantic":[{"app":"smarthome","input":"音量最小聲","slots":[{"name":"音量","value":"最小聲"}],"modifier":["adjust"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}

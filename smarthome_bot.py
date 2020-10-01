@@ -25,11 +25,11 @@ config = configparser.ConfigParser()
 config.read('smart_home.conf')
 
 #取得通行憑證
-#cred = credentials.Certificate("serviceAccount.json")
-cred = credentials.Certificate("newsun87app-firebase-adminsdk-9xkh0-2e34b341b9.json")
+cred = credentials.Certificate("serviceAccount.json")
+#cred = credentials.Certificate("newsun87app-firebase-adminsdk-9xkh0-2e34b341b9.json")
 firebase_admin.initialize_app(cred, {
-   # 'databaseURL' : 'https://line-bot-test-77a80.firebaseio.com/'
-	'databaseURL' : 'https://newsun87app.firebaseio.com/'	
+   'databaseURL' : 'https://line-bot-test-77a80.firebaseio.com/'
+	#'databaseURL' : 'https://newsun87app.firebaseio.com/'	
 })
 
 weather_url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore'
@@ -79,7 +79,7 @@ def getData():
 image_url = {'sticker_imag1':'https://i.imgur.com/GDsd8KJ.jpg'}
 host = 'https://liff.line.me/1654118646-4ANQr5B3'
 base_users_userId  = 'smarthome-bot/'
-ref = db.reference('/') # 參考路徑 	
+ref = db.reference('/') # 參考路徑 
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -115,9 +115,9 @@ def handle_image_message(event):
 
 
 # 處理文字訊息
-userId=''
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):  
+def handle_message(event): 
+  global userId	 
   ref = db.reference('/') # 參考路徑 
   userId = event.source.user_id  
   profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
@@ -135,7 +135,7 @@ def handle_message(event):
   else:
    user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
    ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
-   ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":"60"})
+   ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":60})
    ref.child(base_users_userId + userId + '/youtube_music/').update({"state":"0"})
    ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
    ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})
@@ -1077,19 +1077,19 @@ def get_pm25(cityname): #取得 PM2.5資訊
       for item in data_list:
        if cityname == item["County"]:
         PM25 = PM25 + int(item["PM2.5"])
-        count = count+1
-       
+        count = count+1       
         message = "全台灣共有%d個測站，在%s共有%d個測站, PM2.5平均值為%f"\
            % (len(data_list), cityname, count, round(PM25/count))
         print(message)
         return message 
          
-ref = db.reference('/') # 參考路徑 
-userId = 'Ubf2b9f4188d45848fb4697d41c962591'
+"""ref = db.reference('/') # 參考路徑
+print('userId ...',userId)
+#userId = 'Ubf2b9f4188d45848fb4697d41c962591'
 users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music/volume')
 volume_num = users_userId_ref.get() 
 print('volume....', volume_num)
-mqttmsg = str(volume_num )+ '%' 
+mqttmsg = str(volume_num )+ '%' """
             
 def random_int_list(num):
   list = range(1, num)
@@ -1098,7 +1098,7 @@ def random_int_list(num):
   return random_list
   
 def nlu(text): # 取得語意分析結果
-  global nlu_text, songnum, songkind, client, genUrl_state, volume_num	
+  global nlu_text, songnum, songkind, client, genUrl_state	
   cmd = './olami-nlu-api-test.sh https://tw.olami.ai/cloudservice/api 8bd057135ec8432bb7bd2b2caa510aca 3fd33f86b57642c08fbea22f8eb9132d %s'     
   output = os.popen(cmd % text) #點歌語意      
   fp = open("output.txt", "w")  
@@ -1163,10 +1163,14 @@ def nlu(text): # 取得語意分析結果
         return message         
 
     if action == 'adjust': #調整音量
+         #userId = 'Ubf2b9f4188d45848fb4697d41c962591'
+         users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music/volume')
+         volume_num = users_userId_ref.get()         
          volume = temp['data']['nli'][0] ['semantic'][0]['slots'][0]['value']         
          nlu_text = temp['data']['nli'][0]['desc_obj']['result']
          print('nlu', nlu_text)
          if volume == '大聲':
+             print("volume....",volume_num)
              volume_num = volume_num + 10            
              print("volume_num ", volume_num )
              volume_str = str(volume_num )+'%'
@@ -1192,10 +1196,10 @@ def nlu(text): # 取得語意分析結果
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
               client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息
+         print('volume....', volume_num)      
          ref.child(base_users_userId + userId + '/youtube_music').update({
                'volume':volume_num}                
-         )
-         
+         )         
          message = TextSendMessage(text = nlu_text)
          return message                 
    
