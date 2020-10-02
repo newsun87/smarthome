@@ -1202,7 +1202,7 @@ def nlu(text): # 取得語意分析結果
               volume_num = volume_num - 10
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str             
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息              
+              client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息              
          elif volume == '最小聲':
               volume_num = 50
               volume_str = str(volume_num)+'%'             
