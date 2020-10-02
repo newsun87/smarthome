@@ -1219,9 +1219,9 @@ def nlu(text): # 取得語意分析結果
               mqttmsg = volume_str               
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息
          print('volume....', volume_num)      
-         ref.child(base_users_userId + userId + '/youtube_music').update({
-               'volume':volume_num}                
-         )         
+         #ref.child(base_users_userId + userId + '/youtube_music').update({
+         #      'volume':volume_num}                
+         #)         
          message = TextSendMessage(text = nlu_text)
          return message                 
    
