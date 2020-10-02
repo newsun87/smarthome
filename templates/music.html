@@ -91,10 +91,11 @@ userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl
                     .then(() => {
                         liff.closeWindow();
                     })
-                } 
-                else {
-					$('#field_info').val("歌名資料不得空白"); 
-				}	   
+                 }   
+                 else {
+					$('#field_info').val("歌手資料不得空白"); 
+				}	        
+                
             });
              //ButtonOrderSendMessage
             $('#ButtonOrderSingername').click(function () {	
@@ -113,18 +114,44 @@ userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl
                 else {
 					$('#field_info').val("歌手資料不得空白"); 
 				}	   
-            });
-            $('#ButtonGetHelp').click(function (){						
+            });  
+            
+             //ButtonAddSingernameSendMessage
+            $('#ButtonAddSingername').click(function () {	
+				if ($('#addsinger').val()!=""){			
                   liff.sendMessages([
                     {
                         type: 'text',
-                        text: 'help'                        
+                        text: 'addsinger~' + $('#addsinger').val()                        
                     }
                   ])
                     .then(() => {
                         liff.closeWindow();
-                    })                               
-            });
+                    })
+                } 
+              else {
+					$('#field_info').val("歌手資料不得空白"); 
+				}	   
+            }); 
+            
+             //ButtonDelSingernameSendMessage
+            $('#ButtonDelSingername').click(function () {	
+				if ($('#delsinger').val()!=""){			
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: 'delsinger~' + $('#delsinger').val()                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })
+                } 
+              else {
+					$('#field_info').val("歌手資料不得空白"); 
+				}	   
+            });                             
+                   
             $('#ButtonVolumeMiddle').click(function (){						
                   liff.sendMessages([
                     {
@@ -179,21 +206,7 @@ userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl
                     .then(() => {
                         liff.closeWindow();
                     })                               
-            }); 
-            $('#ButtonReplay').click(function (){
-			$.get("getdata", function(data){				
-				var replaymsg = data;													
-                liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: "播放" + replaymsg                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })                               
-                }); 
-            });                      
+            });           
           }             
     </script>
 </head>
@@ -202,30 +215,29 @@ userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl
 		
         <div id="MainDiv" class="col-md-6" style="margin:5px">
 			<img src="static/song.png" width="32" height="32">
-			<input type="text" id="songname">						
-            <button class="btn btn-primary" id="ButtonOrderSongname" >歌名</button> 
+			<input type="text" size= "10" id="songname">						
+            <button class="btn btn-primary" id="ButtonOrderSongname" >歌名點播</button><br> 
             <img src="static/singer.png" width="32" height="32">           
-            <input type="text" id="singername">
-            <button class="btn btn-primary" id="ButtonOrderSingername">歌手</button><br>
-                      
-            <img src="static/volume.png" width="42" height="42">
+            <input type="text" size= "10" id="singername">
+            <button class="btn btn-primary" id="ButtonOrderSingername">歌手點播</button><br>
+             <img src="static/singer.png" width="32" height="32">   
+            <input type="text" size= "10" required id="addsinger">						
+            <button class="btn btn-primary" id="ButtonAddSingername" >加入歌手</button><br> 
+            <img src="static/singer.png" width="32" height="32">           
+            <input type="text" size= "10" id="delsinger">
+            <button class="btn btn-primary" id="ButtonDelSingername">刪除歌手</button><br>                        
+            <img src="static/volume.png" width="32" height="42">
             <button class="btn btn-primary" id="ButtonVolumeMiddle">適中</button>
             <button class="btn btn-primary" id="ButtonVolumeMinus">小聲</button>
             <button class="btn btn-primary" id="ButtonVolumePlus">大聲</button>
-            <button class="btn btn-primary" id="ButtonVolumeMin">最小聲</button>
+            <button class="btn btn-primary" id="ButtonVolumeMin">最小聲</button><br>
             <img src="static/stop.png" width="32" height="32">
-            <button class="btn btn-primary" id="ButtonStop">停止</button>
-            <img src="static/replay.png" width="32" height="32">
-            <button class="btn btn-primary" id="ButtonReplay">重播</button>
-           <p></p>
+            <button class="btn btn-primary" id="ButtonStop">停止</button>           
             <img src="static/hand.png" width="32" height="32">          			
-            <button class="btn btn-primary" id="ButtonGetContext">Get Context</button>
-            <button class="btn btn-primary" id="ButtonScan">掃描 QR Code</button>
-            <button class="btn btn-primary" id="ButtonGetProfile">Get User Profile</button> 
-            <button class="btn btn-primary" id="ButtonGetHelp">Help</button> 
+            <button class="btn btn-primary" id="ButtonGetProfile">用戶資訊</button> 
             <hr />                
             <label>訊息顯示</label>
-            <textarea class="form-control" rows="5" type="text" id="field_info"></textarea>   <br />           
+            <textarea class="form-control" rows="5" type="text" id="field_info"></textarea><br />           
             <hr />
         </div>
     </div>

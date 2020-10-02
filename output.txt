@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1601616874357&sign=d8a61aca09b29b694bab9ac84f0bc9fa&rq=我要聽歌手周興哲的歌'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1601645450520&sign=d87cd8a4b56248686abe8608d8eefd09&rq=我要聽歌手陳明章的歌'
 
 Here is the result:
 
-{"data":{"seg":"我 要 聽 歌手 周 興 哲 的 歌 "},"status":"ok"}
+{"data":{"seg":"我 要 聽 歌手 陳 明 章 的 歌 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1601616874708&sign=9edaa8a21901fc8c325bb26fa99c2987&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手周興哲的歌"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1601645450844&sign=8dc28b6d719bf0d497112aa45b8289f5&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手陳明章的歌"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放周興哲的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手周興哲的歌","slots":[{"name":"歌手名","value":"周興哲"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放陳明章的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手陳明章的歌","slots":[{"name":"歌手名","value":"陳明章"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
