@@ -1196,27 +1196,27 @@ def nlu(text): # 取得語意分析結果
              volume_num = volume_num + 10            
              print("volume_num ", volume_num )
              volume_str = str(volume_num )+'%'
-             mqttmsg = volume_str            
+             mqttmsg = volume_num           
              client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息                             
          elif volume == '小聲':
               volume_num = volume_num - 10
               volume_str = str(volume_num)+'%'
-              mqttmsg = volume_str             
+              mqttmsg = volume_num            
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息              
          elif volume == '最小聲':
               volume_num = 50
               volume_str = str(volume_num)+'%'             
-              mqttmsg = volume_str             
+              mqttmsg = volume_num            
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息   
          elif volume == '最大聲':
               volume_num = 100
               volume_str = str(volume_num)+'%'
-              mqttmsg = volume_str               
+              mqttmsg = volume_num               
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息           
          elif volume == '適中' or volume == '剛好':
               volume_num = 70
               volume_str = str(volume_num)+'%'
-              mqttmsg = volume_str               
+              mqttmsg = volume_num               
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息
          print('volume....', volume_num)      
          #ref.child(base_users_userId + userId + '/youtube_music').update({
