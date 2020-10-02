@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
+﻿<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">        
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
@@ -12,10 +12,11 @@
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
        <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
         <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-       <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>       
-        <title>LINE Web Login</title>
-    </head>
-    <body>
+       <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script> 
+             
+        <title>LINE Web Login</title> 
+</head>  
+     <body>
 		 <div class="container">
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -28,10 +29,9 @@
           </div>
         </div>
       </div>
-    </div>       
-      
-        <script>          
-			var YourLiffAppId = '1654118646-4ANQr5B3'; 
+    </div>        
+    <script>
+        var YourLiffAppId = '1654118646-4ANQr5B3'; 
 			initializeLiff(YourLiffAppId); // 初始化 LIFF              
 			var firebaseConfig = {
 				apiKey: "AIzaSyAG501H9o5I_q-2lLKei5aDUBsJQrigxmQ",
@@ -40,28 +40,28 @@
             };
             firebase.initializeApp(firebaseConfig);
             var db = firebase.database();   
-            var host = 'https://liff.line.me/1654118646-4ANQr5B3'// 機器人網址
+            var host = "https://liff.line.me/1654118646-4ANQr5B3"// 機器人網址
             var host_register = host + '/register' // 註冊網址
-            var db_ref_path = "smarthome-bot/"; // firebase 資料庫基本路徑  
+            var db_ref_path = "/smarthome-bot/"; // firebase 資料庫基本路徑  
               // Initialize Firebase                                     
 			$(document).ready(function(){
 			//   initializeLiff(YourLiffAppId); // 初始化 LIFF  		                    
             });
-            var userId;           
-                      
+            var userId;                     
             function myJsFunc(){								
 				liff.getProfile().then(function(profile){
                     //顯示在text box中
-                    //userId = profile.userId; //取得用戶 userId
+                    userId = profile.userId; //取得用戶 userId
                     picUrl = profile.pictureUrl; //取得用戶圖片
-                    lineName = profile.displayName;//取得用戶 LINE 名稱                                                                                
+                    lineName = profile.displayName;//取得用戶 LINE 名稱
+                    console.log('lineName..'+ lineName)                                                                               
                     }); 
                     //檢查用戶資料庫路徑是否存在               
                  db.ref(db_ref_path+userId).on("value", snapshot => {
                     if (!snapshot.exists()){									  
 					  var user_profile = {"userId": userId, "line_name":lineName,
 						   "picurl": picUrl, "LineNotify":""}                     
-                      var singerList = ["鋼琴音樂"]                     
+                      var singerList = [0]                     
                       //alert(picurl)                               
                       db.ref(db_ref_path+userId+'/profile').set(user_profile) // 增加資料
                       db.ref(db_ref_path+userId+'/youtube_music').set({'volume':'60'})
@@ -70,22 +70,20 @@
 					  db.ref(db_ref_path+userId+'/translate').update({"lang":"en"})					  
 				    }				                     
                  });  
-                 //檢查用戶資料庫欄位LineNotify是否有值                 
-                 //redirect_lineNotify() 
-                 //window.location.href = host_register              
-                 db.ref(db_ref_path+userId+'/profile/LineNotify').once("value", snapshot => {
-                    if (snapshot.exists()){						  
+                 //檢查用戶資料庫欄位LineNotify是否有值               
+                 db.ref(db_ref_path+userId+'/LineNotify').once("value", snapshot => {
+                    if (snapshot.exists()){
 						if (snapshot.val() == ''){
 							alert("設定 LineNotify 報到通知!")														
 							redirect_lineNotify() // 登入到 LineNotify 連動設定							
 						}
 						else {
-							//alert("linenotify has value")	
+							alert("linenotify has value")	
 							window.location.href = host_register	//導入到註冊網頁					
 						}
 					}								
 					  
-                 }); 		
+                 }); 			
 		       } 
 		
 		 function redirect_lineNotify(){ // line Notify 連動設定
@@ -123,9 +121,9 @@
 			//$('input[name="userId"]').val(context.userId); //設定表單欄位值
 			const accessToken = liff.getAccessToken(); //取得用戶access token	
 			userId = context.userId; //取得用戶 userId
-			//console.log(userId)						 
+			alert(userId)						 
        }                            
-            
-        </script>
-    </body>
-    </html>
+    </script>
+   
+</body>
+</html>

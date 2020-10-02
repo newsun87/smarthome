@@ -28,8 +28,7 @@ config.read('smart_home.conf')
 cred = credentials.Certificate("serviceAccount.json")
 #cred = credentials.Certificate("newsun87app-firebase-adminsdk-9xkh0-2e34b341b9.json")
 firebase_admin.initialize_app(cred, {
-   'databaseURL' : 'https://line-bot-test-77a80.firebaseio.com/'
-	#'databaseURL' : 'https://newsun87app.firebaseio.com/'	
+   'databaseURL' : 'https://line-bot-test-77a80.firebaseio.com/'	
 })
 
 weather_url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore'
@@ -38,9 +37,33 @@ apikey = config.get('weather_url', 'apikey')
 
 #取得 linebot 通行憑證
 access_token = config.get('linebot', 'access_token')
+#access_token = ""
 channel_secret = config.get('linebot', 'channel_secret')
-
 camera_url = 'unknown'  
+
+def get_access_token(autho_code):
+     url = 'https://notify-bot.line.me/oauth/token'	
+     payload = {'grant_type': 'authorization_code',
+                 'code': autho_code, 
+	             'redirect_uri':host+'/register', 
+	             'client_id':'RsTuQZObEzJHPBU59HKhCI',
+	             'client_secret': 'My9RHffhEkSyJtZecod84GSoGsQT4gfCpFzP4ZC3KTL'}
+     headers = {'content-type': 'application/x-www-form-urlencoded'} 
+     try:     
+       r = requests.post(url, data=payload, headers=headers) # 回應為 JSON 字串
+       print('r.text...',r.text) 
+     except exceptions.Timeout as e:
+        print('请求超时：'+str(e.message))
+     except exceptions.HTTPError as e:
+        print('http请求错误:'+str(e.message))
+     else:       
+        if r.status_code == 200:          			
+          json_obj = json.loads(r.text) # 轉成 json 物件
+          access_token = json_obj['access_token']
+          print('access_token:', json_obj['access_token'])          
+          return access_token            
+        else:
+           return 'error'
 
 app = Flask(__name__)
 
@@ -50,14 +73,37 @@ handler = WebhookHandler(channel_secret)
 @app.route('/')
 def showIndexPage():
  return render_template('index.html')
- 
+
+@app.route('/register', methods=['GET', 'POST']) 
+def showRegister():    
+    ref = db.reference('/') # 參考路徑    
+    if request.method=='GET':
+      userId = request.args.get('state')  
+      if userId != None:
+        #profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API 
+        #userId = profile.user_id # 取得用戶 userId   
+        autho_code = request.args.get('code') #取得 LineNotify 驗證碼
+        time.sleep(1)
+        linenotify_access_token = get_access_token(autho_code) #取得存取碼
+        access_token = linenotify_access_token
+        print('linenotify_access_token...', linenotify_access_token)               
+        users_userId_ref = ref.child('smarthome-bot/'+ userId +'/profile')        
+        users_userId_ref.update({'LineNotify':'{access_token}'.format(access_token=linenotify_access_token)})
+        return '<html><h1>LineNotify 連動設定成功....</h1></html>' 
+      else:
+        return '<html><h1>LineNotify 連動已設定....</h1></html>' 
+    
 @app.route('/translate')
 def showTranslateHelpPage():
  return render_template('translator_help.html') 
  
+@app.route('/musichelp')
+def showMusicPage():
+ return render_template('music_help.html')  
+ 
 @app.route('/music')
 def showMusicHelpPage():
- return render_template('music_help.html')  
+ return render_template('music.html')   
  
 @app.route('/appliances')
 def showAppliancesHelpPage():
@@ -123,16 +169,17 @@ def handle_message(event):
   userId = event.source.user_id  
   profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
   print('profile...',profile)      
-  if ref.child(base_users_userId+userId).get():
-   print('database... exists')  
-  else:
-   user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
-   ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
-   ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":60})
-   singerList = [0]
-   ref.child(base_users_userId + userId + '/youtube_music/favorsinger').set( singerList )   
-   ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
-   ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"}) 
+  if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
+   buttons_template_message = linenotify_menu()
+   line_bot_api.reply_message(event.reply_token, buttons_template_message)   
+ # else:
+ #  user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
+ #  ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
+ #  ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":60})
+ #  singerList = [0]
+ #  ref.child(base_users_userId + userId + '/youtube_music/favorsinger').set( singerList )   
+ #  ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
+ #  ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})""" 
   
 # -----雲端音樂 quickreply 的指令操作-------------- 
   if event.message.text.startswith('【youtube url】'):
@@ -141,7 +188,7 @@ def handle_message(event):
       print("歌曲 {videourl} 更新成功...".format(videourl=new_message))
       line_bot_api.reply_message(
         event.reply_token, TextSendMessage(text="馬上播放 " + new_message))
-      client.publish("music/youtubeurl", new_message, 2, retain=True) #發佈訊息
+      client.publish("music/youtubeurl", userId+'~'+ new_message, 2, retain=True) #發佈訊息
       time.sleep(1)
       client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息           
       
@@ -151,7 +198,7 @@ def handle_message(event):
       TextSendMessage(text="馬上播放 " + event.message.text))
       ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":event.message.text})
       print("歌曲 {videourl} 更新成功...".format(videourl=event.message.text))      
-      client.publish("music/youtubeurl", event.message.text, 2, retain=True) #發佈訊息 
+      client.publish("music/youtubeurl", userId +'~'+ event.message.text, 2, retain=True) #發佈訊息 
       time.sleep(1)
       client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息     
       
@@ -161,7 +208,7 @@ def handle_message(event):
       TextSendMessage(text="馬上播放 " + event.message.text))
       ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":event.message.text})
       print("歌曲 {videourl} 更新成功...".format(videourl=event.message.text))          
-      client.publish("music/youtubeurl", event.message.text, 2, retain=True) #發佈訊息
+      client.publish("music/youtubeurl", userId +'~'+ event.message.text, 2, retain=True) #發佈訊息
       time.sleep(1)
       client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息       
 # -----------------------------------------------------------------------
@@ -300,7 +347,7 @@ def handle_message(event):
       line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="馬上播放 " + videourl))
-      client.publish("music/youtubeurl", videourl, 2, retain=True)  
+      client.publish("music/youtubeurl", userId+'~'+ videourl, 2, retain=True)  
       time.sleep(1)
       client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息 
       
@@ -1102,7 +1149,7 @@ def nlu(text): # 取得語意分析結果
        songkind = songname
        with open('record.txt','w', encoding = "utf-8") as fileobj:
          word = fileobj.write(songname)                    
-       client.publish("music/playsong", mqttmsg, 2, retain=True) #發佈訊息
+       client.publish("music/playsong", userId+'~'+ mqttmsg, 2, retain=True) #發佈訊息
        time.sleep(1)
        client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息 
        #playsong      
@@ -1121,7 +1168,7 @@ def nlu(text): # 取得語意分析結果
         songkind = singername
         with open('record.txt','w', encoding = "utf-8") as fileobj:
          word = fileobj.write(singername)                                 
-        client.publish("music/playsong", mqttmsg, 2, retain=False) #發佈訊息
+        client.publish("music/playsong", userId+'~'+ mqttmsg, 2, retain=False) #發佈訊息
         time.sleep(1)
         client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息         
         print("message published")
@@ -1132,7 +1179,7 @@ def nlu(text): # 取得語意分析結果
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
         print('nlu', nlu_text)
         mqttmsg ='playpause'
-        client.publish("music/pause_play", mqttmsg, 0, retain=False) #發佈訊息              
+        client.publish("music/pause_play", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息              
         print("message published")
         message = TextSendMessage(text = nlu_text)
         return message         
@@ -1150,7 +1197,7 @@ def nlu(text): # 取得語意分析結果
              print("volume_num ", volume_num )
              volume_str = str(volume_num )+'%'
              mqttmsg = volume_str            
-             client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息                             
+             client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息                             
          elif volume == '小聲':
               volume_num = volume_num - 10
               volume_str = str(volume_num)+'%'
@@ -1160,17 +1207,17 @@ def nlu(text): # 取得語意分析結果
               volume_num = 50
               volume_str = str(volume_num)+'%'             
               mqttmsg = volume_str             
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息   
+              client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息   
          elif volume == '最大聲':
               volume_num = 100
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息           
+              client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息           
          elif volume == '適中' or volume == '剛好':
               volume_num = 70
               volume_str = str(volume_num)+'%'
               mqttmsg = volume_str               
-              client.publish("music/volume", mqttmsg, 0, retain=False) #發佈訊息
+              client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息
          print('volume....', volume_num)      
          ref.child(base_users_userId + userId + '/youtube_music').update({
                'volume':volume_num}                
@@ -1258,7 +1305,7 @@ def setup_menu():
             actions = [ # action 最多只能4個喔！
                 URIAction(
                     label = 'LineNotify 連動設定', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-nPa4OL57'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                    uri = 'https://liff.line.me/1654118646-4ANQr5B3'  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
                  PostbackAction(
                     label = '翻譯設定', # 在按鈕模板上顯示的名稱
@@ -1272,6 +1319,23 @@ def setup_menu():
          )
         )
     return buttons_template_message
+    
+def linenotify_menu():
+    buttons_template_message = TemplateSendMessage(
+         alt_text = '我是LineNotify連動設定按鈕選單模板',
+         template = ButtonsTemplate(
+            thumbnail_image_url = 'https://i.imgur.com/he05XcJ.png', 
+            title = 'LineNotify 連動設定選單',  # 你的標題名稱
+            text = '請選擇：',  # 你要問的問題，或是文字敘述            
+            actions = [ # action 最多只能4個喔！
+                URIAction(
+                    label = 'LineNotify 連動設定', # 在按鈕模板上顯示的名稱
+                    uri = 'https://liff.line.me/1654118646-4ANQr5B3'  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                )
+            ]
+         )
+        )
+    return buttons_template_message    
     
 def music_menu(): #雲端音樂按鈕選單樣板
     buttons_template_message = TemplateSendMessage(
@@ -1287,7 +1351,7 @@ def music_menu(): #雲端音樂按鈕選單樣板
                 ),
                 URIAction(
                     label = '網頁點歌', # 在按鈕模板上顯示的名稱
-                    uri = host  # 跳轉到的url，看你要改什麼都行，只要是url                    
+                    uri = host + '/music'  # 跳轉到的url，看你要改什麼都行，只要是url                    
                 ),
                 # 跟上面差不多
                 MessageAction(

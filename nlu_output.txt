@@ -1,1 +1,1 @@
-{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放周興哲的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手周興哲的歌","slots":[{"name":"歌手名","value":"周興哲"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放鋼琴音樂的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手鋼琴音樂的歌","slots":[{"name":"歌手名","value":"鋼琴音樂"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
