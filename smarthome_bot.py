@@ -1187,36 +1187,31 @@ def nlu(text): # 取得語意分析結果
     if action == 'adjust': #調整音量
          #userId = 'Ubf2b9f4188d45848fb4697d41c962591'
          users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music/volume')
-         volume_num = users_userId_ref.get()         
+         volume_str = users_userId_ref.get()         
          volume = temp['data']['nli'][0] ['semantic'][0]['slots'][0]['value']         
          nlu_text = temp['data']['nli'][0]['desc_obj']['result']
          print('nlu', nlu_text)
          if volume == '大聲':
-             print("volume....",volume_num)
-             volume_num = volume_num + 10            
-             print("volume_num ", volume_num )
-             volume_str = str(volume_num )
-             mqttmsg = volume_str           
+             print("volume....",volume_str)
+             volume_num = int(volume_str) + 10            
+             print("volume_num ", volume_num )             
+             mqttmsg = str(volume_num )           
              client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息                             
          elif volume == '小聲':
-              volume_num = volume_num - 10
-              volume_str = str(volume_num)
-              mqttmsg = volume_str           
+              volume_num = int(volume_str) - 10             
+              mqttmsg = str(volume_num )           
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息              
          elif volume == '最小聲':
-              volume_num = 50
-              volume_str = str(volume_num)             
-              mqttmsg = volume_str           
+              volume_num = 50                          
+              mqttmsg = str(volume_num )           
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息   
          elif volume == '最大聲':
               volume_num = 100
-              volume_str = str(volume_num)
-              mqttmsg = volume_str               
+              mqttmsg = str(volume_num )               
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息           
          elif volume == '適中' or volume == '剛好':
-              volume_num = 70
-              volume_str = str(volume_num)
-              mqttmsg = volume_str               
+              volume_num = 70              
+              mqttmsg = str(volume_num)               
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息
          print('volume....', volume_num)      
          #ref.child(base_users_userId + userId + '/youtube_music').update({
