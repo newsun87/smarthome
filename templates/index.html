@@ -64,7 +64,7 @@
                       var singerList = ["鋼琴音樂"]                     
                       //alert(picurl)                               
                       db.ref(db_ref_path+userId+'/profile').set(user_profile) // 增加資料
-                      db.ref(db_ref_path+userId+'/youtube_music').set({'volume':'60'})
+                      db.ref(db_ref_path+userId+'/youtube_music').set({'volume':60})
 					  db.ref(db_ref_path+userId+'/youtube_music/favorsinger').set(singerList)
 					  db.ref(db_ref_path+userId+'/youtube_music').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
 					  db.ref(db_ref_path+userId+'/translate').update({"lang":"en"})					  

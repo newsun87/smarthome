@@ -85,7 +85,7 @@ def showRegister():
         autho_code = request.args.get('code') #取得 LineNotify 驗證碼
         time.sleep(1)
         linenotify_access_token = get_access_token(autho_code) #取得存取碼
-        access_token = linenotify_access_token
+        #access_token = linenotify_access_token
         print('linenotify_access_token...', linenotify_access_token)               
         users_userId_ref = ref.child('smarthome-bot/'+ userId +'/profile')        
         users_userId_ref.update({'LineNotify':'{access_token}'.format(access_token=linenotify_access_token)})
