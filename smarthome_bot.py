@@ -643,7 +643,7 @@ def getQuickReply_volume():
             image_url = 'https://i.imgur.com/cMIj4N5.png'
           ),
           QuickReplyButton(
-            action = MessageAction(label = "70", text = "volume~60"),
+            action = MessageAction(label = "70", text = "volume~70"),
             image_url = 'https://i.imgur.com/cMIj4N5.png'
           ),
            QuickReplyButton(
