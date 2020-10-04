@@ -310,7 +310,9 @@ def handle_message(event):
       volume = int(split_array [1])
       ref = db.reference('/') # 參考路徑  	
       users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music')      
-      users_userId_ref.update({'volume':volume})       
+      users_userId_ref.update({'volume':volume})
+      mqttmsg = str(volume)           
+      client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息        
       message = TextSendMessage(text = '音量設定為： ' + split_array [1] + '%')
       line_bot_api.reply_message(event.reply_token, message)  
  
@@ -639,6 +641,14 @@ def getQuickReply_volume():
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
+            action = MessageAction(label = "100", text = "volume~100"),
+            image_url = 'https://i.imgur.com/cMIj4N5.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "90", text = "volume~90"),
+            image_url = 'https://i.imgur.com/cMIj4N5.png'
+          ),
+          QuickReplyButton(
             action = MessageAction(label = "80", text = "volume~80"),
             image_url = 'https://i.imgur.com/cMIj4N5.png'
           ),
@@ -653,7 +663,19 @@ def getQuickReply_volume():
            QuickReplyButton(
             action = MessageAction(label = "50", text = "volume~50"),
             image_url = 'https://i.imgur.com/cMIj4N5.png'
-          )         
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "40", text = "volume~40"),
+            image_url = 'https://i.imgur.com/cMIj4N5.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "30", text = "volume~30"),
+            image_url = 'https://i.imgur.com/cMIj4N5.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "20", text = "volume~20"),
+            image_url = 'https://i.imgur.com/cMIj4N5.png'
+          )                        
         ]
        )
       )
@@ -1155,6 +1177,7 @@ def nlu(text): # 取得語意分析結果
        #playsong      
        print("message published")
        message = TextSendMessage(text = nlu_text)
+       
        return message                                
                
     if action == 'playsinger': #播放指定歌手
@@ -1172,7 +1195,7 @@ def nlu(text): # 取得語意分析結果
         time.sleep(1)
         client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息         
         print("message published")
-        message = TextSendMessage(text = nlu_text)
+        message = TextSendMessage(text = nlu_text)        
         return message                        
 
     if action == 'playpause': #播放暫停/繼續
