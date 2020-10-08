@@ -231,12 +231,12 @@ def handle_message(event):
       singername = split_array [1]
       print('singername..', singername)
       favorsingerList = ref.child(base_users_userId + userId + '/youtube_music/favorsinger').get()
-      if singername in favorsingerList:
-       for key in range(len(favorsingerList)):
-        if favorsingerList[key] == singername:
-         print(key)       
-         ref.child(base_users_userId + userId + '/youtube_music/favorsinger').update({key:None})
-         message = TextSendMessage(text="刪除喜愛的歌手 " + singername + " 已成功" )  
+      if singername in favorsingerList: # 找到歌手名稱
+        favorsingerList.remove(singername) # 移除歌手名稱      
+        print('favorsingerList..', favorsingerList)
+        #重新寫入歌手清單
+        ref.child(base_users_userId + userId + '/youtube_music/favorsinger').set(favorsingerList)
+        message = TextSendMessage(text="刪除喜愛的歌手 " + singername + " 已成功" )  
       else:
         message = TextSendMessage(text="歌手不在清單中...")           
       line_bot_api.reply_message(event.reply_token, message)          
