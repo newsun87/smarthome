@@ -35,7 +35,7 @@ body = {
         },
         {
           "bounds": {"x": 535, "y": 271, "width": 267, "height": 270},
-          "action": {"type": "message", "text": "other"}
+          "action": {"type": "uri", "uri": "https://liff.line.me/1654118646-4ANQr5B3/translate"}
         }        
     ]
   }

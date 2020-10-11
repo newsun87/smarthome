@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602394912506&sign=67ddb439d9a818f04499167a87ab9770&rq=information'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602396818930&sign=a688efe736f2f31c75e9b7d9f0946834&rq=今天天氣很好的英文'
 
 Here is the result:
 
-{"data":{"seg":"information "},"status":"ok"}
+{"data":{"seg":"今天 天 氣 很 好的 英文 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602394912783&sign=f46a7fae05ac41741474f78d1e537bf5&rq={"data_type":"stt","data":{"input_type":"1","text":"information"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602396834795&sign=ae54cdafff9351793d7902803820905a&rq={"data_type":"stt","data":{"input_type":"1","text":"今天天氣很好的英文"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"result":"對不起，你說的我還不懂，能換個說法嗎？","status":"1003"},"type":"ds"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"status":0},"semantic":[{"app":"smarthome","input":"今天天氣很好的英文","slots":[{"name":"語言","value":"英文"},{"name":"語句","value":"今天天氣很好"}],"modifier":["translate"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}

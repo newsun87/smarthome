@@ -6,7 +6,6 @@ from linebot import (
 )
 access_token = 'dWhp1zz+Irv8ktCX06FWQFpF0BwSrzs5VSBUK/Fp7NLG0kBAVZe2VTwko8d0KO3ajTOw/jlwJPtpPYe+dVhN6G0eWwbdoLbECjMEbQQriKKk/imWqL8mA19YOiF9JaGwD9gmmpnEhLjwQvXek8FkDwdB04t89/1O/w1cDnyilFU='
 line_bot_api = LineBotApi('{my_access_token}'.format(my_access_token=access_token))
-rich_menus_id = 'richmenu-3628f1f2d3d24e98c2c5c3bd78d0d6d1'
+rich_menus_id = 'richmenu-50293657a1ad0167e1d6070bd2afebaa'
 
-with open("rich_menus/information.jpg", 'rb') as f:
-  line_bot_api.set_rich_menu_image("{my_richmenu_id}".format(my_richmenu_id=rich_menus_id ), "image/jpeg", f)
+line_bot_api.delete_rich_menu('{my_rich_menus_id}'.format(my_rich_menus_id=rich_menus_id))
