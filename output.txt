@@ -1,7 +1,7 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602376293355&sign=d9bab490a51d18e8c64fea6b5aebd03d&rq=information'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602394912506&sign=67ddb439d9a818f04499167a87ab9770&rq=information'
 
 Here is the result:
 
@@ -9,7 +9,7 @@ Here is the result:
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602376293756&sign=157c04163305599bb15cfefcf39cacf9&rq={"data_type":"stt","data":{"input_type":"1","text":"information"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602394912783&sign=f46a7fae05ac41741474f78d1e537bf5&rq={"data_type":"stt","data":{"input_type":"1","text":"information"}}'
 
 Here is the result:
 

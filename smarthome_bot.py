@@ -269,12 +269,17 @@ def handle_message(event):
 # ------------圖文選單動態切換-------------------------------------------------
   elif event.message.text == 'music':
       message = TextSendMessage(text="切換成音樂選單...")         
-      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[1]) # 切換選單
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[2]) # 切換選單
       line_bot_api.reply_message(event.reply_token, message)            
   elif event.message.text == 'main_menu':      
       line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[0]) # 切換選單
       message = TextSendMessage(text="回到主選單...")
-      line_bot_api.reply_message(event.reply_token, message)  
+      line_bot_api.reply_message(event.reply_token, message)
+  elif event.message.text == 'information':      
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[1]) # 切換選單
+      message = TextSendMessage(text="切換成資訊選單...")
+      line_bot_api.reply_message(event.reply_token, message)      
+        
 # -----------------------------------------------------------------------          
 # ------------圖片辨識功能-------------------------------------------------        
   elif event.message.text == 'categorization':
@@ -437,15 +442,13 @@ def handle_message(event):
   elif event.message.text == 'favor':
       QuickReply_text_message = getQuickReply_music()      
       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
-# --------------------------------------------------------------------------     
-          
+# --------------------------------------------------------------------------          
   elif event.message.text == 'help':
       with open('help.txt', mode='r', encoding = "utf-8") as f:
         content = f.read()
         print(content)
         message = TextSendMessage(text=content)      
-        line_bot_api.reply_message(event.reply_token, message) 
-           
+        line_bot_api.reply_message(event.reply_token, message)            
 # ------系統設定功能------------------           
   elif event.message.text == 'setup':
       buttons_template_message = setup_menu()
@@ -470,8 +473,7 @@ def handle_message(event):
       users_userId_ref.update({'lang':lang_text})       
       message = TextSendMessage(text = '語言設定為： ' + language)
       line_bot_api.reply_message(event.reply_token, message)  
-# ----------------------------------------------------------------                
-      
+# ----------------------------------------------------------------      
 # ------語言翻譯功能------------------        
   elif event.message.text.startswith('翻譯'): 
       split_array = event.message.text.split("~")
