@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602197405750&sign=3b42141c6c4a2b46c3d0833fa6d4b54a&rq=我要聽歌手華語抒情歌的歌'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602376293355&sign=d9bab490a51d18e8c64fea6b5aebd03d&rq=information'
 
 Here is the result:
 
-{"data":{"seg":"我 要 聽 歌手 華 語 抒情 歌 的 歌 "},"status":"ok"}
+{"data":{"seg":"information "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602197406248&sign=6c792e44d93f6a62fb845d24a2527ab5&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手華語抒情歌的歌"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602376293756&sign=157c04163305599bb15cfefcf39cacf9&rq={"data_type":"stt","data":{"input_type":"1","text":"information"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放華語抒情歌的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手華語抒情歌的歌","slots":[{"name":"歌手名","value":"華語抒情歌"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"對不起，你說的我還不懂，能換個說法嗎？","status":"1003"},"type":"ds"}]},"status":"ok"}

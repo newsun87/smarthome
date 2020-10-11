@@ -64,11 +64,27 @@ def get_access_token(autho_code):
           return access_token            
         else:
            return 'error'
+           
+def default_menu(rich_menus_id): # 預設圖文選單
+ headers = {"Authorization":"Bearer {my_access_token}".format(my_access_token=access_token),"Content-Type":"application/json"}
+ req = requests.request('POST', 'https://api.line.me/v2/bot/user/all/richmenu/{my_rich_menus_id}'.format(my_rich_menus_id=rich_menus_id), headers=headers)    
+ print(req.text) 
+
+def get_menus_id_list(): # 取得圖文選單 ID 串列
+ rich_menus_id_list = []		
+ rich_menu_list = line_bot_api.get_rich_menu_list()#取得圖文選單資料串列
+ for rich_menu in rich_menu_list:
+    #print(rich_menu.rich_menu_id)
+    rich_menus_id_list.append(rich_menu.rich_menu_id)
+ return rich_menus_id_list            
 
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret) 
+rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
+print('rich_menu_list...', rich_menus_id_list)
+default_menu(rich_menus_id_list[0]) # 預設啟動後的選單
 
 @app.route('/')
 def showIndexPage():
@@ -181,6 +197,7 @@ def handle_message(event):
  #  ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
  #  ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})""" 
   
+  
 # -----雲端音樂 quickreply 的指令操作-------------- 
   if event.message.text.startswith('【youtube url】'):
       new_message = event.message.text.lstrip('【youtube url】')
@@ -248,7 +265,17 @@ def handle_message(event):
       weather_info = get_weather(cityname)
       message = get_weather_state(weather_info, cityname)      
       line_bot_api.reply_message(event.reply_token, message)     
-# -----------------------------------------------------------------------  
+# ----------------------------------------------------------------------- 
+# ------------圖文選單動態切換-------------------------------------------------
+  elif event.message.text == 'music':
+      message = TextSendMessage(text="切換成音樂選單...")         
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[1]) # 切換選單
+      line_bot_api.reply_message(event.reply_token, message)            
+  elif event.message.text == 'main_menu':      
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[0]) # 切換選單
+      message = TextSendMessage(text="回到主選單...")
+      line_bot_api.reply_message(event.reply_token, message)  
+# -----------------------------------------------------------------------          
 # ------------圖片辨識功能-------------------------------------------------        
   elif event.message.text == 'categorization':
 	#讀取 Imagga 設定檔的資訊
