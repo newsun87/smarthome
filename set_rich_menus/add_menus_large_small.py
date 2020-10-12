@@ -10,8 +10,8 @@ headers = {"Authorization":"Bearer {my_access_token}".format(my_access_token=acc
 body = {
     "size": {"width": 800, "height": 540},
     "selected": "true",
-    "name": "information_menu",
-    "chatBarText": "資訊選單",
+    "name": "iot_menu",
+    "chatBarText": "物聯網選單",
     "areas":[
         {
           "bounds": {"x": 0, "y": 0, "width": 266, "height": 270},
@@ -19,23 +19,23 @@ body = {
         },
         {
           "bounds": {"x": 267, "y": 0, "width": 267, "height": 270},
-          "action": {"type": "postback", "data": "weather"}
+          "action": {"type": "postback", "data": "plugs"}
         },
         {
           "bounds": {"x": 535, "y": 0, "width": 267, "height": 270},
-          "action": {"type": "postback", "data": "pm25"}
+          "action": {"type": "postback", "data": "infrared"}
         },
         {
           "bounds": {"x": 0, "y": 271, "width": 266, "height": 270},
-          "action": {"type": "postback", "data": "stock"}
+          "action": {"type": "postback", "data": "camera"}
         },
         {
           "bounds": {"x": 267, "y": 271, "width": 267, "height": 270},
-          "action": {"type": "postback", "data": "AIImage"}
+          "action": {"type": "postback", "data": "airbox"}
         },
         {
           "bounds": {"x": 535, "y": 271, "width": 267, "height": 270},
-          "action": {"type": "uri", "uri": "https://liff.line.me/1654118646-4ANQr5B3/translate"}
+          "action": {"type": "message", "text": "airbox_menu"}
         }        
     ]
   }

@@ -266,22 +266,26 @@ def handle_message(event):
       message = get_weather_state(weather_info, cityname)      
       line_bot_api.reply_message(event.reply_token, message)     
 # ----------------------------------------------------------------------- 
-# ------------圖文選單動態切換-------------------------------------------------
+# ------------圖文選單動態切換----------------------------------------------
   elif event.message.text == 'music':
       message = TextSendMessage(text="切換成音樂選單...")         
-      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[2]) # 切換選單
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[3]) # 切換選單
       line_bot_api.reply_message(event.reply_token, message)            
   elif event.message.text == 'main_menu':      
       line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[0]) # 切換選單
       message = TextSendMessage(text="回到主選單...")
       line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'information':      
-      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[1]) # 切換選單
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[2]) # 切換選單
       message = TextSendMessage(text="切換成資訊選單...")
-      line_bot_api.reply_message(event.reply_token, message)      
+      line_bot_api.reply_message(event.reply_token, message)
+  elif event.message.text == 'IOT':      
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[1]) # 切換選單
+      message = TextSendMessage(text="切換成物聯網選單...")
+      line_bot_api.reply_message(event.reply_token, message)            
         
 # -----------------------------------------------------------------------          
-# ------------圖片辨識功能-------------------------------------------------        
+# ------------AI 圖片辨識功能----------------------------------------------        
   elif event.message.text == 'categorization':
 	#讀取 Imagga 設定檔的資訊
     imagga_api_key = config.get('imagga', 'api_key') #取得設定資訊
@@ -1481,9 +1485,7 @@ def on_message(client, userdata, msg):
     global camera_url     
     print(msg.topic + " " + str(msg.payload))
     if msg.topic == 'homesecurity/ngrokurl':
-     camera_url = str(msg.payload)
-     
-             
+     camera_url = str(msg.payload)            
 
 client = mqtt.Client()    
 client.on_connect = on_connect  

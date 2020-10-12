@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602396818930&sign=a688efe736f2f31c75e9b7d9f0946834&rq=今天天氣很好的英文'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602471080189&sign=39f7fee31a6bf51640eea039eac7747d&rq=我要聽歌手經典西洋金曲的歌'
 
 Here is the result:
 
-{"data":{"seg":"今天 天 氣 很 好的 英文 "},"status":"ok"}
+{"data":{"seg":"我 要 聽 歌手 經 典 西洋 金曲 的 歌 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602396834795&sign=ae54cdafff9351793d7902803820905a&rq={"data_type":"stt","data":{"input_type":"1","text":"今天天氣很好的英文"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602471080622&sign=c6f62e70d88fd1f72dec7e5d44f6aa9e&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手經典西洋金曲的歌"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"status":0},"semantic":[{"app":"smarthome","input":"今天天氣很好的英文","slots":[{"name":"語言","value":"英文"},{"name":"語句","value":"今天天氣很好"}],"modifier":["translate"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"我也喜歡歌手經典西洋金曲這一首歌，請好好聆聽","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手經典西洋金曲的歌","slots":[{"name":"歌名","value":"歌手經典西洋金曲"}],"modifier":["playsong"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
