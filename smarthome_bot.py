@@ -20,6 +20,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 import subprocess
 import configparser
+from line_notify import LineNotify
 
 config = configparser.ConfigParser()
 config.read('smart_home.conf')
@@ -39,7 +40,7 @@ apikey = config.get('weather_url', 'apikey')
 access_token = config.get('linebot', 'access_token')
 #access_token = ""
 channel_secret = config.get('linebot', 'channel_secret')
-camera_url = 'unknown'  
+camera_url = 'unknown' 
 
 def get_access_token(autho_code):
      url = 'https://notify-bot.line.me/oauth/token'	
@@ -187,7 +188,10 @@ def handle_message(event):
   print('profile...',profile)      
   if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
    buttons_template_message = linenotify_menu()
-   line_bot_api.reply_message(event.reply_token, buttons_template_message) 
+   line_bot_api.reply_message(event.reply_token, buttons_template_message)
+  else:
+   camera_id = ref.child(base_users_userId+userId+'/camera/camera_ID').get()
+   print('camera_id...', camera_id) 
        
  # else:
  #  user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
@@ -397,7 +401,9 @@ def handle_message(event):
 	  
 # -----遠端攝影機 quickreply 的指令操作--------------
   elif event.message.text == 'open_camera':
-      camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get() 
+      if camera_id == ref.child(base_users_userId+userId+'/camera/camera_ID').get():
+        linenotify_access_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()
+        sendCameraURL(linenotify_access_token, camera_url)   
       message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
@@ -1162,15 +1168,11 @@ def get_pm25(cityname): #取得 PM2.5資訊
            % (len(data_list), cityname, count, round(PM25/count))
         print(message)
         return message 
-         
-"""ref = db.reference('/') # 參考路徑
-print('userId ...',userId)
-#userId = 'Ubf2b9f4188d45848fb4697d41c962591'
-users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music/volume')
-volume_num = users_userId_ref.get() 
-print('volume....', volume_num)
-mqttmsg = str(volume_num )+ '%' """
-            
+        
+def sendCameraURL(ACCESS_TOKEN, ngrok_url):    
+    notify = LineNotify(ACCESS_TOKEN) 
+    notify.send('攝影機網址 ' + ngrok_url)        
+           
 def random_int_list(num):
   list = range(1, num)
   random_list = [*list]
@@ -1481,10 +1483,13 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("homesecurity/ngrokurl", 2)       
 
 def on_message(client, userdata, msg): 
-    global camera_url     
-    #print(msg.topic + " " + str(msg.payload))
-    #if msg.topic == 'homesecurity/ngrokurl':
-     #camera_url = str(msg.payload)            
+    global camera_url, camera_id         
+    print(msg.topic + " " + str(msg.payload))    
+    if msg.topic == 'homesecurity/ngrokurl':
+     print(str(msg.payload).split('/', 1 )[1])
+     camera_url = str(msg.payload).split('/', 1 )[1]
+     camera_id = str(msg.payload).split('/', 1 )[0]
+              
 
 client = mqtt.Client()    
 client.on_connect = on_connect  

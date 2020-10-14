@@ -5,6 +5,7 @@ paho-mqtt
 firebase_admin
 translate
 configparser==5.0.0
+line_notify
 
 
 
