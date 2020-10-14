@@ -67,7 +67,9 @@
                       db.ref(db_ref_path+userId+'/youtube_music').set({'volume':60})
 					  db.ref(db_ref_path+userId+'/youtube_music/favorsinger').set(singerList)
 					  db.ref(db_ref_path+userId+'/youtube_music').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
-					  db.ref(db_ref_path+userId+'/translate').update({"lang":"en"})					  
+					  db.ref(db_ref_path+userId+'/translate').update({"lang":"en"})
+					  db.ref(db_ref_path+userId+'/camera').update({"camera_ID":""})
+					  db.ref(db_ref_path+userId+'/camera').update({"camera_URL":""})					  
 				    }				                     
                  });  
                  //檢查用戶資料庫欄位LineNotify是否有值                 
