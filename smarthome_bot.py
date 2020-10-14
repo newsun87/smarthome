@@ -187,7 +187,8 @@ def handle_message(event):
   print('profile...',profile)      
   if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
    buttons_template_message = linenotify_menu()
-   line_bot_api.reply_message(event.reply_token, buttons_template_message)   
+   line_bot_api.reply_message(event.reply_token, buttons_template_message) 
+       
  # else:
  #  user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
  #  ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
@@ -396,6 +397,7 @@ def handle_message(event):
 	  
 # -----遠端攝影機 quickreply 的指令操作--------------
   elif event.message.text == 'open_camera':
+      camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get() 
       message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
@@ -1480,9 +1482,9 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg): 
     global camera_url     
-    print(msg.topic + " " + str(msg.payload))
-    if msg.topic == 'homesecurity/ngrokurl':
-     camera_url = str(msg.payload)            
+    #print(msg.topic + " " + str(msg.payload))
+    #if msg.topic == 'homesecurity/ngrokurl':
+     #camera_url = str(msg.payload)            
 
 client = mqtt.Client()    
 client.on_connect = on_connect  
