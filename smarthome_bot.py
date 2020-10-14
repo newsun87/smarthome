@@ -188,10 +188,7 @@ def handle_message(event):
   print('profile...',profile)      
   if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
    buttons_template_message = linenotify_menu()
-   line_bot_api.reply_message(event.reply_token, buttons_template_message)
-  else:
-   camera_id = ref.child(base_users_userId+userId+'/camera/camera_ID').get()
-   print('camera_id...', camera_id) 
+   line_bot_api.reply_message(event.reply_token, buttons_template_message) 
        
  # else:
  #  user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
@@ -401,9 +398,11 @@ def handle_message(event):
 	  
 # -----遠端攝影機 quickreply 的指令操作--------------
   elif event.message.text == 'open_camera':
-      if camera_id == ref.child(base_users_userId+userId+'/camera/camera_ID').get():
-        linenotify_access_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()
-        sendCameraURL(linenotify_access_token, camera_url)   
+      print('camera_id...', camera_id)
+      print(ref.child(base_users_userId+userId+'/camera/camera_ID').get().encode(encoding="utf-8"))
+      #if camera_id == ref.child(base_users_userId+userId+'/camera/camera_ID').get().encode(encoding="utf-8"):
+      linenotify_access_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()
+      sendCameraURL(linenotify_access_token, camera_url)   
       message = TextSendMessage(text = camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
@@ -1488,7 +1487,7 @@ def on_message(client, userdata, msg):
     if msg.topic == 'homesecurity/ngrokurl':
      print(str(msg.payload).split('/', 1 )[1])
      camera_url = str(msg.payload).split('/', 1 )[1]
-     camera_id = str(msg.payload).split('/', 1 )[0]
+     camera_id = str(msg.payload).split('/', 1 )[0]+"'"
               
 
 client = mqtt.Client()    
