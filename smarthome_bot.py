@@ -84,7 +84,7 @@ line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret) 
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
-default_menu(rich_menus_id_list[0]) # 預設啟動後的選單
+default_menu(rich_menus_id_list[2]) # 預設啟動後的選單
 
 @app.route('/')
 def showIndexPage():
@@ -267,20 +267,21 @@ def handle_message(event):
       line_bot_api.reply_message(event.reply_token, message)     
 # ----------------------------------------------------------------------- 
 # ------------圖文選單動態切換----------------------------------------------
+  elif event.message.text == 'main_menu':      
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[2]) # 切換選單
+      message = TextSendMessage(text="回到主選單...")
+      line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'music':
       message = TextSendMessage(text="切換成音樂選單...")         
       line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[3]) # 切換選單
       line_bot_api.reply_message(event.reply_token, message)            
-  elif event.message.text == 'main_menu':      
-      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[0]) # 切換選單
-      message = TextSendMessage(text="回到主選單...")
-      line_bot_api.reply_message(event.reply_token, message)
+  
   elif event.message.text == 'information':      
-      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[2]) # 切換選單
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[1]) # 切換選單
       message = TextSendMessage(text="切換成資訊選單...")
       line_bot_api.reply_message(event.reply_token, message)
   elif event.message.text == 'IOT':      
-      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[1]) # 切換選單
+      line_bot_api.link_rich_menu_to_user(userId, rich_menus_id_list[0]) # 切換選單
       message = TextSendMessage(text="切換成物聯網選單...")
       line_bot_api.reply_message(event.reply_token, message)            
         
@@ -1354,11 +1355,7 @@ def setup_menu():
             title = '系統設定選單',  # 你的標題名稱
             text = '請選擇：',  # 你要問的問題，或是文字敘述            
             actions = [ # action 最多只能4個喔！
-                URIAction(
-                    label = 'LineNotify 連動設定', # 在按鈕模板上顯示的名稱
-                    uri = 'https://liff.line.me/1654118646-4ANQr5B3'  # 跳轉到的url，看你要改什麼都行，只要是url                    
-                ),
-                 PostbackAction(
+                PostbackAction(
                     label = '翻譯設定', # 在按鈕模板上顯示的名稱
                     data = 'translator'  
                 ),                    
