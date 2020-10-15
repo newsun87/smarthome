@@ -1,5 +1,5 @@
 #!/bin/bash
-ngrok http 5000& 
+ngrok http 5000 > /dev/null& 
 sleep 2
 #取得執行結果(位址)當變數
 URL4040=$(curl -s localhost:4040/api/tunnels | awk -F"https" '{print $2}' | awk -F"//" '{print $2}' | awk -F'"' '{print $1}')
