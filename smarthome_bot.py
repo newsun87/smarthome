@@ -821,21 +821,41 @@ def getQuickReply_weather():
 	QuickReply_text_message = TextSendMessage(
        text="點選你要查詢的城市",
        quick_reply = QuickReply(
-        items = [
+        items = [          
+          QuickReplyButton(
+            action = MessageAction(label = "基隆市", text = "weather~基隆市"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
           QuickReplyButton(
             action = MessageAction(label = "臺北市", text = "weather~臺北市"),
             image_url = 'https://i.imgur.com/cSx1PLC.png'
           ),
           QuickReplyButton(
-            action = MessageAction(label = "基隆市", text = "weather~基隆市"),
+            action = MessageAction(label = "新北市", text = "weather~新北市"),
             image_url = 'https://i.imgur.com/cSx1PLC.png'
-          ),
+          ),         
            QuickReplyButton(
             action = MessageAction(label = "桃園市", text = "weather~桃園市"),
             image_url = 'https://i.imgur.com/cSx1PLC.png'
           ),
            QuickReplyButton(
+            action = MessageAction(label = "苗栗縣", text = "weather~苗栗縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+           QuickReplyButton(
             action = MessageAction(label = "臺中市", text = "weather~臺中市"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+           QuickReplyButton(
+            action = MessageAction(label = "彰化縣", text = "weather~彰化縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+           QuickReplyButton(
+            action = MessageAction(label = "雲林縣", text = "weather~雲林縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+           QuickReplyButton(
+            action = MessageAction(label = "嘉義縣", text = "weather~嘉義縣"),
             image_url = 'https://i.imgur.com/cSx1PLC.png'
           ),
           QuickReplyButton(
@@ -845,8 +865,15 @@ def getQuickReply_weather():
           QuickReplyButton(
             action = MessageAction(label = "高雄市", text = "weather~高雄市"),
             image_url = 'https://i.imgur.com/cSx1PLC.png'
-          )
-          
+          ),          
+           QuickReplyButton(
+            action = MessageAction(label = "宜蘭縣", text = "weather~宜蘭縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+           QuickReplyButton(
+            action = MessageAction(label = "臺東縣", text = "weather~臺東縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          )         
         ]
        )
       )
@@ -1128,19 +1155,27 @@ def get_weather_state(weather_info,cityname):
     elif "多雲短暫陣雨" in weather_info:	
           imageurl = 'https://i.imgur.com/i3AF7dg.png'
     elif "陰時短暫陣雨或雷雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/F7c7WnN.png' 
+          imageurl = 'https://i.imgur.com/F7c7WnN.png'
+    elif "陰短暫雨" in weather_info:	
+          imageurl = 'https://i.imgur.com/hzCLCYd.png'           
     elif "陰短暫陣雨或雷雨" in weather_info:	
           imageurl = 'https://i.imgur.com/F7c7WnN.png'     
     elif "多雲短暫陣雨或雷雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/F7c7WnN.png'	     
+          imageurl = 'https://i.imgur.com/F7c7WnN.png'
+    elif "陰時多雲" in weather_info:	
+          imageurl = 'https://i.imgur.com/gI6pVjq.png'
+    elif "陰時多雲短暫雨" in weather_info:	
+          imageurl = 'https://i.imgur.com/xpXDOwM.png'                    	     
     elif "陰天有雨" in weather_info:	
           imageurl = 'https://i.imgur.com/DptJzac.png'
     elif "多雲時晴" in weather_info :
           imageurl = 'https://i.imgur.com/AJbKWzL.png'
+    elif "多雲時陰短暫雨" in weather_info :
+          imageurl = 'https://i.imgur.com/KswxMPl.png'          
     elif "晴時多雲" in weather_info:
           imageurl = 'https://i.imgur.com/ycSrwVV.png'	    	               
     elif "多雲" in weather_info:	
-          imageurl = 'https://i.imgur.com/5HpJaF7.png'         	
+          imageurl = 'https://i.imgur.com/xKknQ61.png'         	
     else:
           imageurl = 'https://i.imgur.com/P5EiNgQ.png' 	    	  
     message = [
@@ -1480,12 +1515,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg): 
     global camera_url, camera_id         
-    print(msg.topic + " " + str(msg.payload))    
-    #if msg.topic == 'homesecurity/ngrokurl':
-     #print(str(msg.payload).split('/', 1 )[1])
-     #camera_url = str(msg.payload).split('/', 1 )[1]
-     #camera_id = str(msg.payload).split('/', 1 )[0]+"'"
-              
+    print(msg.topic + " " + str(msg.payload))              
 
 client = mqtt.Client()    
 client.on_connect = on_connect  
