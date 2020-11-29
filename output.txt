@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1606606262268&sign=1c92b5f3b27c4ef2c4f569a14f5f1cad&rq=我要聽歌手張惠妹的歌'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1606638409818&sign=289027579f326ff158223598e7793acf&rq=我要聽歌手王若琳的歌'
 
 Here is the result:
 
-{"data":{"seg":"我 要 聽 歌手 張 惠 妹 的 歌 "},"status":"ok"}
+{"data":{"seg":"我 要 聽 歌手 王 若 琳 的 歌 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1606606262498&sign=57e49cfbca414079e5d7d54ae19f008a&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手張惠妹的歌"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1606638410374&sign=6f7587101c846e48e1e869f9421dc25e&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手王若琳的歌"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放張惠妹的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手張惠妹的歌","slots":[{"name":"歌手名","value":"張惠妹"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放王若琳的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手王若琳的歌","slots":[{"name":"歌手名","value":"王若琳"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
