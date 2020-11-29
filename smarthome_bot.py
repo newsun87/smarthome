@@ -625,13 +625,25 @@ def handle_postback_message(event):
         #line_bot_api.reply_message(event.reply_token, message)           
     
     elif postBack == 'airbox':
-        URL_API = '{host_url}/{SN}/CONFIG/{KEY}'.format( 
-		   host_url = 'https://service.wf8266.com/api/mqtt', 
-		   SN = '5440973', 
-		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873')
+        URL_API_RequestState = "curl -s 'https://service.wf8266.com/api/mqtt/5440973/CONFIG/ADu2FL4V7LdfprFNL9xpKkbVw873' \
+  -H 'Connection: keep-alive' \
+  -H 'Cache-Control: max-age=0' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Sec-Fetch-Site: none' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Accept-Language: en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,ja;q=0.6' \
+  -H 'Cookie: connect.sid=s%3AWrA9WGu2NXFwLnBwjk1-jMDLbqjUWkBN.HiY3T5dFPfXas6cv7oDHrmQzLpKOyjQX5G6lEDtMIMY; __cfduid=df80e5c1cd8b704b596eb1703cfbe83631606599384; _ga=GA1.2.163570825.1606599384; _gid=GA1.2.1129529752.1606599384' \
+  --compressed \
+  --insecure"   
         try: 
-            response = requests.get(URL_API,timeout = 5)            
-            resObj = json.loads(response.text)
+            response = os.popen(URL_API_RequestState) 
+            text = response.read()
+            response.close()           
+            resObj = json.loads(text)
             print('Temperature： ',  resObj['data']['Message'][0]['C'] ) # 取出溫度
             print('Humidity： ',  resObj['data']['Message'][0]['H'] ) # 取出濕度
             print('PM2.5： ',  resObj['data']['Message'][0]['PMAT25'] ) 
