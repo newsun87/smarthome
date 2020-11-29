@@ -502,8 +502,8 @@ def handle_message(event):
 
 from translate import Translator
 from lxml import etree  
-host1 = 'https://smarthome-123.herokuapp.com/'
-baseurl = host1 + '/static/'
+baseurl = 'https://smarthome-123.herokuapp.com/static'
+
 def translation(text, language): 
     global baseurl      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
