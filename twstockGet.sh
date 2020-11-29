@@ -1,5 +1,5 @@
 #!/bin/bash
-curl -s https://tw.stock.yahoo.com > page.html #下載網頁但不會顯示進度條
+curl -s https://tw.stock.yahoo.com/classic > page.html #下載網頁但不會顯示進度條
 iconv -f BIG-5 -t UTF-8 page.html > utf8.txt
 str1=`cat utf8.txt | grep 上市 | awk -F "<" '{print $11}' | awk -F ">" '{print $2}'` #上市跌/漲
 str2=`cat utf8.txt | grep 上市 | awk -F "<" '{print $15}'| awk -F ">" '{print $2}'` #點數

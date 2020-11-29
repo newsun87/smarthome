@@ -500,7 +500,7 @@ def handle_message(event):
       line_bot_api.reply_message(event.reply_token, message)  
 # ----------------------------------------------------------------          
 
-from translate import Translator   
+#from translate import Translator   
 baseurl = host + '/static/'
 def translation(text, language):       
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
@@ -1084,37 +1084,67 @@ def getFlex_stock(stock_result):  #取得彈性配置樣板
         )
         return bubble 
         
-def switch_plug(deviceSN):
-        URL_API_RequestState = '{host_url}/{SN}/RequestState/{KEY}'.format( 
-		   host_url = 'https://service.wf8266.com/api/mqtt', 
-		   SN = deviceSN, 
-		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873'
-		)
-        URL_API_GPIO_ON = '{host_url}/{SN}/GPIO/{KEY}/12,1'.format( 
-		   host_url = 'https://service.wf8266.com/api/mqtt', 
-		   SN = deviceSN, 
-		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873'		   		   
-		)
-        URL_API_GPIO_OFF = '{host_url}/{SN}/GPIO/{KEY}/12,0'.format( 
-		   host_url = 'https://service.wf8266.com/api/mqtt', 
-		   SN = deviceSN, 
-		   KEY = 'ADu2FL4V7LdfprFNL9xpKkbVw873'		   		   
-		)
-        try: 
-            response = requests.get(URL_API_RequestState,timeout = 5)            
-            resObj = json.loads(response.text)
-            print('PlugState： ', resObj['data']['Data'][2])
-            plug_state = resObj['data']['Data'][2]
-            if plug_state == '0':                           
-              response = requests.get(URL_API_GPIO_ON,timeout = 5)								
-              message = TextSendMessage(text = "開關已打開")
-            elif plug_state == '1':                           
-              response = requests.get(URL_API_GPIO_OFF,timeout = 5)								
-              message = TextSendMessage(text = "開關已關閉")                           
-        except requests.exceptions.Timeout as e:
-            airbox_data = 'error'
-            message = TextSendMessage(text = "插座未連線.....") 
-        return message
+def switch_plug(deviceSN):    
+    URL_API_RequestState = "curl -s 'https://service.wf8266.com/api/mqtt/{my_deviceSN}/RequestState/ADu2FL4V7LdfprFNL9xpKkbVw873' \
+  -H 'Connection: keep-alive' \
+  -H 'Cache-Control: max-age=0' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Sec-Fetch-Site: none' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Accept-Language: en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,ja;q=0.6' \
+  -H 'Cookie: connect.sid=s%3AWrA9WGu2NXFwLnBwjk1-jMDLbqjUWkBN.HiY3T5dFPfXas6cv7oDHrmQzLpKOyjQX5G6lEDtMIMY; __cfduid=df80e5c1cd8b704b596eb1703cfbe83631606599384; _ga=GA1.2.163570825.1606599384; _gid=GA1.2.1129529752.1606599384' \
+  --compressed \
+  --insecure".format(my_deviceSN=deviceSN)
+    URL_API_GPIO_ON = "curl -s 'https://service.wf8266.com/api/mqtt/{my_deviceSN}/GPIO/ADu2FL4V7LdfprFNL9xpKkbVw873/12,1' \
+  -H 'Connection: keep-alive' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Sec-Fetch-Site: none' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Accept-Language: en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,ja;q=0.6' \
+  -H 'Cookie: connect.sid=s%3AWrA9WGu2NXFwLnBwjk1-jMDLbqjUWkBN.HiY3T5dFPfXas6cv7oDHrmQzLpKOyjQX5G6lEDtMIMY; __cfduid=df80e5c1cd8b704b596eb1703cfbe83631606599384; _ga=GA1.2.163570825.1606599384; _gid=GA1.2.1129529752.1606599384' \
+  --compressed \
+  --insecure".format(my_deviceSN=deviceSN) 
+    URL_API_GPIO_OFF = "curl -s 'https://service.wf8266.com/api/mqtt/{my_deviceSN}/GPIO/ADu2FL4V7LdfprFNL9xpKkbVw873/12,0' \
+  -H 'Connection: keep-alive' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Sec-Fetch-Site: none' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Accept-Language: en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,ja;q=0.6' \
+  -H 'Cookie: connect.sid=s%3AWrA9WGu2NXFwLnBwjk1-jMDLbqjUWkBN.HiY3T5dFPfXas6cv7oDHrmQzLpKOyjQX5G6lEDtMIMY; __cfduid=df80e5c1cd8b704b596eb1703cfbe83631606599384; _ga=GA1.2.163570825.1606599384; _gid=GA1.2.1129529752.1606599384' \
+  --compressed \
+  --insecure".format(my_deviceSN=deviceSN)
+    try:     
+     r = os.popen(URL_API_RequestState)	
+     text = r.read()   
+     r.close()
+     print(text)
+     resObj = json.loads(text)
+     print('PlugState： ', resObj['data']['Data'][2])	
+     plug_state = resObj['data']['Data'][2]
+     if plug_state == '0':
+      os.system(URL_API_GPIO_ON)    								
+      print("開關已打開")
+      message = TextSendMessage(text = "開關已打開")
+     elif plug_state == '1':                           
+      os.system(URL_API_GPIO_OFF)
+      print("開關已關閉")
+      message = TextSendMessage(text = "開關已關閉")    
+    except requests.exceptions.Timeout as e:
+       print("插座未連線.....")
+       message = TextSendMessage(text = "插座未連線.....")       
+    return message 
 
 def switch_infrared_device(IR_num): # 切換紅外線裝置
         URL_API_IRSend = '{host_url}/{SN}/IRSend/{KEY}/15,{value}'.format( 

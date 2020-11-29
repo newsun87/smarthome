@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602638635896&sign=c4f27ee8fd85e04d5223c1ca6207a0cd&rq=我要聽歌手鋼琴音樂的歌'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1606606262268&sign=1c92b5f3b27c4ef2c4f569a14f5f1cad&rq=我要聽歌手張惠妹的歌'
 
 Here is the result:
 
-{"data":{"seg":"我 要 聽 歌手 鋼 琴音 樂 的 歌 "},"status":"ok"}
+{"data":{"seg":"我 要 聽 歌手 張 惠 妹 的 歌 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1602638636753&sign=abe9ba896f6ed4cfea36ffcf7825e84a&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手鋼琴音樂的歌"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1606606262498&sign=57e49cfbca414079e5d7d54ae19f008a&rq={"data_type":"stt","data":{"input_type":"1","text":"我要聽歌手張惠妹的歌"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放鋼琴音樂的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手鋼琴音樂的歌","slots":[{"name":"歌手名","value":"鋼琴音樂"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"馬上為你播放張惠妹的歌","status":0},"semantic":[{"app":"smarthome","input":"我要聽歌手張惠妹的歌","slots":[{"name":"歌手名","value":"張惠妹"}],"modifier":["playsinger"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
