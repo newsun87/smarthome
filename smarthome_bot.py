@@ -502,9 +502,10 @@ def handle_message(event):
 
 from translate import Translator
 from lxml import etree  
-host = 'https://liff.line.me/1654118646-4ANQr5B3'
-baseurl = host + '/static/'
-def translation(text, language):       
+host1 = 'https://smarthome-123.herokuapp.com/'
+baseurl = host1 + '/static/'
+def translation(text, language): 
+    global baseurl      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)
     #將中文text翻成英文，並去掉亂碼
