@@ -1252,8 +1252,8 @@ def nlu(text): # 取得語意分析結果
   if status == 0 and type == 'smarthome':     
     action = temp['data']['nli'][0] ['semantic'][0]['modifier'][0]
     if status == 0 and type == 'smarthome':     
-    action = temp['data']['nli'][0] ['semantic'][0]['modifier'][0]
-    if action == 'playsong': #播放指定歌曲
+     action = temp['data']['nli'][0] ['semantic'][0]['modifier'][0]
+     if action == 'playsong': #播放指定歌曲
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
         print('nlu', nlu_text) 
         songname = temp['data']['nli'][0]['semantic'][0]['slots'][0]['value']       
@@ -1269,7 +1269,7 @@ def nlu(text): # 取得語意分析結果
         message = nlu_text + '\n' + video_url       
         return [TextSendMessage(text=message_list[1]), message_list[0]]                                                                
                
-    if action == 'playsinger': #播放指定歌手
+     if action == 'playsinger': #播放指定歌手
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
         print('nlu', nlu_text) 
         singername = temp['data']['nli'][0]['semantic'][0]['slots'][0]['value']       
@@ -1285,7 +1285,7 @@ def nlu(text): # 取得語意分析結果
         message = nlu_text + '\n' + video_url              
         return message_list[0]                              
 
-    if action == 'playpause': #播放暫停/繼續
+     if action == 'playpause': #播放暫停/繼續
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
         print('nlu', nlu_text)
         mqttmsg ='playpause'
@@ -1294,7 +1294,7 @@ def nlu(text): # 取得語意分析結果
         message = nlu_text
         return  TextSendMessage(text=message)        
 
-    if action == 'adjust': #調整音量
+     if action == 'adjust': #調整音量
          #userId = 'Ubf2b9f4188d45848fb4697d41c962591'
          users_userId_ref = ref.child(base_users_userId + userId + '/youtube_music/volume')
          volume_str = users_userId_ref.get()         
@@ -1327,7 +1327,7 @@ def nlu(text): # 取得語意分析結果
          message = nlu_text + '至 ' + str(volume_num) + '%' 
          return TextSendMessage(text=message)            
    
-    if action == 'query':
+     if action == 'query':
         solt_item1 = temp['data']['nli'][0] ['semantic'][0]['slots'][0]['value']
         print(solt_item1)
         if solt_item1 == '天氣':
@@ -1337,7 +1337,7 @@ def nlu(text): # 取得語意分析結果
             message = get_weather_state(weather_info, cityname)
             return message
             
-    if action == 'translate':
+     if action == 'translate':
         language = temp['data']['nli'][0] ['semantic'][0]['slots'][0]['value']
         text = temp['data']['nli'][0] ['semantic'][0]['slots'][1]['value']
         print(text)
