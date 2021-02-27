@@ -526,14 +526,9 @@ def translation(text, language):
 @handler.add(PostbackEvent)
 def handle_postback_message(event):
     postBack = event.postback.data
-    print('poskback......', postBack)
-    
-    if postBack == 'volume':
-       QuickReply_text_message = getQuickReply_volume()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
-         
+    print('poskback......', postBack)         
 # ----生和資訊功能功能操作------------------                   
-    elif postBack == 'weather':
+    if postBack == 'weather':
        QuickReply_text_message = getQuickReply_weather()       
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message)       
     elif postBack == 'pm25':
@@ -643,8 +638,11 @@ def handle_postback_message(event):
          
     elif postBack == 'translator':
        QuickReply_text_message = getQuickReply_lang()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)     
-    
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+  #--------------------處理音樂播放-----------------------------------------------
+    elif postBack == 'volume':
+       QuickReply_text_message = getQuickReply_volume()       
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)    
     else:
        action= postBack.split("~")[0]
        video_url = postBack.split("~")[1]
