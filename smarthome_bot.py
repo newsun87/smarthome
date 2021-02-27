@@ -547,21 +547,7 @@ def handle_postback_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     elif postBack == 'AIImage':
        QuickReply_text_message = getQuickReply_aiimage()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
-    else:
-       action= postBack.split("~")[0]
-       video_url = postBack.split("~")[1]
-       songname = postBack.split("~")[2]
-       userId = postBack.split("~")[3]
-       print(video_url, songname, userId, base_users_userId)
-       if action == 'mqtt_publish':
-        ref.child(base_users_userId + userId + '/youtube_music/').update({"songkind":songname})         
-        ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":video_url})      
-        client.publish("music/youtubeurl", userId +'~'+ video_url, 2, retain=True) #發佈訊息 
-        print("message published")
-        time.sleep(1)
-        client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=video_url))            
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)  
           
 # ---------------------------------------------------------------       
     elif postBack == 'plugs':
@@ -657,12 +643,22 @@ def handle_postback_message(event):
          
     elif postBack == 'translator':
        QuickReply_text_message = getQuickReply_lang()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
-       
-    elif postBack == 'restart':
-       client.publish("music/shutdown", 'restart', 2, retain=False) #發佈訊息
-       time.sleep(1)
-       client.publish("music/shutdown", '', 2, retain=False) #發佈訊息          
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)     
+    
+    else:
+       action= postBack.split("~")[0]
+       video_url = postBack.split("~")[1]
+       songname = postBack.split("~")[2]
+       userId = postBack.split("~")[3]
+       print(video_url, songname, userId, base_users_userId)
+       if action == 'mqtt_publish':
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"songkind":songname})         
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":video_url})      
+        client.publish("music/youtubeurl", userId +'~'+ video_url, 2, retain=True) #發佈訊息 
+        print("message published")
+        time.sleep(1)
+        client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=video_url))                      
 
 def getQuickReply_plugs():
 	QuickReply_text_message = TextSendMessage(
