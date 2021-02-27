@@ -12,7 +12,6 @@ import paho.mqtt.client as mqtt
 from datetime import datetime
 import os
 import json
-import random
 import time
 import firebase_admin
 import requests
@@ -21,6 +20,9 @@ from firebase_admin import db
 import subprocess
 import configparser
 from line_notify import LineNotify
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+import random
 
 config = configparser.ConfigParser()
 config.read('smart_home.conf')
