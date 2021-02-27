@@ -527,6 +527,7 @@ def translation(text, language):
 def handle_postback_message(event):
     postBack = event.postback.data
     print('poskback......', postBack)
+    
     if postBack == 'volume':
        QuickReply_text_message = getQuickReply_volume()       
        line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
@@ -546,7 +547,21 @@ def handle_postback_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     elif postBack == 'AIImage':
        QuickReply_text_message = getQuickReply_aiimage()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)         
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)
+    else:
+       action= postBack.split("~")[0]
+       video_url = postBack.split("~")[1]
+       songname = postBack.split("~")[2]
+       userId = postBack.split("~")[3]
+       print(video_url, songname, userId, base_users_userId)
+       if action == 'mqtt_publish':
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"songkind":songname})         
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":video_url})      
+        client.publish("music/youtubeurl", userId +'~'+ video_url, 2, retain=True) #發佈訊息 
+        print("message published")
+        time.sleep(1)
+        client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=video_url))            
           
 # ---------------------------------------------------------------       
     elif postBack == 'plugs':
@@ -1228,12 +1243,6 @@ def sendCameraURL(ACCESS_TOKEN, ngrok_url):
     notify = LineNotify(ACCESS_TOKEN) 
     notify.send('攝影機網址 ' + ngrok_url)        
            
-def random_int_list(num):
-  list = range(1, num)
-  random_list = [*list]
-  random.shuffle(random_list)
-  return random_list
-  
 def nlu(text): # 取得語意分析結果
   global nlu_text, songnum, songkind, client, genUrl_state	
   cmd = './olami-nlu-api-test.sh https://tw.olami.ai/cloudservice/api 8bd057135ec8432bb7bd2b2caa510aca 3fd33f86b57642c08fbea22f8eb9132d %s'     
