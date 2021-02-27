@@ -185,22 +185,15 @@ def handle_message(event):
   ref = db.reference('/') # 參考路徑 
   userId = event.source.user_id  
   profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
-  print('profile...',profile)      
+  print('profile...',profile) 
+  #---判斷用戶是否有註冊 LINE Notify---------------         
   if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
    buttons_template_message = linenotify_menu()
    line_bot_api.reply_message(event.reply_token, buttons_template_message) 
-       
- # else:
- #  user_profile = {"userId": profile.user_id, "line_name":profile.display_name}	  
- #  ref.child(base_users_userId+userId + '/profile').update(user_profile) #寫入用戶資料
- #  ref.child(base_users_userId + userId + '/youtube_music/').update({"volume":60})
- #  singerList = [0]
- #  ref.child(base_users_userId + userId + '/youtube_music/favorsinger').set( singerList )   
- #  ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":"https://www.youtube.com/watch?v=ceKX_7lnSy0&t=6s"})
- #  ref.child(base_users_userId + userId + '/translate/').update({"lang":"en"})""" 
+  #------------------------------------ 
   
-  
-# -----雲端音樂 quickreply 的指令操作-------------- 
+# -----雲端音樂功能的指令-------------- 
+  # ----播放影片網址---------    
   if event.message.text.startswith('【youtube url】'):
       new_message = event.message.text.lstrip('【youtube url】')
       ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":videourl})
@@ -230,7 +223,7 @@ def handle_message(event):
       client.publish("music/youtubeurl", userId +'~'+ event.message.text, 2, retain=True) #發佈訊息
       time.sleep(1)
       client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息       
-# -----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
 # -------新增或刪除喜愛歌手功能-------------------------------
   elif event.message.text.startswith('addsinger'): 
       split_array = event.message.text.split("~")
@@ -353,11 +346,7 @@ def handle_message(event):
       mqttmsg = str(volume)           
       client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息        
       message = TextSendMessage(text = '音量設定為： ' + split_array [1] + '%')
-      line_bot_api.reply_message(event.reply_token, message)  
- 
-  elif event.message.text == 'music_menu':
-	  buttons_template_message = music_menu()
-	  line_bot_api.reply_message(event.reply_token, buttons_template_message)
+      line_bot_api.reply_message(event.reply_token, message) 
 	  
   elif event.message.text == 'appliances_menu':
 	  buttons_template_message = appliances_menu()	  
@@ -1262,43 +1251,39 @@ def nlu(text): # 取得語意分析結果
         
   if status == 0 and type == 'smarthome':     
     action = temp['data']['nli'][0] ['semantic'][0]['modifier'][0]
+    if status == 0 and type == 'smarthome':     
+    action = temp['data']['nli'][0] ['semantic'][0]['modifier'][0]
     if action == 'playsong': #播放指定歌曲
-       nlu_text = temp['data']['nli'][0]['desc_obj']['result']
-       print('nlu', nlu_text) 
-       songname = temp['data']['nli'][0] ['semantic'][0]['slots'][0]['value'] 
-       randomList = random_int_list(15)[0:1]       
-       mqttmsg = songname + '~' + str(randomList[0])           
-       print('songname ', songname)       
-       songnum = randomList[0]
-       songkind = songname
-       with open('record.txt','w', encoding = "utf-8") as fileobj:
-         word = fileobj.write(songname)                    
-       client.publish("music/playsong", userId+'~'+ mqttmsg, 2, retain=True) #發佈訊息
-       time.sleep(1)
-       client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息 
-       #playsong      
-       print("message published")
-       message = TextSendMessage(text = nlu_text)
-       
-       return message                                
+        nlu_text = temp['data']['nli'][0]['desc_obj']['result']
+        print('nlu', nlu_text) 
+        songname = temp['data']['nli'][0]['semantic'][0]['slots'][0]['value']       
+        message_list = yt_search(songname, userId)
+        video_url = message_list[1]
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"songkind":songname})         
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":video_url})
+        print("歌曲 {videourl} 更新成功...".format(videourl=video_url))      
+        client.publish("music/youtubeurl", userId +'~'+ video_url, 2, retain=True) #發佈訊息 
+        print("message published")
+        time.sleep(1)
+        client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息          
+        message = nlu_text + '\n' + video_url       
+        return [TextSendMessage(text=message_list[1]), message_list[0]]                                                                
                
     if action == 'playsinger': #播放指定歌手
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
         print('nlu', nlu_text) 
         singername = temp['data']['nli'][0]['semantic'][0]['slots'][0]['value']       
-        randomList = random_int_list(15)[0:1]
-        mqttmsg = singername + '~' + str(randomList[0])                                
-        print('singername ', singername)                  
-        songnum = randomList[0]
-        songkind = singername
-        with open('record.txt','w', encoding = "utf-8") as fileobj:
-         word = fileobj.write(singername)                                 
-        client.publish("music/playsong", userId+'~'+ mqttmsg, 2, retain=False) #發佈訊息
-        time.sleep(1)
-        client.publish("music/playsong", ' ', 2, retain=True) #發佈訊息         
+        message_list = yt_search(singername, userId)
+        video_url = message_list[1]
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"songkind":singername})        
+        ref.child(base_users_userId + userId + '/youtube_music/').update({"videourl":video_url})
+        print("歌曲 {videourl} 更新成功...".format(videourl=video_url))      
+        client.publish("music/youtubeurl", userId +'~'+ video_url, 2, retain=True) #發佈訊息 
         print("message published")
-        message = TextSendMessage(text = nlu_text)        
-        return message                        
+        time.sleep(1)
+        client.publish("music/youtubeurl", '', 2, retain=True) #發佈訊息         
+        message = nlu_text + '\n' + video_url              
+        return message_list[0]                              
 
     if action == 'playpause': #播放暫停/繼續
         nlu_text = temp['data']['nli'][0]['desc_obj']['result']
@@ -1306,8 +1291,8 @@ def nlu(text): # 取得語意分析結果
         mqttmsg ='playpause'
         client.publish("music/pause_play", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息              
         print("message published")
-        message = TextSendMessage(text = nlu_text)
-        return message         
+        message = nlu_text
+        return  TextSendMessage(text=message)        
 
     if action == 'adjust': #調整音量
          #userId = 'Ubf2b9f4188d45848fb4697d41c962591'
@@ -1339,11 +1324,8 @@ def nlu(text): # 取得語意分析結果
               mqttmsg = str(volume_num)               
               client.publish("music/volume", userId+'~'+ mqttmsg, 0, retain=False) #發佈訊息
          print('volume....', volume_num)      
-         #ref.child(base_users_userId + userId + '/youtube_music').update({
-         #      'volume':volume_num}                
-         #)         
-         message = TextSendMessage(text = nlu_text)
-         return message                 
+         message = nlu_text + '至 ' + str(volume_num) + '%' 
+         return TextSendMessage(text=message)            
    
     if action == 'query':
         solt_item1 = temp['data']['nli'][0] ['semantic'][0]['slots'][0]['value']
@@ -1435,6 +1417,91 @@ def setup_menu():
          )
         )
     return buttons_template_message
+
+# Setup YouTube API
+KEY = 'AIzaSyCXdlB7xy9F2YJn7sYsNkmA4dE3PvbHVhw'
+YOUTUBE_API_SERVICE_NAME = 'youtube'
+YOUTUBE_API_VERSION = 'v3'  
+def yt_search(video_keywords, userId):
+    youtube = build('youtube', 'v3', developerKey=KEY)
+
+    # Get YouTube API results
+    search_response = youtube.search().list(
+        q=video_keywords, # 查詢文字
+        type='video',
+        part='id,snippet', # 把需要的資訊列出來
+        maxResults=10 # 預設為五筆資料，可以設定1~50
+    ).execute()
+    items = search_response['items']
+    #print(items)
+    if not items:
+      return 'Error: No YouTube results'
+    else:
+      videos = list(map(video_filter, items)) 
+      carouselitems = []
+     # 動態加入歌手清單  
+      num = random.randint(0,len(videos))
+      print(num)
+      youtube_url = f'{videos[num]["影片網址"]}'      
+      print(youtube_url)
+      video_thumbnail = f'{videos[num]["封面照片"]}'
+      video_title = f'{videos[num]["影片名稱"]}'
+      print(youtube_url, video_thumbnail, video_title) 
+      items = gen_carouseltemplate_items(videos, video_keywords)      
+      carousel_template_message = TemplateSendMessage(
+        alt_text = '這是一個輪播模板',  # 通知訊息的名稱
+        template = CarouselTemplate(
+           columns = items
+       )
+     )      
+      
+      yt_search_message = [
+        carousel_template_message, 
+        youtube_url 
+      ]
+      
+      return  yt_search_message 
+
+def gen_carouseltemplate_items(videos, video_keywords):
+      items = []
+    # 動態加入影片清單
+      for key in range(len(videos)):
+        youtube_url = f'{videos[key]["影片網址"]}'      
+        print(youtube_url)
+        video_thumbnail = f'{videos[key]["封面照片"]}'
+        video_title = f'{videos[key]["影片名稱"]}'
+        print(youtube_url, video_thumbnail, video_title)        
+        items.append(CarouselColumn(         
+          thumbnail_image_url = video_thumbnail,  # 呈現圖片
+          title = video_keywords,  # 你要顯示的標題          
+          text = '想聽就直接點選...',  # 你想問的問題或是敘述
+          actions = [
+            PostbackAction(
+             label = '播放器播放',  # 顯示的文字                           
+             data = f"mqtt_publish~{youtube_url}~{video_keywords}~{userId}"  # 取得控制資料
+            ),                        
+            URIAction(
+             label = '本機播放',  # 顯示的文字 
+             uri = youtube_url   # 跳轉的url
+            )
+           ]                         
+        ))
+      return items          
+  
+# Sent an HTML page with the top ten videos
+def video_filter(api_video):
+  title = api_video['snippet']['title']         
+  kind = api_video['id']['kind']
+  videoid = api_video['id']['videoId']
+  url = f'https://youtu.be/{videoid}'
+  thumbnails = api_video['snippet']['thumbnails']['medium']['url']
+  return {
+            '影片名稱': title,
+            '影片種類': kind,
+            '影片網址': url,
+            '封面照片':thumbnails
+  }
+    
     
 def linenotify_menu():
     buttons_template_message = TemplateSendMessage(
@@ -1453,37 +1520,6 @@ def linenotify_menu():
         )
     return buttons_template_message    
     
-def music_menu(): #雲端音樂按鈕選單樣板
-    buttons_template_message = TemplateSendMessage(
-         alt_text = '我是音樂選單按鈕模板',
-         template = ButtonsTemplate(
-            thumbnail_image_url = 'https://i.imgur.com/fOSegKL.png', 
-            title = '雲端音樂功能選單',  # 你的標題名稱
-            text = '請選擇：',  # 你要問的問題，或是文字敘述            
-            actions = [ # action 最多只能4個喔！
-                URIAction(
-                    label = '使用說明', # 在按鈕模板上顯示的名稱
-                    uri = host + '/music'  # 跳轉到的url，看你要改什麼都行，只要是url                    
-                ),
-                URIAction(
-                    label = '網頁點歌', # 在按鈕模板上顯示的名稱
-                    uri = host + '/music'  # 跳轉到的url，看你要改什麼都行，只要是url                    
-                ),
-                # 跟上面差不多
-                MessageAction(
-                    label = '歌曲資訊',   # 在按鈕模板上顯示的名稱
-                    text = '歌曲資訊'  
-                ),
-                # 跳轉到URL
-                MessageAction(
-                    label = '歌曲播放',  # 在按鈕模板上顯示的名稱
-                    text = 'menu'
-                )
-            ]
-         )
-        )
-    return buttons_template_message 
-       
 def appliances_menu():
     buttons_template_message = TemplateSendMessage(
          alt_text = '我是智慧家電選單按鈕模板',
@@ -1511,7 +1547,8 @@ def appliances_menu():
             ]
          )
         )
-    return buttons_template_message      
+    return buttons_template_message  
+        
 def live_menu():
     buttons_template_message = TemplateSendMessage(
          alt_text = '我是生活資訊選單按鈕模板',
