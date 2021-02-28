@@ -1480,7 +1480,7 @@ def gen_carouseltemplate_items(videos, video_keywords):
         items.append(CarouselColumn(         
           thumbnail_image_url = video_thumbnail,  # 呈現圖片
           #title = video_keywords,  # 你要顯示的標題 
-          title = video_title[0:10]vr,  # 你要顯示的標題          
+          title = video_title[0:10],  # 你要顯示的標題          
           text = '想聽就直接點選...',  # 你想問的問題或是敘述
           actions = [
             PostbackAction(
