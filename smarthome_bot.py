@@ -1485,7 +1485,7 @@ def gen_carouseltemplate_items(videos, video_keywords):
           actions = [
             PostbackAction(
              label = '播放器播放',  # 顯示的文字                           
-             data = f"mqtt_publish~{youtube_url}~{video_keywords}~{userId}"  # 取得控制資料
+             data = f"mqtt_publish~{youtube_url}~{video_keywords}~{userId}"  # 取得控制資料             
             ),                        
             URIAction(
              label = '本機播放',  # 顯示的文字 
