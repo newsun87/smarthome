@@ -808,7 +808,7 @@ def getQuickReply_music():
 	# 動態加入歌手清單
 	for key in range(len(singerList)):	
 	 items.append(QuickReplyButton(
-            action = MessageAction(label = singerList[key], text = "我要聽歌手"+singerList[key]+"的歌"),
+            action = MessageAction(label = singerList[key], text = "我要聽"+singerList[key]+"的歌"),
             image_url = 'https://i.imgur.com/0yjTHss.png'
      ))
             
@@ -1451,7 +1451,8 @@ def yt_search(video_keywords, userId):
       print(youtube_url)
       video_thumbnail = f'{videos[num]["封面照片"]}'
       video_title = f'{videos[num]["影片名稱"]}'
-      print(youtube_url, video_thumbnail, video_title) 
+      print(youtube_url, video_thumbnail, video_title)
+      time.sleep(1) 
       items = gen_carouseltemplate_items(videos, video_keywords)      
       carousel_template_message = TemplateSendMessage(
         alt_text = '這是一個輪播模板',  # 通知訊息的名稱
@@ -1478,7 +1479,8 @@ def gen_carouseltemplate_items(videos, video_keywords):
         print(youtube_url, video_thumbnail, video_title)        
         items.append(CarouselColumn(         
           thumbnail_image_url = video_thumbnail,  # 呈現圖片
-          title = video_keywords,  # 你要顯示的標題          
+          #title = video_keywords,  # 你要顯示的標題 
+          title = video_title[0:10]vr,  # 你要顯示的標題          
           text = '想聽就直接點選...',  # 你想問的問題或是敘述
           actions = [
             PostbackAction(
