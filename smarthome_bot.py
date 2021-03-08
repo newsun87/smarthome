@@ -1601,14 +1601,15 @@ def lineNotifyMessage(token, msg):
 #定義任務的內容
 def scheduled_job():
    now_datetime = datetime.datetime.now()
-   print("顯示目前時間: ", now_datetime)   
-   lineNotifyMessage(line_token, now_datetime)     
+   print("顯示目前時間: ", now_datetime) 
+   result = subprocess.getoutput("sh ./twstockGet.sh")  
+   lineNotifyMessage(line_token, "股票資訊\n: " + result)     
     
 def scheduler_task():
     scheduler = APScheduler()
     scheduler.init_app(app)
     #定時任務，每隔10s執行1次
-    scheduler.add_job(func=scheduled_job, trigger='interval', hours=1,id='my_job_id' )
+    scheduler.add_job(func=scheduled_job, trigger='interval', seconds=10,id='my_job_id' )
     scheduler.start()
     
 def on_connect(client, userdata, flags, rc):  
@@ -1618,8 +1619,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg): 
     global camera_url, camera_id         
-    print(msg.topic + " " + str(msg.payload)) 
-    
+    print(msg.topic + " " + str(msg.payload))     
                 
 #寫在 main 裏面，IIS不會運行
 scheduler_task()
