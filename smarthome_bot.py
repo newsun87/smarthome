@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from flask import Flask, request, abort
-
+from flask_apscheduler import APScheduler
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -23,6 +23,7 @@ from line_notify import LineNotify
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import random
+import datetime
 
 config = configparser.ConfigParser()
 config.read('smart_home.conf')
@@ -179,7 +180,7 @@ def handle_image_message(event):
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message)    
 
-
+line_token = 'dw8xZ8HE5RK9PqG7g7X1ClBhKELzb0lyFirvM5syijw'
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event): 
@@ -191,7 +192,9 @@ def handle_message(event):
   #---判斷用戶是否有註冊 LINE Notify---------------         
   if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
    buttons_template_message = linenotify_menu()
-   line_bot_api.reply_message(event.reply_token, buttons_template_message) 
+   line_bot_api.reply_message(event.reply_token, buttons_template_message)
+  else:
+   line_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()  
   #------------------------------------ 
   
 # -----雲端音樂功能的指令-------------- 
@@ -1585,6 +1588,30 @@ def live_menu():
         )
     return buttons_template_message 
     
+def lineNotifyMessage(token, msg):
+      headers = {
+          "Authorization": "Bearer " + token,
+          "Content-Type" : "application/x-www-form-urlencoded"
+      }
+      payload = {'message': msg}
+      r = requests.post("https://notify-api.line.me/api/notify", headers = headers, params = payload)
+      return r.status_code
+          
+#定義任務的內容
+def timed_job_awake_your_app():
+   now_datetime = datetime.datetime.now()
+   print("顯示目前時間: ", now_datetime)
+   #token = 'dw8xZ8HE5RK9PqG7g7X1ClBhKELzb0lyFirvM5syijw'
+   #line_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()
+   lineNotifyMessage(line_token, now_datetime)     
+    
+def scheduler_task():
+    scheduler = APScheduler()
+    scheduler.init_app(app)
+    #定時任務，每隔10s執行1次
+    scheduler.add_job(func=timed_job_awake_your_app, trigger='interval', seconds=20,id='my_job_id' )
+    scheduler.start()
+    
 def on_connect(client, userdata, flags, rc):  
     print("Connected with result code "+str(rc))
     #client.subscribe("music/genurl", 0) 
@@ -1592,8 +1619,11 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg): 
     global camera_url, camera_id         
-    print(msg.topic + " " + str(msg.payload))              
-
+    print(msg.topic + " " + str(msg.payload)) 
+    
+                
+#寫在main裏面，IIS不會運行
+scheduler_task()
 client = mqtt.Client()    
 client.on_connect = on_connect  
 client.on_message = on_message  
