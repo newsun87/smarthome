@@ -1599,18 +1599,16 @@ def lineNotifyMessage(token, msg):
       return r.status_code
           
 #定義任務的內容
-def timed_job_awake_your_app():
+def scheduled_job():
    now_datetime = datetime.datetime.now()
-   print("顯示目前時間: ", now_datetime)
-   #token = 'dw8xZ8HE5RK9PqG7g7X1ClBhKELzb0lyFirvM5syijw'
-   #line_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()
+   print("顯示目前時間: ", now_datetime)   
    lineNotifyMessage(line_token, now_datetime)     
     
 def scheduler_task():
     scheduler = APScheduler()
     scheduler.init_app(app)
     #定時任務，每隔10s執行1次
-    scheduler.add_job(func=timed_job_awake_your_app, trigger='interval', seconds=20,id='my_job_id' )
+    scheduler.add_job(func=scheduled_job, trigger='interval', hours=1,id='my_job_id' )
     scheduler.start()
     
 def on_connect(client, userdata, flags, rc):  
@@ -1623,7 +1621,7 @@ def on_message(client, userdata, msg):
     print(msg.topic + " " + str(msg.payload)) 
     
                 
-#寫在main裏面，IIS不會運行
+#寫在 main 裏面，IIS不會運行
 scheduler_task()
 client = mqtt.Client()    
 client.on_connect = on_connect  
