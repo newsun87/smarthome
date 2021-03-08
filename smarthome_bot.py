@@ -184,7 +184,7 @@ line_token = ''
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event): 
-  global userId, nlu_text, imagga_api_key, imagga_secret_key, singerList  
+  global userId, nlu_text, imagga_api_key, imagga_secret_key, singerList, line_token  
   ref = db.reference('/') # 參考路徑 
   userId = event.source.user_id  
   profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
@@ -194,7 +194,8 @@ def handle_message(event):
    buttons_template_message = linenotify_menu()
    line_bot_api.reply_message(event.reply_token, buttons_template_message)
   else:
-   line_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()  
+   line_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get() 
+   print("line_token", line_token)  
   #------------------------------------ 
   
 # -----雲端音樂功能的指令-------------- 
