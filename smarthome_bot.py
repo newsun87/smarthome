@@ -180,7 +180,7 @@ def handle_image_message(event):
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message)    
 
-line_token = 'dw8xZ8HE5RK9PqG7g7X1ClBhKELzb0lyFirvM5syijw'
+line_token = ''
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event): 
@@ -1631,7 +1631,7 @@ client.connect("broker.mqttdashboard.com", 1883)
 client.loop_start()
 
 if __name__ == "__main__":           
-    app.run(debug=True, host='0.0.0.0', port=5000)    
+    app.run(debug=False, host='0.0.0.0', port=5000)    
 
     
     
