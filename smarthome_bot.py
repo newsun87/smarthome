@@ -264,6 +264,7 @@ def handle_message(event):
       split_array = event.message.text.split("~")
       cityname = split_array [1]
       weather_info = get_weather(cityname)
+      print("天氣資訊...", weather_info)
       message = get_weather_state(weather_info, cityname)      
       line_bot_api.reply_message(event.reply_token, message)     
 # ----------------------------------------------------------------------- 
