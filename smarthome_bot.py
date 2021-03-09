@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from flask import Flask, request, abort
-from flask_apscheduler import APScheduler, BlockingScheduler
+from flask_apscheduler import APScheduler
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -1607,12 +1607,11 @@ def scheduled_job():
    lineNotifyMessage(line_token, "股票資訊\n: " + result)     
     
 def scheduler_task():
-    #scheduler = APScheduler()
-    scheduler = BlockingScheduler()
+    scheduler = APScheduler()
     scheduler.init_app(app)
     #定時任務，每隔10s執行1次
-    #scheduler.add_job(func=scheduled_job, trigger='interval', seconds=10,id='my_job_id' )
-    scheduler.add_job(scheduled_job, 'interval', seconds=10,id='my_job_id' )
+    scheduler.add_job(func=scheduled_job, trigger='interval', seconds=10,id='my_job_id' )
+    #scheduler.add_job(scheduled_job, 'interval', seconds=10,id='my_job_id' )
     #scheduler.add_job(func=scheduled_job, trigger='cron', hour='9-14',id='my_job_id' )
     scheduler.start()
     
