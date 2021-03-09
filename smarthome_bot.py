@@ -1214,7 +1214,7 @@ def get_weather_state(weather_info,cityname):
     elif "多雲時陰短暫雨" in weather_info :
           imageurl = 'https://i.imgur.com/KswxMPl.png'          
     elif "晴時多雲" in weather_info:
-          imageurl = 'https://i.imgur.com/ycSrwVV.png'	    	               
+          imageurl = 'https://i.imgur.com/M69byPq.png'	    	               
     elif "多雲" in weather_info:	
           imageurl = 'https://i.imgur.com/xKknQ61.png'         	
     else:
