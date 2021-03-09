@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from flask import Flask, request, abort
-from flask_apscheduler import APScheduler
+from flask_apscheduler import APScheduler, BlockingScheduler
 from linebot import (
     LineBotApi, WebhookHandler
 )
