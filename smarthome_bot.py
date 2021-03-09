@@ -1205,6 +1205,8 @@ def get_weather_state(weather_info,cityname):
           imageurl = 'https://i.imgur.com/bsGmXXO.png'                    	     
     elif "陰天有雨" in weather_info:	
           imageurl = 'https://i.imgur.com/RLcdccF.png'
+    elif "陰天" in weather_info:	
+          imageurl = 'https://i.imgur.com/8Yo1ea3.png'
     elif "多雲時晴" in weather_info :
           imageurl = 'https://i.imgur.com/VMeO5Us.png'
     elif "多雲時陰" in weather_info :
@@ -1637,7 +1639,7 @@ client.connect("broker.mqttdashboard.com", 1883)
 client.loop_start()
 
 if __name__ == "__main__":           
-    app.run(debug=True, host='0.0.0.0', port=5000)    
+  app.run(debug=True, host='0.0.0.0', port=5000)    
 
     
     
