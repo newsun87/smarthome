@@ -166,20 +166,6 @@ def callback():
         abort(400)
     return 'OK'
 
-# 處理訊息
-@handler.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event): 
-  if event.message.type == 'image': 
-    message_id = event.message.id
-    print("event: ", event)	  
-	  # 讀取圖片資料
-    message_content = line_bot_api.get_message_content(message_id)    
-    with open('temp_image.jpg', 'wb') as fd: # 儲存圖片
-      for chunk in message_content.iter_content():
-        fd.write(chunk)	  
-    QuickReply_text_message = getQuickReply_aiimage()       
-    line_bot_api.reply_message(event.reply_token, QuickReply_text_message)    
-
 line_token = ''
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
@@ -198,6 +184,20 @@ def handle_message(event):
    print("line_token", line_token)  
   #------------------------------------ 
   
+# 處理圖片訊息
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image_message(event): 
+  if event.message.type == 'image':
+    print("event: ", event) 
+    message_id = event.message.id    	  
+	  # 讀取圖片資料
+    message_content = line_bot_api.get_message_content(message_id)    
+    with open('temp_image.jpg', 'wb') as fd: # 儲存圖片
+      for chunk in message_content.iter_content():
+        fd.write(chunk)	  
+    QuickReply_text_message = getQuickReply_aiimage()       
+    line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
+       
 # -----雲端音樂功能的指令-------------- 
   # ----播放影片網址---------    
   if event.message.text.startswith('【youtube url】'):
