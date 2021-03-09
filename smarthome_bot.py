@@ -165,25 +165,7 @@ def callback():
         print("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
     return 'OK'
-
-line_token = ''
-# 處理文字訊息
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event): 
-  global userId, nlu_text, imagga_api_key, imagga_secret_key, singerList, line_token  
-  ref = db.reference('/') # 參考路徑 
-  userId = event.source.user_id  
-  profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
-  print('profile...',profile) 
-  #---判斷用戶是否有註冊 LINE Notify---------------         
-  if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
-   buttons_template_message = linenotify_menu()
-   line_bot_api.reply_message(event.reply_token, buttons_template_message)
-  else:
-   line_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get() 
-   print("line_token", line_token)  
-  #------------------------------------ 
-  
+    
 # 處理圖片訊息
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event): 
@@ -197,7 +179,23 @@ def handle_image_message(event):
         fd.write(chunk)	  
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
-       
+    
+line_token = ''
+# 處理文字訊息
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event): 
+  global userId, nlu_text, imagga_api_key, imagga_secret_key, singerList, line_token  
+  ref = db.reference('/') # 參考路徑 
+  userId = event.source.user_id  
+  profile = line_bot_api.get_profile(userId)# 呼叫取得用戶資訊 API
+  print('profile...',profile)
+  line_token = ref.child(base_users_userId+userId+'/profile/LineNotify').get()
+  print("line_token", line_token)  
+  #---判斷用戶是否有註冊 LINE Notify---------------         
+  if ref.child(base_users_userId+userId+'/profile/LineNotify').get()==None:   
+   buttons_template_message = linenotify_menu()
+   line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
 # -----雲端音樂功能的指令-------------- 
   # ----播放影片網址---------    
   if event.message.text.startswith('【youtube url】'):
@@ -826,7 +824,7 @@ def getQuickReply_music():
 	return QuickReply_text_message
 	
 def getQuickReply_weather():
-	QuickReply_text_message = TextSendMessage(
+    QuickReply_text_message = TextSendMessage(
        text="點選你要查詢的城市",
        quick_reply = QuickReply(
         items = [          
@@ -885,7 +883,7 @@ def getQuickReply_weather():
         ]
        )
       )
-	return QuickReply_text_message
+    return QuickReply_text_message
 	
 def getQuickReply_lang():
    QuickReply_text_message = TextSendMessage(
@@ -1639,7 +1637,7 @@ client.connect("broker.mqttdashboard.com", 1883)
 client.loop_start()
 
 if __name__ == "__main__":           
-    app.run(debug=False, host='0.0.0.0', port=5000)    
+    app.run(debug=True, host='0.0.0.0', port=5000)    
 
     
     
