@@ -1343,6 +1343,7 @@ def nlu(text): # 取得語意分析結果
             cityname = temp['data']['nli'][0] ['semantic'][0]['slots'][1]['value']
             print(cityname)
             weather_info = get_weather(cityname)
+            print(weather_info)
             message = get_weather_state(weather_info, cityname)
             return message
             
