@@ -1188,24 +1188,25 @@ def get_weather(cityname): # 取得天氣資訊
      + weather_MinT +'度，' + "最高溫 " +weather_MaxT + '度'
 
 def get_weather_state(weather_info,cityname):
+    # 天氣圖片網址 https://www.cwb.gov.tw/V8/C/K/Weather_Icon.html
     if "陰時多雲短暫陣雨或雷雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/F7c7WnN.png'
+          imageurl = 'https://i.imgur.com/bsGmXXO.png'
     elif "多雲短暫陣雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/i3AF7dg.png'
+          imageurl = 'https://i.imgur.com/WFiKlIk.png'
     elif "陰時短暫陣雨或雷雨" in weather_info:	
           imageurl = 'https://i.imgur.com/F7c7WnN.png'
     elif "陰短暫雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/hzCLCYd.png'           
+          imageurl = 'https://i.imgur.com/6OjSN0b.png'           
     elif "陰短暫陣雨或雷雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/F7c7WnN.png'     
+          imageurl = 'https://i.imgur.com/6OjSN0b.png'     
     elif "多雲短暫陣雨或雷雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/F7c7WnN.png'
+          imageurl = 'https://i.imgur.com/bsGmXXO.png'
     elif "陰時多雲" in weather_info:	
-          imageurl = 'https://i.imgur.com/gI6pVjq.png'
+          imageurl = 'https://i.imgur.com/5dixrNV.png'
     elif "陰時多雲短暫雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/xpXDOwM.png'                    	     
+          imageurl = 'https://i.imgur.com/bsGmXXO.png'                    	     
     elif "陰天有雨" in weather_info:	
-          imageurl = 'https://i.imgur.com/DptJzac.png'
+          imageurl = 'https://i.imgur.com/RLcdccF.png'
     elif "多雲時晴" in weather_info :
           imageurl = 'https://i.imgur.com/VMeO5Us.png'
     elif "多雲時陰" in weather_info :
