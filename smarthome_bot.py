@@ -1629,7 +1629,7 @@ def on_message(client, userdata, msg):
     print(msg.topic + " " + str(msg.payload))     
                 
 #寫在 main 裏面，IIS不會運行
-#scheduler_task()
+scheduler_task()
 client = mqtt.Client()    
 client.on_connect = on_connect  
 client.on_message = on_message  
