@@ -1589,6 +1589,7 @@ def live_menu():
         )
     return buttons_template_message 
     
+# 資料推播至 LineNotify    
 def lineNotifyMessage(token, msg):
       headers = {
           "Authorization": "Bearer " + token,
@@ -1606,11 +1607,13 @@ def scheduled_job():
    lineNotifyMessage(line_token, "股票資訊\n: " + result)     
     
 def scheduler_task():
-    scheduler = APScheduler()
+    #scheduler = APScheduler()
+    scheduler = BlockingScheduler()
     scheduler.init_app(app)
     #定時任務，每隔10s執行1次
-    #scheduler.add_job(func=scheduled_job, trigger='interval', hours=1,id='my_job_id' )
-    scheduler.add_job(func=scheduled_job, trigger='cron', hour='9-14',id='my_job_id' )
+    #scheduler.add_job(func=scheduled_job, trigger='interval', seconds=10,id='my_job_id' )
+    scheduler.add_job(scheduled_job, 'interval', seconds=10,id='my_job_id' )
+    #scheduler.add_job(func=scheduled_job, trigger='cron', hour='9-14',id='my_job_id' )
     scheduler.start()
     
 def on_connect(client, userdata, flags, rc):  
