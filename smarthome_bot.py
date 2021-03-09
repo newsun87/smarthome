@@ -1610,9 +1610,8 @@ def scheduler_task():
     scheduler = APScheduler()
     scheduler.init_app(app)
     #定時任務，每隔10s執行1次
-    #scheduler.add_job(func=scheduled_job, trigger='interval', seconds=10,id='my_job_id' )
-    #scheduler.add_job(scheduled_job, 'interval', seconds=10,id='my_job_id' )
-    scheduler.add_job(func=scheduled_job, trigger='cron', day_of_week='mon-fri', hour='9-14', minute='0-59',id='my_job_id' )
+    scheduler.add_job(func=scheduled_job, trigger='interval', seconds=10,id='my_job_id' )
+    #scheduler.add_job(func=scheduled_job, trigger='cron', day_of_week='mon-fri', hour='9-14', minute='0-59',id='my_job_id' )
     scheduler.start()
     
 def on_connect(client, userdata, flags, rc):  
