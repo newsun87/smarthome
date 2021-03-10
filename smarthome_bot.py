@@ -166,20 +166,6 @@ def callback():
         abort(400)
     return 'OK'
     
-# 處理圖片訊息
-@handler.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event): 
-  if event.message.type == 'image':
-    print("event: ", event) 
-    message_id = event.message.id    	  
-	  # 讀取圖片資料
-    message_content = line_bot_api.get_message_content(message_id)    
-    with open('temp_image.jpg', 'wb') as fd: # 儲存圖片
-      for chunk in message_content.iter_content():
-        fd.write(chunk)	  
-    QuickReply_text_message = getQuickReply_aiimage()       
-    line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
-    
 line_token = ''
 # 處理文字訊息
 @handler.add(MessageEvent, message=TextMessage)
@@ -524,6 +510,20 @@ def translation(text, language):
 		  )
 	]    		
     return message
+    
+# 處理圖片訊息
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image_message(event): 
+  if event.message.type == 'image':
+    print("event: ", event) 
+    message_id = event.message.id    	  
+	  # 讀取圖片資料
+    message_content = line_bot_api.get_message_content(message_id)    
+    with open('temp_image.jpg', 'wb') as fd: # 儲存圖片
+      for chunk in message_content.iter_content():
+        fd.write(chunk)	  
+    QuickReply_text_message = getQuickReply_aiimage()       
+    line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
 
 # 處理 postback 事件
 @handler.add(PostbackEvent)
@@ -545,8 +545,7 @@ def handle_postback_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     elif postBack == 'AIImage':
        QuickReply_text_message = getQuickReply_aiimage()       
-       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)  
-          
+       line_bot_api.reply_message(event.reply_token, QuickReply_text_message)           
 # ---------------------------------------------------------------       
     elif postBack == 'plugs':
        imagecarousel_template_message = TemplateSendMessage(
