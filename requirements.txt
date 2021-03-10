@@ -1,4 +1,4 @@
-line-bot-sdk==1.8.0
+line-bot-sdk==1.19.0
 flask==1.0.2
 gunicorn
 paho-mqtt
