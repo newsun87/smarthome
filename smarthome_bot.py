@@ -505,7 +505,7 @@ def translation(text, language):
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = stream.url,
+		    original_content_url = stream_url,
 		    duration = 10000
 		  )
 	]    		
