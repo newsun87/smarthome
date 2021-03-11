@@ -482,14 +482,12 @@ def handle_message(event):
 
 from translate import Translator
 from lxml import etree  
-baseurl = 'https://smarthome-123.herokuapp.com/static'
+heroku_baseurl = 'https://smarthome-123.herokuapp.com/static'
 
 def translation(text, language): 
     global baseurl      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
-    translation = translator.translate(text)
-    #將中文text翻成英文，並去掉亂碼
-    #translation = translator.translate(text).replace("&#39;","")        
+    translation = translator.translate(text)          
     print('translation result: ',translation)
     translation_modify = translation.replace(" ", "")
     #將英文文字 translation_modify 轉成語音(STT)
@@ -505,7 +503,7 @@ def translation(text, language):
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = baseurl + '/stream.m4a',
+		    original_content_url = heroku_baseurl + '/stream.m4a',
 		    duration = 10000
 		  )
 	]    		
