@@ -1236,10 +1236,10 @@ def get_pm25(cityname): #取得 PM2.5資訊
         print(cityname, item["County"])
         PM25 = PM25 + int(item["PM2.5"])
         count = count+1       
-        message = "全台灣共有%d個測站，在%s共有%d個測站, PM2.5平均值為%f"\
-           % (len(data_list), cityname, count, round(PM25/count))
-        print(message)
-        return message 
+      message = "全台灣共有%d個測站，在%s共有%d個測站, PM2.5平均值為%f"\
+         % (len(data_list), cityname, count, round(PM25/count))
+      print(message)
+      return message 
         
 def sendCameraURL(ACCESS_TOKEN, ngrok_url):    
     notify = LineNotify(ACCESS_TOKEN) 
