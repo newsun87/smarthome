@@ -1234,14 +1234,15 @@ def get_pm25(cityname): #取得 PM2.5資訊
     src = "http://opendata2.epa.gov.tw/AQI.json" #PM2.5 open data
     with urllib.request.urlopen(src) as response:
       data_list=json.load(response) # 取得json資料轉物件
-      count = 0; PM25 = 0
+      count = 0; PM25 = 0; AQI=0
       for item in data_list:
        if cityname == item["County"]:
         print(cityname, item["County"])
         PM25 = PM25 + int(item["PM2.5"])
+        AQI = AQI + int(item["AQI"])
         count = count+1       
-      message = "全台灣共有%d個測站，在%s共有%d個測站, PM2.5平均值為%f"\
-         % (len(data_list), cityname, count, round(PM25/count))
+      message = "全台灣共有%d個測站，在%s共有%d個測站, PM2.5平均值為%f", 空氣品質平均指標(AQI)為%d \
+         % (len(data_list), cityname, count, round(PM25/count), round(AQI/count))
       print(message)
       return message 
         
