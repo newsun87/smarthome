@@ -1232,6 +1232,7 @@ def get_weather_state(weather_info,cityname):
 
 import urllib.request  
 def get_pm25(cityname): #取得 PM2.5資訊
+    imageurl='' 
     src = "http://opendata2.epa.gov.tw/AQI.json" #PM2.5 open data
     with urllib.request.urlopen(src) as response:
       data_list=json.load(response) # 取得json資料轉物件
