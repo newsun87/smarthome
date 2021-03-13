@@ -1244,7 +1244,7 @@ def get_pm25(cityname): #取得 PM2.5資訊
         count = count+1       
       AQI_info = "全台灣共有%d個測站，在%s共有%d個測站, PM2.5平均值為%f, 空氣品質平均指標(AQI)為%d" \
          % (len(data_list), cityname, count, round(PM25/count), round(AQI/count))
-      print(message)
+      print(AQI_info)
       message_all = [
 	      TextSendMessage(text="["+cityname + "] 空氣品質： " +  AQI_info),
 	      TextSendMessage(text="空氣品質監測網： " +  "https://liff.line.me/1654118646-8q4qo3vy")
