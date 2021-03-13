@@ -1254,7 +1254,7 @@ def get_pm25(cityname): #取得 PM2.5資訊
         imageurl = 'https://i.imgur.com/PEDG5xR.png' 
       elif round(AQI/count) > 150 and round(AQI/count) < 300:
         imageurl = 'https://i.imgur.com/4MHNFFv.png' 
-      elif round(AQI/count) > 300
+      elif round(AQI/count) > 300:
         imageurl = 'https://i.imgur.com/6d4R1HA.png'            
       message_all = [
          TextSendMessage(text="["+cityname + "] 空氣品質： " +  AQI_info),
