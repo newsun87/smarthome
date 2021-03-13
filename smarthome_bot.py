@@ -1248,11 +1248,11 @@ def get_pm25(cityname): #取得 PM2.5資訊
       if round(AQI/count) > 0 and round(AQI/count) < 50:
         imageurl = 'https://i.imgur.com/P5EiNgQ.png'        
       message_all = [
-	      TextSendMessage(text="["+cityname + "] 空氣品質： " +  AQI_info),
-	      ImageSendMessage(original_content_url= imageurl, \
-	        preview_image_url= imageurl) 
-	      TextSendMessage(text="空氣品質監測網： " +  "https://liff.line.me/1654118646-8q4qo3vy")	      
-	  ]      
+         TextSendMessage(text="["+cityname + "] 空氣品質： " +  AQI_info),
+         ImageSendMessage(original_content_url= imageurl, \
+             preview_image_url= imageurl), 
+         TextSendMessage(text="空氣品質監測網： " +  "https://liff.line.me/1654118646-8q4qo3vy")	      
+     ]      
       return message_all
         
 def sendCameraURL(ACCESS_TOKEN, ngrok_url):    
