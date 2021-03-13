@@ -951,7 +951,7 @@ def getQuickReply_pm25():
             image_url = 'https://i.imgur.com/cSx1PLC.png'
           ),  
            QuickReplyButton(
-            action = MessageAction(label = "台中市", text = "pm25~台中市"),
+            action = MessageAction(label = "臺中市", text = "pm25~台中市"),
             image_url = 'https://i.imgur.com/cSx1PLC.png'
           ), 
            QuickReplyButton(
@@ -969,7 +969,23 @@ def getQuickReply_pm25():
           QuickReplyButton(
             action = MessageAction(label = "高雄市", text = "pm25~高雄市"),
             image_url = 'https://i.imgur.com/cSx1PLC.png'
-          ) 
+          ), 
+           QuickReplyButton(
+            action = MessageAction(label = "屏東縣", text = "pm25~屏東縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "臺東縣", text = "pm25~臺東縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "花蓮縣", text = "pm25~花蓮縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          ),
+          QuickReplyButton(
+            action = MessageAction(label = "宜蘭縣", text = "pm25~宜蘭縣"),
+            image_url = 'https://i.imgur.com/cSx1PLC.png'
+          )    
                    
         ]
        )
