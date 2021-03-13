@@ -1247,7 +1247,7 @@ def get_pm25(cityname): #取得 PM2.5資訊
          % (len(data_list), cityname, count, round(PM25/count), round(AQI/count))
       print(AQI_info)
       if round(AQI/count) > 0 and round(AQI/count) < 50:
-        imageurl = 'https://i.imgur.com/4SJSYlp.png'
+        imageurl = 'https://i.imgur.com/crrkAuO.png'
       elif round(AQI/count) > 50 and round(AQI/count) < 100:
         imageurl = 'https://i.imgur.com/4SJSYlp.png'
       elif round(AQI/count) > 100 and round(AQI/count) < 150:
