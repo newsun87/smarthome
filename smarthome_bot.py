@@ -378,10 +378,14 @@ def handle_message(event):
 	  line_bot_api.reply_message(event.reply_token, message)
 	  
 # -----遠端攝影機 quickreply 的指令操作--------------
-  elif event.message.text == 'open_camera':      
-      camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get()
-      print('camera_url...', camera_url)         
-      message = TextSendMessage(text = camera_url)        
+  elif event.message.text == 'open_camera':
+      if ref.child(base_users_userId+userId+'/camera/camera_ID').get()== None:
+         message = TextSendMessage(text = "攝影機尚未註冊...")                 
+      else:
+         camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get()
+         message = camera_url
+         print('camera_url...', camera_url)         
+         message = TextSendMessage(text = message)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
       client.publish("homesecurity/restart", "0", 0, retain=True)
