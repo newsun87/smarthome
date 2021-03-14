@@ -123,7 +123,11 @@ def showMusicPage():
  
 @app.route('/music')
 def showMusicHelpPage():
- return render_template('music.html')   
+ return render_template('music.html')  
+ 
+@app.route('/camera_register')
+def showMusicHelpPage():
+ return render_template('camera_register.html')    
  
 @app.route('/appliances')
 def showAppliancesHelpPage():
@@ -379,7 +383,7 @@ def handle_message(event):
 	  
 # -----遠端攝影機 quickreply 的指令操作--------------
   elif event.message.text == 'register_camera':
-      message = TextSendMessage(text = "註冊攝影機: " + host + '/airbox')                 
+      message = TextSendMessage(text = "註冊攝影機: " + host + '/camera_register')                 
       line_bot_api.reply_message(event.reply_token, message)  
   elif event.message.text == 'open_camera':
       if ref.child(base_users_userId+userId+'/camera/camera_ID').get()== "":

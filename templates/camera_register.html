@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LIFF _ 點歌系統</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+   <style>
+       #MainDiv button {
+           margin:3px;
+       }
+   </style>
+    <script>
+        //你的liff app ID, 例如 --> 0000000000-spPeRmAn
+        var YourLiffAppId = '1654118646-4ANQr5B3';        
+
+        $(document).ready(function () {
+            //init LIFF
+            initializeLiff(YourLiffAppId);    
+        });      
+        
+        function initializeLiff(myLiffId){
+            liff
+                .init({
+                    liffId: myLiffId
+                })
+                .then(() => {                   
+                    initializeApp(); //取得LIFF各種物件及屬性
+                })
+                .catch((err) => {
+                    alert(JSON.stringify(err));
+                });
+        }
+        
+        function initializeApp(){
+			if (!liff.isLoggedIn()) { // 如果Line用戶沒有登入，就必須事先登入
+        // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
+				liff.login();
+            }        
+			const context = liff.getContext(); //取得環境物件
+			$('input[name="userId"]').val(context.userId); //設定表單欄位值
+			const accessToken = liff.getAccessToken(); //取得用戶access token				
+			 $('#ButtonScan').click(() => {
+                liff.scanCode().then((ret) => {
+                    //alert(JSON.stringify(ret));
+                    $('#field_info').val(ret.value);
+                }, (err) => {
+                    alert(JSON.stringify(err));
+                }
+                );
+            });            
+
+            $('#ButtonGetContext').click(() => {
+				const context = liff.getContext();
+                var contextInfo = "type: " + context.type + "\n\
+utouId: " + context.utouId + "\nroomId: " + context.groupId + "\n\
+groudId: " + context.groupId + "\nuserid: " + context.userId + "\n\
+viewType: " + context.viewType + "\naccessTokenHash: " + context.accessTokenHash
+                $('#field_info').val(contextInfo);
+            });
+
+            //ButtonGetProfile
+            $('#ButtonGetProfile').click(() => {
+                //取得User Proile
+                liff.getProfile().then(
+                    (profile) => {
+                        //顯示在text box中
+                        var profileInfo = "name: " + profile.displayName + "\n\
+userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl 
+                        $('#field_info').val( profileInfo);                     
+                        
+                    }
+                );
+            });
+             //ButtonOrderSendMessage
+            $('#ButtonOrderSongname').click(function () {	
+				if ($('#songname').val()!=""){			
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: '播放' + $('#songname').val() + "的歌"
+                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })
+                 }   
+                 else {
+					$('#field_info').val("歌手資料不得空白"); 
+				}	        
+                
+            });
+             //ButtonOrderSendMessage
+            $('#ButtonOrderSingername').click(function () {	
+				if ($('#singername').val()!=""){			
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: '播放歌手' + $('#singername').val() + "的歌"
+                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })
+                } 
+                else {
+					$('#field_info').val("歌手資料不得空白"); 
+				}	   
+            });  
+            
+             //ButtonAddSingernameSendMessage
+            $('#ButtonAddSingername').click(function () {	
+				if ($('#addsinger').val()!=""){			
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: 'addsinger~' + $('#addsinger').val()                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })
+                } 
+              else {
+					$('#field_info').val("歌手資料不得空白"); 
+				}	   
+            }); 
+            
+             //ButtonDelSingernameSendMessage
+            $('#ButtonDelSingername').click(function () {	
+				if ($('#delsinger').val()!=""){			
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: 'delsinger~' + $('#delsinger').val()                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })
+                } 
+              else {
+					$('#field_info').val("歌手資料不得空白"); 
+				}	   
+            });                             
+                   
+            $('#ButtonVolumeMiddle').click(function (){						
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: '音量適中'                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })                               
+            });
+            $('#ButtonVolumeMinus').click(function (){						
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: '音量小聲一點'                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })                               
+            });
+            $('#ButtonVolumePlus').click(function (){						
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: '音量大聲一點'                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })                               
+            });
+            $('#ButtonVolumeMin').click(function (){						
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: '音量最小聲'                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })                               
+            });
+             $('#ButtonStop').click(function (){						
+                  liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: '停止播放'                        
+                    }
+                  ])
+                    .then(() => {
+                        liff.closeWindow();
+                    })                               
+            });           
+          }             
+    </script>
+</head>
+<body>
+    <div class="row">
+		
+        <div id="MainDiv" class="col-md-6" style="margin:5px">
+			<img src="static/song.png" width="32" height="32">
+			<input type="text" size= "10" id="songname">						
+            <button class="btn btn-primary" id="ButtonOrderSongname" >歌名點播</button><br> 
+            <img src="static/singer.png" width="32" height="32">           
+            <input type="text" size= "10" id="singername">
+            <button class="btn btn-primary" id="ButtonOrderSingername">歌手點播</button><br>
+             <img src="static/singer.png" width="32" height="32">   
+            <input type="text" size= "10" required id="addsinger">						
+            <button class="btn btn-primary" id="ButtonAddSingername" >加入歌手</button><br> 
+            <img src="static/singer.png" width="32" height="32">           
+            <input type="text" size= "10" id="delsinger">
+            <button class="btn btn-primary" id="ButtonDelSingername">刪除歌手</button><br>                        
+            <img src="static/volume.png" width="32" height="42">
+            <button class="btn btn-primary" id="ButtonVolumeMiddle">適中</button>
+            <button class="btn btn-primary" id="ButtonVolumeMinus">小聲</button>
+            <button class="btn btn-primary" id="ButtonVolumePlus">大聲</button>
+            <button class="btn btn-primary" id="ButtonVolumeMin">最小聲</button><br>
+            <img src="static/stop.png" width="32" height="32">
+            <button class="btn btn-primary" id="ButtonStop">停止</button>           
+            <img src="static/hand.png" width="32" height="32">          			
+            <button class="btn btn-primary" id="ButtonGetProfile">用戶資訊</button> 
+            <hr />                
+            <label>訊息顯示</label>
+            <textarea class="form-control" rows="5" type="text" id="field_info"></textarea><br />           
+            <hr />
+        </div>
+    </div>
+</body>
+</html>
