@@ -118,15 +118,15 @@ def showTranslateHelpPage():
  return render_template('translator_help.html') 
  
 @app.route('/musichelp')
-def showMusicPage():
+def showMusicHelpPage():
  return render_template('music_help.html')  
  
 @app.route('/music')
-def showMusicHelpPage():
+def showMusicPage():
  return render_template('music.html')  
  
 @app.route('/camera_register')
-def showMusicHelpPage():
+def showCameraRegPage():
  return render_template('camera_register.html')    
  
 @app.route('/appliances')
