@@ -1259,7 +1259,7 @@ def get_pm25(cityname): #取得 PM2.5資訊
       count = 0; PM25 = 0; AQI=0
       for item in data_list:
        if cityname == item["County"]:
-        #print(cityname, item["County"])
+        print(cityname, item["County"])
         PM25 = PM25 + int(item["PM2.5"])
         AQI = AQI + int(item["AQI"])
         count = count+1       
