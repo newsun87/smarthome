@@ -385,7 +385,7 @@ def handle_message(event):
          camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get()
          message = camera_url
          print('camera_url...', camera_url)         
-         message = TextSendMessage(text = message)        
+         message = TextSendMessage(text = "攝影機網址:", message)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
       client.publish("homesecurity/restart", "0", 0, retain=True)
@@ -786,7 +786,8 @@ def getQuickReply_camera_work():
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
-            action = MessageAction(label = "開啟攝影機", text = "open_camera"),
+            #action = MessageAction(label = "開啟攝影機", text = "open_camera"),
+            action = URIAction(label = '使用說明', uri = 'www.sju.edu.tw'),
             image_url = 'https://i.imgur.com/gNTGLC7.png'
           ),
           QuickReplyButton(
