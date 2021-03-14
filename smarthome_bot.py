@@ -384,7 +384,7 @@ def handle_message(event):
       else:
          camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get()
          print('camera_url...', camera_url)         
-         message = TextSendMessage(text = "攝影機網址:", camera_url)        
+         message = TextSendMessage(text = "攝影機網址: " + camera_url)        
       line_bot_api.reply_message(event.reply_token, message)      
   elif event.message.text == 'camera_restart':
       client.publish("homesecurity/restart", "0", 0, retain=True)
