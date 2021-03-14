@@ -385,8 +385,8 @@ def handle_message(event):
   elif event.message.text.startswith('cameraID'): 
       split_array = event.message.text.split("~")
       cameraid = split_array [1]
-      ref.child(base_users_userId + userId + '/camera').update({"camera_ID":cameraid})
-      line_bot_api.reply_message(event.reply_token, message)  
+      ref.child(base_users_userId + userId + '/camera').update({"camera_ID":"cam"+cameraid})
+      line_bot_api.reply_message(event.reply_token, "攝影機註冊成功...")  
   elif event.message.text == 'register_camera':
       message = TextSendMessage(text = "註冊攝影機: " + host + '/camera_register')                 
       line_bot_api.reply_message(event.reply_token, message)  
