@@ -1266,13 +1266,13 @@ def get_pm25(cityname): #取得 PM2.5資訊
       AQI_info = "全台灣共有%d個測站，在%s共有%d個測站, PM2.5平均值為%f, 空氣品質平均指標(AQI)為%d" \
          % (len(data_list), cityname, count, round(PM25/count), round(AQI/count))
       print(AQI_info)
-      if round(AQI/count) > 0 and round(AQI/count) < 50:
+      if round(AQI/count) > 0 and round(AQI/count) <= 50:
         imageurl = 'https://i.imgur.com/crrkAuO.png'
-      elif round(AQI/count) > 50 and round(AQI/count) < 100:
+      elif round(AQI/count) > 50 and round(AQI/count) <= 100:
         imageurl = 'https://i.imgur.com/4SJSYlp.png'
-      elif round(AQI/count) > 100 and round(AQI/count) < 150:
+      elif round(AQI/count) > 100 and round(AQI/count) <= 150:
         imageurl = 'https://i.imgur.com/PEDG5xR.png' 
-      elif round(AQI/count) > 150 and round(AQI/count) < 300:
+      elif round(AQI/count) > 150 and round(AQI/count) <= 300:
         imageurl = 'https://i.imgur.com/4MHNFFv.png' 
       elif round(AQI/count) > 300:
         imageurl = 'https://i.imgur.com/6d4R1HA.png'            
