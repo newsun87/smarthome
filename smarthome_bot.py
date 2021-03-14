@@ -380,7 +380,7 @@ def handle_message(event):
 # -----遠端攝影機 quickreply 的指令操作--------------
   elif event.message.text == 'open_camera':
       if ref.child(base_users_userId+userId+'/camera/camera_ID').get()== "":
-         message = TextSendMessage(text = "攝影機尚未註冊...")                 
+         message = TextSendMessage(text = "註冊攝影機: " + host + '/airbox')                 
       else:
          camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get()
          print('camera_url...', camera_url)         
@@ -785,8 +785,7 @@ def getQuickReply_camera_work():
        quick_reply = QuickReply(
         items = [
           QuickReplyButton(
-            #action = MessageAction(label = "開啟攝影機", text = "open_camera"),
-            action = URIAction(label = '使用說明', uri = 'www.sju.edu.tw'),
+            action = MessageAction(label = "開啟攝影機", text = "open_camera"),            
             image_url = 'https://i.imgur.com/gNTGLC7.png'
           ),
           QuickReplyButton(
