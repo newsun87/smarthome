@@ -379,7 +379,7 @@ def handle_message(event):
 	  
 # -----遠端攝影機 quickreply 的指令操作--------------
   elif event.message.text == 'open_camera':
-      if ref.child(base_users_userId+userId+'/camera/camera_ID').get()== None:
+      if ref.child(base_users_userId+userId+'/camera/camera_ID').get()== "":
          message = TextSendMessage(text = "攝影機尚未註冊...")                 
       else:
          camera_url = ref.child(base_users_userId+userId+'/camera/camera_URL').get()
