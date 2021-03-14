@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>LIFF _ 點歌系統</title>
+    <title>攝影機註冊</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- bootstrap 4.3.1 -->
@@ -78,14 +78,13 @@ userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl
                     }
                 );
             });
-             //ButtonOrderSendMessage
-            $('#ButtonOrderSongname').click(function () {	
-				if ($('#songname').val()!=""){			
+             //ButtonCCameraIDSendMessage
+            $('#ButtonCameraID').click(function () {	
+				if ($('#cameraid').val()!=""){			
                   liff.sendMessages([
                     {
                         type: 'text',
-                        text: '播放' + $('#songname').val() + "的歌"
-                        
+                        text: 'reg~' + $('#cameraid').val()                         
                     }
                   ])
                     .then(() => {
@@ -93,119 +92,9 @@ userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl
                     })
                  }   
                  else {
-					$('#field_info').val("歌手資料不得空白"); 
+					$('#field_info').val("攝影機註冊欄位不得空白"); 
 				}	        
                 
-            });
-             //ButtonOrderSendMessage
-            $('#ButtonOrderSingername').click(function () {	
-				if ($('#singername').val()!=""){			
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: '播放歌手' + $('#singername').val() + "的歌"
-                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })
-                } 
-                else {
-					$('#field_info').val("歌手資料不得空白"); 
-				}	   
-            });  
-            
-             //ButtonAddSingernameSendMessage
-            $('#ButtonAddSingername').click(function () {	
-				if ($('#addsinger').val()!=""){			
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: 'addsinger~' + $('#addsinger').val()                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })
-                } 
-              else {
-					$('#field_info').val("歌手資料不得空白"); 
-				}	   
-            }); 
-            
-             //ButtonDelSingernameSendMessage
-            $('#ButtonDelSingername').click(function () {	
-				if ($('#delsinger').val()!=""){			
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: 'delsinger~' + $('#delsinger').val()                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })
-                } 
-              else {
-					$('#field_info').val("歌手資料不得空白"); 
-				}	   
-            });                             
-                   
-            $('#ButtonVolumeMiddle').click(function (){						
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: '音量適中'                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })                               
-            });
-            $('#ButtonVolumeMinus').click(function (){						
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: '音量小聲一點'                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })                               
-            });
-            $('#ButtonVolumePlus').click(function (){						
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: '音量大聲一點'                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })                               
-            });
-            $('#ButtonVolumeMin').click(function (){						
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: '音量最小聲'                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })                               
-            });
-             $('#ButtonStop').click(function (){						
-                  liff.sendMessages([
-                    {
-                        type: 'text',
-                        text: '停止播放'                        
-                    }
-                  ])
-                    .then(() => {
-                        liff.closeWindow();
-                    })                               
             });           
           }             
     </script>
@@ -215,30 +104,13 @@ userId: " + profile.userId + "\npictureUrl: " + profile.pictureUrl
 		
         <div id="MainDiv" class="col-md-6" style="margin:5px">
 			<img src="static/song.png" width="32" height="32">
-			<input type="text" size= "10" id="songname">						
-            <button class="btn btn-primary" id="ButtonOrderSongname" >歌名點播</button><br> 
-            <img src="static/singer.png" width="32" height="32">           
-            <input type="text" size= "10" id="singername">
-            <button class="btn btn-primary" id="ButtonOrderSingername">歌手點播</button><br>
-             <img src="static/singer.png" width="32" height="32">   
-            <input type="text" size= "10" required id="addsinger">						
-            <button class="btn btn-primary" id="ButtonAddSingername" >加入歌手</button><br> 
-            <img src="static/singer.png" width="32" height="32">           
-            <input type="text" size= "10" id="delsinger">
-            <button class="btn btn-primary" id="ButtonDelSingername">刪除歌手</button><br>                        
-            <img src="static/volume.png" width="32" height="42">
-            <button class="btn btn-primary" id="ButtonVolumeMiddle">適中</button>
-            <button class="btn btn-primary" id="ButtonVolumeMinus">小聲</button>
-            <button class="btn btn-primary" id="ButtonVolumePlus">大聲</button>
-            <button class="btn btn-primary" id="ButtonVolumeMin">最小聲</button><br>
-            <img src="static/stop.png" width="32" height="32">
-            <button class="btn btn-primary" id="ButtonStop">停止</button>           
-            <img src="static/hand.png" width="32" height="32">          			
+			<input type="text" placeholder="輸入攝影機ID" size= "10" id="cameraid">						
+            <button class="btn btn-primary" id="ButtonCameraID" >攝影機註冊</button><br> 
             <button class="btn btn-primary" id="ButtonGetProfile">用戶資訊</button> 
             <hr />                
             <label>訊息顯示</label>
             <textarea class="form-control" rows="5" type="text" id="field_info"></textarea><br />           
-            <hr />
+            <hr />           
         </div>
     </div>
 </body>
