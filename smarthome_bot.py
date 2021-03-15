@@ -804,20 +804,7 @@ def getQuickReply_camera_work():
           QuickReplyButton(
             action = MessageAction(label = "開啟攝影機", text = "open_camera"),            
             image_url = 'https://i.imgur.com/gNTGLC7.png'
-          ),
-          QuickReplyButton(
-            action = MessageAction(label = "重新開機", text = "camera_restart"),
-            image_url = 'https://i.imgur.com/PEHPvG8.png'
-          ),
-           QuickReplyButton(
-            action = MessageAction(label = "開啟移動偵測", text = "move_enable"),
-            image_url = 'https://i.imgur.com/bWvqGuM.png'
-          ),
-           QuickReplyButton(
-            action = MessageAction(label = "關閉移動偵測", text = "move_disable"),
-            image_url = 'https://i.imgur.com/SykzuZc.png'
-          )
-          
+          )          
         ]
        )
       )
