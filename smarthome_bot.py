@@ -499,10 +499,10 @@ def handle_message(event):
 
 from translate import Translator
 from lxml import etree  
-heroku_baseurl = 'https://smarthome-123.herokuapp.com'
+#heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
 def translation(text, language): 
-    global heroku_baseurl      
+    heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
     print('translation result: ',translation)
