@@ -501,8 +501,9 @@ from translate import Translator
 from lxml import etree  
 #heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
-def translation(text, language): 
-    print(os.path.dirname()) 
+def translation(text, language):
+	basepath = os.path.dirname(__file__) 
+    print('basepath..', basepath) 
     heroku_baseurl = 'https://smarthome-123.herokuapp.com/'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
