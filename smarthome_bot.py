@@ -511,7 +511,7 @@ def translation(text, language):
     stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
            + translation + '&language=' + language 
     r = requests.get(stream_url, stream=True)
-    with open('./static/stream.m4a', 'wb') as f:
+    with open(heroku_baseurl + '/static/stream.m4a', 'wb') as f:
        try:
           for block in r.iter_content(1024):
             f.write(block)
