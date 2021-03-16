@@ -502,7 +502,7 @@ from lxml import etree
 #heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
 def translation(text, language): 
-    heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
+    heroku_baseurl = 'https://smarthome-123.herokuapp.com/'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
     print('translation result: ',translation)
@@ -511,7 +511,7 @@ def translation(text, language):
     stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
            + translation + '&language=' + language 
     r = requests.get(stream_url, stream=True)
-    with open('static/stream.m4a', 'wb') as f:
+    with open('stream.m4a', 'wb') as f:
        try:
           for block in r.iter_content(1024):
             f.write(block)
@@ -520,7 +520,7 @@ def translation(text, language):
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = heroku_baseurl + '/static/stream.m4a',
+		    original_content_url = heroku_baseurl + 'stream.m4a',
 		    duration = 10000
 		  )
 	]    		
