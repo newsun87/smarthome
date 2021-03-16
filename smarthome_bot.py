@@ -502,6 +502,7 @@ from lxml import etree
 #heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
 def translation(text, language): 
+	print(os.path.dirname()) 
     heroku_baseurl = 'https://smarthome-123.herokuapp.com/'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
@@ -1652,7 +1653,7 @@ def scheduler_task():
 def on_connect(client, userdata, flags, rc):  
     print("Connected with result code "+str(rc))
     #client.subscribe("music/genurl", 0) 
-    client.subscribe("homesecurity/ngrokurl", 2)       
+    #client.subscribe("homesecurity/ngrokurl", 2)       
 
 def on_message(client, userdata, msg): 
     global camera_url, camera_id         
