@@ -499,7 +499,7 @@ def handle_message(event):
 
 from translate import Translator
 from lxml import etree  
-heroku_baseurl = 'https://smarthome-123.herokuapp.com/static'
+heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
 def translation(text, language): 
     global baseurl      
@@ -511,7 +511,7 @@ def translation(text, language):
     stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
            + translation + '&language=' + language 
     r = requests.get(stream_url, stream=True)
-    with open('static/stream.m4a', 'wb') as f:
+    with open('stream.m4a', 'wb') as f:
        try:
           for block in r.iter_content(1024):
             f.write(block)
