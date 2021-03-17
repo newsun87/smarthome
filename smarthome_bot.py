@@ -85,8 +85,10 @@ def get_menus_id_list(): # 取得圖文選單 ID 串列
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(access_token)
-handler = WebhookHandler(channel_secret) 
+handler = WebhookHandler(channel_secret)
+# 設定 webhook_url 
 line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
+
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
 default_menu(rich_menus_id_list[2]) # 預設啟動後的選單
@@ -158,7 +160,6 @@ singerList = []
 def callback():	
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
-
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
