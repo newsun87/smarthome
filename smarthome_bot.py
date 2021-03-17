@@ -503,12 +503,13 @@ from lxml import etree
 
 def translation(text, language):
     basepath = os.path.abspath(__file__) 
-    print('basepath..', basepath) 
+    print('basepath..', basepath)
+    print(os.getcwd()) 
     heroku_baseurl = 'https://smarthome-123.herokuapp.com/static'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
     print('translation result: ',translation)
-    translation_modify = translation.replace(" ", "")
+    #translation_modify = translation.replace(" ", "")
     #將英文文字 translation_modify 轉成語音(STT)
     stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
            + translation + '&language=' + language 
