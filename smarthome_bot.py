@@ -512,18 +512,17 @@ def translation(text, language):
     #將英文文字 translation_modify 轉成語音(STT)
     stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
            + translation + '&language=' + language 
-    #r = requests.get(stream_url, stream=True)
-    #with open('stream.m4a', 'wb') as f:
-    #   try:
-    #      for block in r.iter_content(1024):
-    #        f.write(block)
-    #   except KeyboardInterrupt:
-    #      pass          
+    r = requests.get(stream_url, stream=True)
+    with open('stream.m4a', 'wb') as f:
+       try:
+          for block in r.iter_content(1024):
+            f.write(block)
+       except KeyboardInterrupt:
+          pass          
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    #original_content_url = heroku_baseurl + 'stream.m4a',
-		    original_content_url = stream_url,
+		    original_content_url = heroku_baseurl + 'stream.m4a',		    
 		    duration = 10000
 		  )
 	]    		
