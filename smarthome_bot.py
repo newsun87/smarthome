@@ -86,6 +86,7 @@ app = Flask(__name__)
 
 line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret) 
+line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
 default_menu(rich_menus_id_list[2]) # 預設啟動後的選單
