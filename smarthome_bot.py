@@ -88,6 +88,7 @@ line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret)
 # 設定 webhook_url 
 line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
+#line_bot_api.set_webhook_endpoint("https://14b98eaab8fe.ngrok.io/callback") 
 
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
@@ -510,22 +511,25 @@ def translation(text, language):
     heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
-    print('translation result: ',translation)
-    #translation_modify = translation.replace(" ", "")
+    print('translation result: ',translation)    
     #將英文文字 translation_modify 轉成語音(STT)
     stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
            + translation + '&language=' + language 
     r = requests.get(stream_url, stream=True)
-    with open('./static/stream.m4a', 'wb') as f:
+    with open('stream.m4a', 'wb') as f:
        try:
           for block in r.iter_content(1024):
-            f.write(block)
+            f.write(block)              
        except KeyboardInterrupt:
-          pass          
+          pass
+    #result = subprocess.getoutput('curl -F "file=@stream.m4a" https://file.io/?expires=1w')
+          #result_obj = json.loads(result)
+          #print('result....', result)
+          #print('type ....', type(result))             
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = 'https://file.io/rL6lKenrV80S',		    
+		    original_content_url = heroku_baseurl+'/stream.m4a',		    
 		    duration = 10000
 		  )
 	]    		
@@ -1672,7 +1676,8 @@ client.connect("broker.mqttdashboard.com", 1883)
 client.loop_start()
 
 if __name__ == "__main__":           
-  app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)    
+  #app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+  app.run(debug=True, host='0.0.0.0', port=5000)    
 
     
     

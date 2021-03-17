@@ -1,1 +1,1 @@
-{"data":{"nli":[{"desc_obj":{"status":0},"semantic":[{"app":"smarthome","input":"今天天氣很好的英文怎麼說","slots":[{"name":"語言","value":"英文"},{"name":"語句","value":"今天天氣很好"}],"modifier":["translate"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"status":0},"semantic":[{"app":"smarthome","input":"祝你生日快樂的英文","slots":[{"name":"語言","value":"英文"},{"name":"語句","value":"祝你生日快樂"}],"modifier":["translate"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
