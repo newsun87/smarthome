@@ -525,7 +525,7 @@ def translation(text, language):
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = heroku_baseurl + '/static/stream.m4a',		    
+		    original_content_url = 'https://file.io/rL6lKenrV80S',		    
 		    duration = 10000
 		  )
 	]    		
