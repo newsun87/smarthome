@@ -505,7 +505,7 @@ def translation(text, language):
     basepath = os.path.abspath(__file__) 
     print('basepath..', basepath)
     print(os.getcwd()) 
-    heroku_baseurl = 'https://smarthome-123.herokuapp.com/static'      
+    heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
     print('translation result: ',translation)
@@ -523,7 +523,7 @@ def translation(text, language):
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = heroku_baseurl + 'stream.m4a',		    
+		    original_content_url = heroku_baseurl + '/app/stream.m4a',		    
 		    duration = 10000
 		  )
 	]    		
