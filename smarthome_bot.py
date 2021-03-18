@@ -529,7 +529,7 @@ def translation(text, language):
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = heroku_baseurl+'/stream.m4a',		    
+		    original_content_url = 'https://drv.tw/~newsun87/gd/smarthome-123',		    
 		    duration = 10000
 		  )
 	]    		
