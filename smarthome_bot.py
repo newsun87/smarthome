@@ -88,7 +88,7 @@ line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret)
 # 設定 webhook_url 
 line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
-#line_bot_api.set_webhook_endpoint("https://14b98eaab8fe.ngrok.io/callback") 
+#line_bot_api.set_webhook_endpoint("https://a0c6958ee96c.ngrok.io/callback") 
 
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
@@ -529,9 +529,9 @@ def translation(text, language):
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
-		    original_content_url = 'https://b9ctl3n0plkno4epidorww-on.drv.tw/smarthome-123/abc.html',		    
-		    duration = 10000
-		  )
+           original_content_url = 'https://b9ctl3n0plkno4epidorww-on.drv.tw/smarthome-123/stream.m4a',   
+           duration = 10000
+          )
 	]    		
     return message
     
