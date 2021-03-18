@@ -506,7 +506,7 @@ import mimetypes
 #heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
 def translation(text, language): 
-    basepath = os.path.dirname(os.path.realpath(__file__))
+    basepath = os.path.dirname()
     print('basepath...', basepath)
     heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
@@ -525,7 +525,7 @@ def translation(text, language):
           print('file_path...', file_path) 
           file_type = mimetypes.guess_type('stream.m4a')[0]
           print('file_type...', file_type)
-          result = uploadfile_gdrive(filepath, 'static', 'stream.m4a')
+          result = uploadfile_gdrive(file_path, 'stream.m4a')
           #time.sleep(10)                          
        except KeyboardInterrupt:
           pass
