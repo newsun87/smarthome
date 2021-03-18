@@ -528,13 +528,7 @@ def translation(text, language):
           result = uploadfile_gdrive(file_path, 'stream.m4a')
           #time.sleep(10)                          
        except KeyboardInterrupt:
-          pass
-    
-    #result = uploadfile_gdrive(filepath, 'stream.m4a')
-    #result = subprocess.getoutput('curl -F "file=@stream.m4a" https://file.io/?expires=1w')
-          #result_obj = json.loads(result)
-          #print('result....', result)
-          #print('type ....', type(result))             
+          pass               
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
           AudioSendMessage(
@@ -554,7 +548,7 @@ def uploadfile_gdrive(filepath, filename):
   try:
     folder_id = '1uYAtUM8wqJ8QdtyQHWobWCWSgtP6KNyu'
     #上傳檔案至指定目錄及設定檔名     
-    gfile = drive.CreateFile({"parents":[{"kind": "drive#fileLink", "id": folder_id}], 'title': filename})
+    gfile = drive.CreateFile({"parents":[{"kind": "drive#fileLink", "id": folder_id}], 'mimetypes':'audio/mpeg','title': filename})
     #指定上傳檔案的內容    
     gfile.SetContentFile(filepath)
     gfile.Upload() # Upload the file.
