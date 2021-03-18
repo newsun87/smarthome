@@ -525,16 +525,15 @@ def translation(text, language):
           print('file_path...', file_path) 
           file_type = mimetypes.guess_type('stream.m4a')[0]
           print('file_type...', file_type)
-          result = uploadfile_gdrive(file_path, 'stream.m4a')
-          #time.sleep(10)                          
+          #result = uploadfile_gdrive(file_path, 'stream.m4a')                                    
        except KeyboardInterrupt:
           pass               
     message = [
           TextSendMessage(text = '翻譯文字： ' + translation),
-          AudioSendMessage(
-           original_content_url = 'https://b9ctl3n0plkno4epidorww-on.drv.tw/smarthome-123/stream.m4a',   
-           duration = 10000
-          )
+          #AudioSendMessage(
+          # original_content_url = 'https://b9ctl3n0plkno4epidorww-on.drv.tw/smarthome-123/stream.m4a',   
+          # duration = 10000
+          #)
 	]    		
     return message
     
