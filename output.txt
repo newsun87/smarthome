@@ -1,7 +1,7 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616054021400&sign=9f037af455d530221d9f007117e88d36&rq=祝你生日快樂的英文'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616077226326&sign=cd293ebdaacca60bed061289c9fb1ade&rq=祝你生日快樂的英文'
 
 Here is the result:
 
@@ -9,7 +9,7 @@ Here is the result:
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616054021677&sign=4b399aceafb4155682fccc3ee81f3c83&rq={"data_type":"stt","data":{"input_type":"1","text":"祝你生日快樂的英文"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616077227082&sign=558ba08061b139c135de424fa48bcd3e&rq={"data_type":"stt","data":{"input_type":"1","text":"祝你生日快樂的英文"}}'
 
 Here is the result:
 

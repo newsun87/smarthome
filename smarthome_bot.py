@@ -88,7 +88,7 @@ line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret)
 # 設定 webhook_url 
 line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
-#line_bot_api.set_webhook_endpoint("https://a0c6958ee96c.ngrok.io/callback") 
+#line_bot_api.set_webhook_endpoint("https://8b0914922efa.ngrok.io/callback") 
 
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
@@ -501,13 +501,13 @@ def handle_message(event):
 # ----------------------------------------------------------------          
 
 from translate import Translator
-from lxml import etree  
+from lxml import etree 
+import mimetypes 
 #heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
-def translation(text, language):
-    basepath = os.path.abspath(__file__) 
-    print('basepath..', basepath)
-    print(os.getcwd()) 
+def translation(text, language): 
+    basepath = os.path.dirname(os.path.realpath(__file__))
+    print('basepath...', basepath)
     heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
@@ -516,12 +516,21 @@ def translation(text, language):
     stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
            + translation + '&language=' + language 
     r = requests.get(stream_url, stream=True)
-    with open('stream.m4a', 'wb') as f:
+    with open('./static/stream.m4a', 'wb') as f:
        try:
           for block in r.iter_content(1024):
-            f.write(block)              
+            f.write(block)
+          time.sleep(1)
+          file_path = os.path.join(basepath, 'static', 'stream.m4a')
+          print('file_path...', file_path) 
+          file_type = mimetypes.guess_type('stream.m4a')[0]
+          print('file_type...', file_type)
+          result = uploadfile_gdrive(filepath, 'static', 'stream.m4a')
+          #time.sleep(10)                          
        except KeyboardInterrupt:
           pass
+    
+    #result = uploadfile_gdrive(filepath, 'stream.m4a')
     #result = subprocess.getoutput('curl -F "file=@stream.m4a" https://file.io/?expires=1w')
           #result_obj = json.loads(result)
           #print('result....', result)
@@ -535,6 +544,29 @@ def translation(text, language):
 	]    		
     return message
     
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive    
+# 上傳檔案至 google drive            
+def uploadfile_gdrive(filepath, filename):     
+  gauth = GoogleAuth()
+  gauth.CommandLineAuth() #透過授權碼認證
+  drive = GoogleDrive(gauth)
+  try:
+    folder_id = '1uYAtUM8wqJ8QdtyQHWobWCWSgtP6KNyu'
+    #上傳檔案至指定目錄及設定檔名     
+    gfile = drive.CreateFile({"parents":[{"kind": "drive#fileLink", "id": folder_id}], 'title': filename})
+    #指定上傳檔案的內容    
+    gfile.SetContentFile(filepath)
+    gfile.Upload() # Upload the file.
+    print("Uploading succeeded!")    
+    if gfile.uploaded:
+      os.remove(filepath)
+      result = '檔案傳送完成...'                 
+  except:
+    print("Uploading failed.")
+    result = '檔案傳送失敗...'
+  return result 
+      
 # 處理圖片訊息
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event): 
