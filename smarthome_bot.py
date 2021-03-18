@@ -506,7 +506,7 @@ import mimetypes
 #heroku_baseurl = 'https://smarthome-123.herokuapp.com'
 
 def translation(text, language): 
-    basepath = os.path.dirname()
+    basepath = os.path.dirname(os.path.realpath(__file__))
     print('basepath...', basepath)
     heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
