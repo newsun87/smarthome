@@ -7,7 +7,7 @@ translate
 configparser==5.0.0
 line_notify
 flask_apscheduler
-
+pydrive
 
 
 
