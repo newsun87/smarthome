@@ -574,7 +574,7 @@ def handle_image_message(event):
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
     
-# 處理文字訊息
+# 處理語音訊息
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event): 
   if event.message.type=='audio':
@@ -586,8 +586,9 @@ def handle_audio_message(event):
     with open(path, 'wb') as fd:
         for chunk in audio_content.iter_content():
             fd.write(chunk)
+    audio_url = os.path.join(baseurl, 'static', 'sound.m4a')
     message.append(AudioSendMessage(
-          original_content_url = baseurl + path,   
+          original_content_url = audio_url,   
           duration = 10000)
    )
     line_bot_api.reply_message(event.reply_token,message)
