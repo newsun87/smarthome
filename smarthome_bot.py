@@ -570,20 +570,27 @@ def handle_image_message(event):
         fd.write(chunk)	  
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
-    
+
+import speech_recognition as sr    
 # 處理語音訊息
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event): 
   if event.message.type=='audio':
     baseurl = 'https://smarthome-123.herokuapp.com/'
+    #baseurl = 'https://9784ff112451.ngrok.io'
     message = []
     message.append(TextSendMessage(text='聲音訊息'))
     audio_content = line_bot_api.get_message_content(event.message.id)
-    path='./static/sound.m4a'
+    path='./sound.wav'
     with open(path, 'wb') as fd:
         for chunk in audio_content.iter_content():
             fd.write(chunk)
-    audio_url = os.path.join(baseurl, 'static', 'sound.m4a')
+    #進行語音轉文字處理
+    #r = sr.Recognizer()
+    #with sr.WavFile('static/sound.wav') as source:    #讀取wav檔
+    #  audio = r.record(source)
+    #text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
+    audio_url = os.path.join(baseurl, '', 'sound.wav')
     message.append(AudioSendMessage(
           original_content_url = audio_url,   
           duration = 10000)
