@@ -524,13 +524,13 @@ def translation(text, language):
           file_path = os.path.join(basepath, 'static', 'stream.m4a')
           print('file_path...', file_path) 
           file_type = mimetypes.guess_type('stream.m4a')[0]
-          print('file_type...', file_type)
+          print('file_type...', file_type)          
           #result = uploadfile_gdrive(file_path, 'stream.m4a')                                    
        except KeyboardInterrupt:
-          pass               
+          pass 
+    audio_url = os.path.join(heroku_baseurl, 'static', 'stream.m4a')              
     message = [
-          TextSendMessage(text = '翻譯文字： ' + translation),
-          audio_url = os.path.join(heroku_baseurl, 'static', 'stream.m4a')
+          TextSendMessage(text = '翻譯文字： ' + translation),          
           AudioSendMessage(
            original_content_url = audio_url,   
            duration = 10000
