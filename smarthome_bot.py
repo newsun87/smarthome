@@ -588,9 +588,9 @@ def handle_audio_message(event):
             fd.write(chunk)
     #進行語音轉文字處理
     r = sr.Recognizer()
-    sound = AudioSegment.from_file_using_temporary_files(path)
+    m4a_sound = AudioSegment.from_m4a(path)
     path = os.path.splitext(path)[0]+'.wav'
-    sound.export(path, format="wav")
+    m4a_sound.export(path, format="wav")
     with sr.AudioFile(path) as source:
       audio = r.record(source)
     text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
