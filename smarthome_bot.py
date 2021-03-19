@@ -572,7 +572,8 @@ def handle_image_message(event):
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
 
 import speech_recognition as sr 
-from pydub import AudioSegment   
+from pydub import AudioSegment
+ from pydub.playback import play   
 # 處理語音訊息
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event): 
