@@ -10,7 +10,6 @@ flask_apscheduler
 pydrive
 SpeechRecognition
 pydub
-ffprobe
-
+gtts
 
 
