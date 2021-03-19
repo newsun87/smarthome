@@ -88,7 +88,9 @@ line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret)
 # 設定 webhook_url 
 line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
-#line_bot_api.set_webhook_endpoint("https://902f2ed67556.ngrok.io/callback") 
+#line_bot_api.set_webhook_endpoint("https://8b09307fd4b4.ngrok.io/callback") 
+baseurl = 'https://smarthome-123.herokuapp.com' 
+#baseurl = 'https://8b09307fd4b4.ngrok.io' 
 
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
@@ -503,41 +505,24 @@ def handle_message(event):
 from translate import Translator
 from lxml import etree 
 import mimetypes 
-#heroku_baseurl = 'https://smarthome-123.herokuapp.com'
+from gtts import gTTS
 
 def translation(text, language): 
     basepath = os.path.dirname(os.path.realpath(__file__))
-    print('basepath...', basepath)
-    baseurl = 'https://smarthome-123.herokuapp.com' 
-    #baseurl = ' https://902f2ed67556.ngrok.io'     
+    print('basepath...', basepath)      
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
-    print('translation result: ',translation)    
-    #將英文文字 translation_modify 轉成語音(STT)
-    stream_url ='https://google-translate-proxy.herokuapp.com/api/tts?query=' \
-           + translation + '&language=' + language 
-    r = requests.get(stream_url, stream=True)
-    with open('./static/stream.m4a', 'wb') as f:
-       try:
-          for block in r.iter_content(1024):
-            f.write(block)
-          time.sleep(1)
-          file_path = os.path.join(basepath, 'static', 'stream.m4a')
-          print('file_path...', file_path) 
-          file_type = mimetypes.guess_type('stream.m4a')[0]
-          print('file_type...', file_type)          
-          #result = uploadfile_gdrive(file_path, 'stream.m4a')                                    
-       except KeyboardInterrupt:
-          pass 
-    audio_url = os.path.join(baseurl, 'static', 'stream.m4a')
+    print('translation result: ',translation)
+    tts=gTTS(text=translation, lang=language)
+    tts.save("./static/sound.wav")     
+    audio_url = os.path.join(baseurl, 'static', 'sound.wav')
     print('audio_url...', audio_url)              
     message = [
-          TextSendMessage(text = '原文字： ' + text),
-          TextSendMessage(text = '翻譯文字： ' + translation),
-         # AudioSendMessage(
-          #   original_content_url = audio_url,
-          #    duration = 1000 
-         # )                     
+          TextSendMessage(text = '原文字： ' + text + '  翻譯文字： ' + translation),          
+          AudioSendMessage(
+             original_content_url = audio_url,
+             duration = 1000 
+          )                     
 	]    		
     return message
     
@@ -583,9 +568,7 @@ def handle_image_message(event):
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event): 
   if event.message.type=='audio':
-    userId = event.source.user_id 
-    baseurl = 'https://smarthome-123.herokuapp.com/'
-    #baseurl = ' https://902f2ed67556.ngrok.io'
+    userId = event.source.user_id    
     message = [] 
     message.append(TextSendMessage(text='聲音訊息'))
     audio_content = line_bot_api.get_message_content(event.message.id)
@@ -593,7 +576,7 @@ def handle_audio_message(event):
     with open(path, 'wb') as fd:
         for chunk in audio_content.iter_content():
             fd.write(chunk)    
-    audio_text = STT(path)
+    audio_text = STT(path, 'zh-TW') # 語音轉文字
     users_userId_ref = ref.child(base_users_userId + userId + '/translate/lang')
     language = users_userId_ref.get()
     message = translation(audio_text,language)       
@@ -603,7 +586,7 @@ import speech_recognition as sr
 from pydub import AudioSegment
 from pydub.playback import play  
 #進行語音轉文字處理 
-def STT(file_path):    
+def STT(file_path, lang):    
     r = sr.Recognizer()
     # 開啟語音檔
     m4a_sound = AudioSegment.from_file(file_path)
@@ -612,7 +595,7 @@ def STT(file_path):
     # 語音檔轉成文字 (STT)
     with sr.AudioFile(path) as source:
       audio = r.record(source)
-    audio_text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
+    audio_text = r.recognize_google(audio,language=lang)#設定要以什麼文字轉換
     print('audio_text..',  audio_text)
     return audio_text
    

@@ -1,16 +1,16 @@
 
 ---------- Test NLU API, api=seg ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616077226326&sign=cd293ebdaacca60bed061289c9fb1ade&rq=祝你生日快樂的英文'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=seg&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616195771513&sign=5762b7595c1d5d62207c33be63733da6&rq=播放抒情歌曲的歌'
 
 Here is the result:
 
-{"data":{"seg":"祝你 生日 快 樂 的 英文 "},"status":"ok"}
+{"data":{"seg":"播放 抒情 歌曲 的 歌 "},"status":"ok"}
 
 ---------- Test NLU API, api=nli ----------
 
-curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616077227082&sign=558ba08061b139c135de424fa48bcd3e&rq={"data_type":"stt","data":{"input_type":"1","text":"祝你生日快樂的英文"}}'
+curl -X POST https://tw.olami.ai/cloudservice/api -d 'api=nli&appkey=8bd057135ec8432bb7bd2b2caa510aca&timestamp=1616195771866&sign=6eb9a1fae06b01508054413120a3aad9&rq={"data_type":"stt","data":{"input_type":"1","text":"播放抒情歌曲的歌"}}'
 
 Here is the result:
 
-{"data":{"nli":[{"desc_obj":{"status":0},"semantic":[{"app":"smarthome","input":"祝你生日快樂的英文","slots":[{"name":"語言","value":"英文"},{"name":"語句","value":"祝你生日快樂"}],"modifier":["translate"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
+{"data":{"nli":[{"desc_obj":{"result":"我也喜歡抒情歌曲這一首歌，請好好聆聽","status":0},"semantic":[{"app":"smarthome","input":"播放抒情歌曲的歌","slots":[{"name":"歌名","value":"抒情歌曲"}],"modifier":["playsong"],"customer":"5d70a57e24ac69af75c825b5"}],"type":"smarthome"}]},"status":"ok"}
