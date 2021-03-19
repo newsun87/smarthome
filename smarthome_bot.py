@@ -530,11 +530,7 @@ def translation(text, language):
           pass 
     audio_url = os.path.join(heroku_baseurl, 'static', 'stream.m4a')              
     message = [
-          TextSendMessage(text = '翻譯文字： ' + translation),          
-          AudioSendMessage(
-           original_content_url = audio_url,   
-           duration = 10000
-          )
+          TextSendMessage(text = '翻譯文字： ' + translation)
 	]    		
     return message
     
