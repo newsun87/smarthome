@@ -590,7 +590,7 @@ def handle_audio_message(event):
     #with sr.WavFile('static/sound.wav') as source:    #讀取wav檔
     #  audio = r.record(source)
     #text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
-    audio_url = os.path.join(baseurl, 'static', sound.m4a')
+    audio_url = os.path.join(baseurl, 'static', 'sound.m4a')
     message.append(AudioSendMessage(
           original_content_url = audio_url,   
           duration = 10000)
