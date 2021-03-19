@@ -586,7 +586,7 @@ def handle_audio_message(event):
     userId = event.source.user_id 
     baseurl = 'https://smarthome-123.herokuapp.com/'
     #baseurl = ' https://902f2ed67556.ngrok.io'
-    message = []
+    message = [] 
     message.append(TextSendMessage(text='聲音訊息'))
     audio_content = line_bot_api.get_message_content(event.message.id)
     path='./static/sound.m4a'
