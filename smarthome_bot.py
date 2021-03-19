@@ -581,7 +581,7 @@ def handle_audio_message(event):
     message = []
     message.append(TextSendMessage(text='聲音訊息'))
     audio_content = line_bot_api.get_message_content(event.message.id)
-    path='./sound.m4a'
+    path='./static/sound.m4a'
     with open(path, 'wb') as fd:
         for chunk in audio_content.iter_content():
             fd.write(chunk)
@@ -590,7 +590,7 @@ def handle_audio_message(event):
     #with sr.WavFile('static/sound.wav') as source:    #讀取wav檔
     #  audio = r.record(source)
     #text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
-    audio_url = os.path.join(baseurl, 'sound.m4a')
+    audio_url = os.path.join(baseurl, 'static', sound.m4a')
     message.append(AudioSendMessage(
           original_content_url = audio_url,   
           duration = 10000)
