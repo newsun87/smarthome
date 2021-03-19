@@ -571,7 +571,8 @@ def handle_image_message(event):
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
 
-import speech_recognition as sr    
+import speech_recognition as sr 
+from pydub import AudioSegment   
 # 處理語音訊息
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event): 
@@ -581,14 +582,17 @@ def handle_audio_message(event):
     message = []
     message.append(TextSendMessage(text='聲音訊息'))
     audio_content = line_bot_api.get_message_content(event.message.id)
-    path='./static/sound.wav'
+    path='./static/sound.m4a'
     with open(path, 'wb') as fd:
         for chunk in audio_content.iter_content():
             fd.write(chunk)
     #進行語音轉文字處理
     r = sr.Recognizer()
-    with sr.WavFile('./static/sound.wav') as source:    #讀取wav檔
-     audio = r.record(source)
+    sound = AudioSegment.from_file_using_temporary_files(path)
+    path = os.path.splitext(path)[0]+'.wav'
+    sound.export(path, format="wav")
+    with sr.AudioFile(path) as source:
+      audio = r.record(source)
     text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
     print('audio_text..',  text)
     audio_url = os.path.join(baseurl, 'static', 'sound.wav')

@@ -9,7 +9,7 @@ line_notify
 flask_apscheduler
 pydrive
 SpeechRecognition
-
+AudioSegment
 
 
 
