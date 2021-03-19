@@ -581,7 +581,7 @@ def handle_audio_message(event):
     message = []
     message.append(TextSendMessage(text='聲音訊息'))
     audio_content = line_bot_api.get_message_content(event.message.id)
-    path='./static/sound.wav'
+    path='./static/sound.m4a'
     with open(path, 'wb') as fd:
         for chunk in audio_content.iter_content():
             fd.write(chunk)
