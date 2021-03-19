@@ -588,7 +588,7 @@ def handle_audio_message(event):
             fd.write(chunk)
     #進行語音轉文字處理
     r = sr.Recognizer()
-    m4a_sound = AudioSegment.from_file(path, 'm4a')
+    m4a_sound = AudioSegment.from_file('./static/sound.m4a')
     path = os.path.splitext(path)[0]+'.wav'
     m4a_sound.export(path, format="wav")
     with sr.AudioFile(path) as source:
