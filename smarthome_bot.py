@@ -88,7 +88,7 @@ line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret)
 # 設定 webhook_url 
 line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
-#line_bot_api.set_webhook_endpoint("https://8b0914922efa.ngrok.io/callback") 
+#line_bot_api.set_webhook_endpoint(" https://9784ff112451.ngrok.io/callback") 
 
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
@@ -573,6 +573,24 @@ def handle_image_message(event):
         fd.write(chunk)	  
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
+    
+# 處理文字訊息
+@handler.add(MessageEvent, message=AudioMessage)
+def handle_audio_message(event): 
+  if event.message.type=='audio':
+    baseurl = 'https://smarthome-123.herokuapp.com/'
+    message = []
+    message.append(TextSendMessage(text='聲音訊息'))
+    audio_content = line_bot_api.get_message_content(event.message.id)
+    path='./static/sound.m4a'
+    with open(path, 'wb') as fd:
+        for chunk in audio_content.iter_content():
+            fd.write(chunk)
+    message.append(AudioSendMessage(
+          original_content_url = baseurl + path,   
+          duration = 10000)
+   )
+    line_bot_api.reply_message(event.reply_token,message)
 
 # 處理 postback 事件
 @handler.add(PostbackEvent)
