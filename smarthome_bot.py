@@ -88,7 +88,7 @@ line_bot_api = LineBotApi(access_token)
 handler = WebhookHandler(channel_secret)
 # 設定 webhook_url 
 line_bot_api.set_webhook_endpoint("https://smarthome-123.herokuapp.com/callback")
-#line_bot_api.set_webhook_endpoint(" https://9784ff112451.ngrok.io/callback") 
+#line_bot_api.set_webhook_endpoint("https://902f2ed67556.ngrok.io/callback") 
 
 rich_menus_id_list = get_menus_id_list() # 取得選單 ID 串列
 print('rich_menu_list...', rich_menus_id_list)
@@ -508,7 +508,8 @@ import mimetypes
 def translation(text, language): 
     basepath = os.path.dirname(os.path.realpath(__file__))
     print('basepath...', basepath)
-    heroku_baseurl = 'https://smarthome-123.herokuapp.com'      
+    baseurl = 'https://smarthome-123.herokuapp.com' 
+    #baseurl = ' https://902f2ed67556.ngrok.io'     
     translator = Translator(from_lang = 'zh-Hant', to_lang = language)
     translation = translator.translate(text)          
     print('translation result: ',translation)    
@@ -528,9 +529,15 @@ def translation(text, language):
           #result = uploadfile_gdrive(file_path, 'stream.m4a')                                    
        except KeyboardInterrupt:
           pass 
-    audio_url = os.path.join(heroku_baseurl, 'static', 'stream.m4a')              
+    audio_url = os.path.join(baseurl, 'static', 'stream.m4a')
+    print('audio_url...', audio_url)              
     message = [
-          TextSendMessage(text = '翻譯文字： ' + translation)
+          TextSendMessage(text = '原文字： ' + text),
+          TextSendMessage(text = '翻譯文字： ' + translation),
+         # AudioSendMessage(
+          #   original_content_url = audio_url,
+          #    duration = 1000 
+         # )                     
 	]    		
     return message
     
@@ -571,38 +578,44 @@ def handle_image_message(event):
     QuickReply_text_message = getQuickReply_aiimage()       
     line_bot_api.reply_message(event.reply_token, QuickReply_text_message) 
 
-import speech_recognition as sr 
-from pydub import AudioSegment
-from pydub.playback import play   
+
 # 處理語音訊息
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event): 
   if event.message.type=='audio':
+    userId = event.source.user_id 
     baseurl = 'https://smarthome-123.herokuapp.com/'
-    #baseurl = 'https://9784ff112451.ngrok.io'
+    #baseurl = ' https://902f2ed67556.ngrok.io'
     message = []
     message.append(TextSendMessage(text='聲音訊息'))
     audio_content = line_bot_api.get_message_content(event.message.id)
     path='./static/sound.m4a'
     with open(path, 'wb') as fd:
         for chunk in audio_content.iter_content():
-            fd.write(chunk)
-    #進行語音轉文字處理
-    r = sr.Recognizer()
-    m4a_sound = AudioSegment.from_file('./static/sound.m4a')
-    path = os.path.splitext(path)[0]+'.wav'
-    m4a_sound.export(path, format="wav")
-    with sr.AudioFile(path) as source:
-      audio = r.record(source)
-    text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
-    print('audio_text..',  text)
-    audio_url = os.path.join(baseurl, 'static', 'sound.wav')
-    message.append(AudioSendMessage(
-          original_content_url = audio_url,   
-          duration = 10000)
-   )
+            fd.write(chunk)    
+    audio_text = STT(path)
+    users_userId_ref = ref.child(base_users_userId + userId + '/translate/lang')
+    language = users_userId_ref.get()
+    message = translation(audio_text,language)       
     line_bot_api.reply_message(event.reply_token,message)
 
+import speech_recognition as sr 
+from pydub import AudioSegment
+from pydub.playback import play  
+#進行語音轉文字處理 
+def STT(file_path):    
+    r = sr.Recognizer()
+    # 開啟語音檔
+    m4a_sound = AudioSegment.from_file(file_path)
+    path = os.path.splitext(file_path)[0]+'.wav'# 更改語音檔副檔名
+    m4a_sound.export(path, format="wav") # 轉成 wav 檔
+    # 語音檔轉成文字 (STT)
+    with sr.AudioFile(path) as source:
+      audio = r.record(source)
+    audio_text = r.recognize_google(audio,language='zh-TW')#設定要以什麼文字轉換
+    print('audio_text..',  audio_text)
+    return audio_text
+   
 # 處理 postback 事件
 @handler.add(PostbackEvent)
 def handle_postback_message(event):

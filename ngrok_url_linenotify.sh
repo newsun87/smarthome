@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo kill $(pidof ngrok)
 ngrok http 5000 > /dev/null& 
 sleep 3
 #取得執行結果(位址)當變數
