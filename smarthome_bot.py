@@ -573,7 +573,7 @@ def handle_image_message(event):
 
 import speech_recognition as sr 
 from pydub import AudioSegment
- from pydub.playback import play   
+from pydub.playback import play   
 # 處理語音訊息
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event): 
